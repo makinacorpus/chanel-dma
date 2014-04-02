@@ -18,6 +18,8 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <include package=".browser" />
+  
   <include package="z3c.jbot" file="meta.zcml" />
   <interface name="chanel.skin"
       interface="chanel.skin.interfaces.IThemeSpecific"

@@ -45,7 +45,7 @@
 @darkgrey: #757367;
 
 
-// PLONE FIXES
+// BOOTSTRAP/PLONE FIXES
 
 body {
   font-size: 16px;
@@ -77,6 +77,23 @@ dl.actionMenu {
 }
 a:hover, a:focus {
   text-decoration: none;
+}
+#content-wrapper {
+    &.container {
+        display:table;
+    }
+    .row {
+        height: 100%;
+        display: table-row;
+    }
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-9,
+    .col-md-10, .col-md-11, .col-md-12 {
+        display: table-cell;
+        float: none;
+    }
+    .col-md-12 {
+        width: 960px;
+    }
 }
 
 /* Style global*/
@@ -412,7 +429,7 @@ padding-left: 0px;
     z-index: 100;
 }
 #portal-column-two {
-    position: absolute;
+    position: relative;
     width: 220px !important;
     margin-right: 0px  !important;
     background-color: @grey;
@@ -693,7 +710,6 @@ margin-left: 10px !important;
 .portletItemPrevious {
 margin-top: 5px;
 margin-bottom: 10px;
-margin-left: -35px;
 }
 .portaltype-document.site-broadcastchanel_v1.section-posdownload.kssActive .portletItemPrevious {
     display: none;
@@ -720,7 +736,6 @@ font-weight: 100;
 dl.portlet.portletStaticText.portlet-static-informations,
 dl.portlet.portletStaticText.portlet-static-information,
 dl.portlet.portletStaticText.portlet-static-campaign-information {
-margin-left: -35px;
 margin-top: 20px;
 }
 
