@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.flowplayer">
+
+    <browser:page
+        name="flowplayer"
+        for="Products.ATContentTypes.interface.IFileContent"
+        class=".view.ChanelFile"
+        template="file.pt"
+        permission="zope2.View"
+        layer="..interfaces.IThemeSpecific"
+        />
+
+    <browser:page
+        name="flowplayer"
+        for="Products.ATContentTypes.interface.IATFolder"
+        class=".view.ChanelFolder"
+        template="folder.pt"
+        permission="zope2.View"
+        layer="..interfaces.IThemeSpecific"
+        />
+
+</configure>
