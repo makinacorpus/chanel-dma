@@ -1,0 +1,30 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="chanel.skin">
+
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="chanel.skin"
+      directory="profiles/default"
+      description="Installs the chanel.skin package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <include package="z3c.jbot" file="meta.zcml" />
+  <interface name="chanel.skin"
+      interface="chanel.skin.interfaces.IThemeSpecific"
+      type="zope.publisher.interfaces.browser.IBrowserSkinType"
+      />
+  <browser:jbot directory="static/overrides" />
+  <plone:static name="chanel.skin" directory="static" type="theme" />
+  <cmf:registerDirectory name="chanelskin_custom"/>
+
+</configure>

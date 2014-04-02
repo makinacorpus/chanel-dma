@@ -1,0 +1,1552 @@
+// Core variables and mixins
+@import "variables.less";
+@import "mixins.less";
+
+// Reset
+@import "normalize.less";
+@import "print.less";
+
+// Core CSS
+@import "scaffolding.less";
+@import "type.less";
+@import "code.less";
+@import "grid.less";
+@import "tables.less";
+@import "forms.less";
+@import "buttons.less";
+
+// Components
+@import "component-animations.less";
+@import "glyphicons.less";
+@import "dropdowns.less";
+@import "button-groups.less";
+@import "input-groups.less";
+@import "navs.less";
+@import "pagination.less";
+@import "pager.less";
+@import "labels.less";
+@import "badges.less";
+@import "jumbotron.less";
+@import "thumbnails.less";
+@import "alerts.less";
+@import "progress-bars.less";
+@import "media.less";
+@import "list-group.less";
+@import "panels.less";
+@import "wells.less";
+@import "close.less";
+
+// Utilities
+@import "utilities.less";
+@import "theme-bootstrap.less";
+
+// PROJECT VARIABLES
+@grey: #bcbfc6;
+@darkgrey: #757367;
+
+
+// PLONE FIXES
+
+body {
+  font-size: 16px;
+  font-family: Arial, FreeSans, sans-serif;
+  line-height: normal;
+}
+
+.row {
+  max-width: 960px;
+  margin: auto;
+}
+.state-private {
+  color: #444444 !important;
+}
+#edit-bar {
+  height: 29px;
+}
+.actionMenuContent {
+  background-color: @darkgrey;
+}
+.contentActions a:hover {
+  text-decoration: none;
+}
+dl.actionMenu {
+  margin-bottom: 0;
+  dt, dd {
+    line-height: 2em;
+  }
+}
+a:hover, a:focus {
+  text-decoration: none;
+}
+
+/* Style global*/
+
+
+/* --------------------------*/
+/*         Gabarit site       */
+/* --------------------------*/
+#header-wrapper, #nav-wrapper, #portal-footer-wrapper {
+    background-color: @grey;
+}
+
+#portal-column-one {
+    border-left: 1px solid #cbcbcc;
+    border-bottom: 0px solid #cbcbcc;
+    border-right: 1px solid #cbcbcc;
+    min-height: 400px;
+    background-color: @grey;
+}
+
+.section-front-page #portal-columns.row,
+.template-login_form #portal-columns.row,
+.template-logged_out #portal-columns.row,
+.template-login_failed #portal-columns.row,
+.template-insufficient_privileges #portal-columns.row,
+.template-fg_base_view_p3 #portal-columns.row {
+    background-image: none;
+  background-repeat: no-repeat;
+}
+
+
+.section-posdownload #portal-columns.row {
+min-height: 460px;
+}
+
+/* --------------------------*/
+/*         Top               */
+/* --------------------------*/
+
+#portal-top {
+    height: 128px;
+}
+
+/* --------------------------*/
+/*         Bar d'edition     */
+/* --------------------------*/
+
+#edit-bar, #content ul.formTabs, #content-core ul.formTabs, #contentActionMenus {
+    background: @darkgrey;
+    border-color: @darkgrey;
+}
+#contentActionMenus dl.actionMenu a, #contentActionMenus dl.actionMenu.activated dd {
+    background-color: @darkgrey;
+}
+#content-views {
+    background-color: @darkgrey;
+}
+#contentActionMenus dl.actionMenu.activated dd {
+    border-bottom-color:  @darkgrey;
+}
+
+
+/* --------------------------*/
+/*         Logo              */
+/* --------------------------*/
+#portal-logo {
+    margin-top: 15px;;
+    margin-bottom: 10px;
+}
+
+
+
+/* --------------------------*/
+/*         Searchbox         */
+/* --------------------------*/
+#portal-searchbox {
+    margin-right: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+input#searchGadget.searchField {
+    -moz-appearance: none !important;
+    border: 1px solid white !important;
+    background-color: white !important;
+    color: black !important;
+}
+
+input.searchButton {
+    background: @grey url(../images/search.png) no-repeat left top;
+    height: 25px;
+    border: 1px solid @grey;
+}
+#LSResult {
+    z-index: 1000;
+    position: absolute;
+    right: 0;
+    background: @grey;
+    margin: -1.5em 0 0 -7em;
+    color: black;
+}
+#LSResult fieldset {
+    padding: 1em 0 0;
+    border: 0.1em solid #6f7070;
+}
+#LSResult a {
+    color: black;
+}
+#LSResult a:hover {
+    color: white;
+}
+#livesearchLegend {
+    background-color: @grey;
+    color: #6f7070;
+}
+
+.searchSection {
+    display: none;
+}
+
+/* --------------------------*/
+/*         PersonalTools     */
+/* --------------------------*/
+#portal-personaltools {
+  margin-right: 30px;
+  background-color: @grey;
+  color: white !important;
+  a {
+  color: black;
+  font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+  font-size: 11px;
+  }
+  a:hover {
+    color: white !important;
+    background-color: @grey !important;
+    text-decoration: none;
+  }
+  dd {
+    background-color: @grey;
+  }
+}
+
+/* --------------------------*/
+/*       portal-globalnav   */
+/* ------------------------ */
+#portal-globalnav {
+    text-transform: uppercase;
+    text-align: center;
+    background: transparent;
+    font-size: 12px !important;
+    margin-top: 18px;
+    margin-bottom: 0.6em;
+    border-top: 1px solid #6f7070;
+    color: Black;
+    padding-left: 190px;
+}
+.section-front-page #portal-globalnav {
+padding-left: 120px;
+}
+#portal-globalnav li a {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 0px;
+    padding-top: 5px;
+    color: black !important;
+    background-color: @grey !important;
+    border: none;
+    width: 80px;
+}
+
+#portal-globalnav .selected a,
+#portal-globalnav a:hover {
+    background-color: @grey !important;
+    color: white !important;
+}
+#portal-globalnav ul.submenu a {
+    font-size: 12px !important;
+    color: black !important;
+}
+#portal-globalnav ul.submenu .selected a {
+    background-color: @grey !important;
+    color: black !important;
+}
+#portal-globalnav ul.submenu a:hover {
+    background-color: @grey !important;
+    color: white !important;
+}
+
+
+#portaltab-index_html.plain {
+    width: 40px !important;
+}
+#portaltab-index_html a.plain {
+    background-color: @grey;
+    background-image: url(../images/home.png);
+    background-repeat: no-repeat;
+    background-position-x: 15px;
+    background-position-y: 8px;
+    height: 30px;
+    width: 40px !important;
+}
+#portaltab-index_html a.plain:hover {
+    background-color: @grey;
+    background-image: url(../images/home-orange.png);
+    background-repeat: no-repeat;
+    background-position-x: 15px;
+    background-position-y: 8px;
+    height: 30px;
+    width: 40px !important;
+}
+
+
+#portaltab-tvc-films a.plain {
+width: 40px !important;
+word-spacing: 10px;
+}
+
+
+
+/* --------------------------*/
+/*     portal-breadcrumbs   */
+/* ------------------------ */
+#portal-breadcrumbs {
+margin-top: 8px;
+margin-bottom: 0px;
+margin-left: -28px;
+font-size: 65%;
+width: 505px;
+line-height: 15px;
+letter-spacing: 0px;
+}
+.section-front-page #portal-breadcrumbs,
+.template-login_form #portal-breadcrumbs,
+.template-logged_out #portal-breadcrumbs,
+.template-login_failed #portal-breadcrumbs,
+.template-insufficient_privileges #portal-breadcrumbs,
+.template-fg_base_view_p3 #portal-breadcrumbs {
+margin-left: 0px;
+width: 935px;
+}
+#portal-breadcrumbs a {
+    color: gray;
+    font-style: ;
+    text-transform: uppercase;
+}
+#portal-breadcrumbs a:hover {
+    color: black;
+}
+.breadcrumbSeparator {
+
+}
+
+#breadcrumbs-you-are-here {
+    display: none;
+}
+.template-document_view.portaltype-document.site-broadcastchanel_v1.section-library.kssActive #portal-breadcrumbs,
+.template-document_view.portaltype-document.site-broadcastchanel_v1.section-posformats.kssActive #portal-breadcrumbs,
+.template-logged_out #portal-breadcrumbs,
+.section-last_campaign #portal-breadcrumbs,
+.section-coco_mademoiselle #portal-breadcrumbs,
+.section-tvc-films #portal-breadcrumbs,
+.template-fg_base_view_p3 #portal-breadcrumbs {
+display: none;
+}
+
+/* --------------------------*/
+/*     Portal Site Actions  */
+/* ------------------------ */
+#portal-siteactions {
+    display: none;
+}
+
+
+/* --------------------*/
+/*     Login_form      */
+/* ------------------- */
+.template-login_form #portal-breadcrumbs  {
+    display: none;
+}
+#login-form {
+    margin-top: 60px;
+}
+#login-forgotten-password {
+    display: none;
+}
+
+#login-form .field {
+    text-align: left;
+    font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+}
+#login-form .field label {
+    text-align: left;
+    font-weight: 200;
+    font-size: 12px;
+    width: 100px;
+}
+
+#login-form .field input {
+    border: 1px solid black;
+    font-size: 12px;
+    
+}
+#login-form .formControls {
+text-align: left;
+margin-left: 155px;
+padding-left: 0px;
+}
+#login-form .formControls input.context {
+    font-size: 12px;
+    font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+}
+.template-logged_out h1.documentFirstHeading,
+.template-logged_out div.documentDescription {
+    display: none;
+}
+
+/* -------------------------*/
+/*  Content - Columns       */
+/* ------------------------ */
+
+#content {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#portal-column-one {
+    position: relative;
+    width: 210px !important;
+    height: 100% !important;
+    margin-right: 0px  !important;
+    background-color: @grey;
+    border-bottom: 1px solid @grey;
+    z-index: 100;
+}
+#portal-column-two {
+    position: absolute;
+    width: 220px !important;
+    margin-right: 0px  !important;
+    background-color: @grey;
+    height: 100% !important;
+}
+#content-wrapper > .row {
+  border-right: 1px @grey solid;
+}
+
+.template-flowplayer.portaltype-folder.section-library #content,
+.template-flowplayer.portaltype-folder.section-posformats #content {
+    height: 470px;
+}
+
+
+/* ---------------------------------*/
+/*     Style elements content      */
+/* ------------------------------- */
+.documentFirstHeading {
+background-image: url(../images/pucetitre.gif);
+background-repeat: no-repeat;
+background-position: 0px 3px;
+padding-left: 25px;
+padding-bottom: 10px;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+font-size: 12px;
+font-weight: 300;
+}
+
+h2.tileHeadline {
+font-size: 12px;
+font-weight: 300;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+padding-top: 20px;
+}
+h2.tileHeadline a:visited {
+color: gray !important;
+}
+
+.template-logged_out .documentFirstHeading {
+background-image: none;
+background-repeat: no-repeat;
+padding-left: 0px;
+}
+
+#content .documentDescription,
+#content #description {
+    color: #666;
+  margin-left: 15px;
+  font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+  margin-bottom: 1em;
+  font-size: 12px;
+  font-weight: 100;
+}
+
+#content div.documentByLine {
+    font-size: 85%;
+    display: block;
+    font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+}
+#content .discreet,
+#sidebar .discreet {
+    font-size: 85%;
+    font-weight: normal;
+}
+
+.discreet {
+font-size: 9px;
+color: black;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+}
+/* Description droite vignette dossier*/
+#content div div.tileItem.visualIEFloatFix p.tileBody span.description {
+  color: #666;
+  font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: 100;
+}
+
+
+/* --------------------------*/
+/*       portal-footer      */
+/* ------------------------ */
+#portal-footer {
+width: 960px;
+margin: 0px;
+margin-left: -11px;
+padding: 0px;
+background-color: @grey;
+color: white;
+border: 1px solid @grey !important;
+height: 20px;
+}
+#portal-footer a {
+color: #505050;
+font-weight: 100;
+}
+#portal-footer a:hover {
+color: white;
+}
+#portal-footer p {
+text-align: left;
+margin-left: 220px;
+}
+.section-front-page #portal-footer p,
+.template-logged_out #portal-footer p,
+.template-login_form #portal-footer p {
+text-align: center;
+margin-left: 0px;
+}
+
+/* --------------------------*/
+/*     portal-colophon      */
+/* ------------------------ */
+#portal-colophon {
+    display: none;
+}
+
+/* ------------- */
+/* Messages info */
+/* ------------- */
+
+dl.portalMessage {
+font-size: 85% !important;
+background-color: transparent !important;
+border: none !important;
+margin-left: 0px;
+margin-right: 30px;
+margin-top: 10px;
+margin-bottom: 8px;
+}
+dl.portalMessage dd {
+padding-top: 5px;
+padding-bottom: 5px;
+color: #545454;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+font-size: 10px;
+}
+dl.portalMessage dt {
+background-color: black !important;
+color: white !important;
+letter-spacing: 2px !important;
+font-size: 10px;
+}
+
+/* ------------- */
+/*   Liens       */
+/* ------------- */
+a.external-link {
+}
+
+a.link-parent {
+}
+.state-private {
+}
+
+/* ------------------- */
+/*   Liens posformat    */
+/* ------------------- */
+#content a:link,
+dl.portlet a:link,
+#content a:visited,
+dl.portlet a:visited {
+border-bottom: none;
+color: gray;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+font-size: 10px;
+font-weight: 100;
+}
+#content a:hover,
+dl.portlet a:hover {
+color: black !important;
+}
+
+
+/* ----------------- */
+/*   Divers     */
+/* -------- -------- */
+.documentByLine {
+    display: none !important;
+}
+.image-right,
+.image-left {
+    border: none !important;
+}
+
+.section-library .image-left,
+.section-posformats .image-left
+.section-ad .image-left,
+.section-posplanning .image-left,
+.section-posdownload .image-left,
+.section-archive .image-left,
+.section-last_campaign .image-left,
+.section-coco_mademoiselle .image-left,
+.section-tvc-films .image-left {
+    margin-top: 0px;
+}
+
+.section-tvc-films .image-inline {
+margin-left: -12px !important;
+width: 750px !important;
+margin-top: -10px !important;
+margin-bottom: -16px !important;
+}
+
+td.discreet {
+}
+p.discreet,
+.documentDescription {
+}
+
+.template-overview-controlpanel a {
+}
+
+/* ----------------- */
+/*   QuickUpload     */
+/* -------- -------- */
+
+.QuickUploadPortlet {
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    margin-top:  80px !important;
+}
+.QuickUploadPortlet .portletHeader {
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    text-transform: none;
+}
+.qq-upload-button {
+    display:block; /* */
+    width: 105px; padding: 7px; text-align:center;
+    background:#880000; border-bottom:1px solid #ddd;color:#fff;
+    float: right;
+    cursor: pointer !important;
+    margin-top: 10px;
+    margin-right: 20px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+/* ----------------- */
+/*     Portlet       */
+/* ----------------- */
+
+#portal-column-two .portlet,
+#portal-column-two .portletItemPrevious {
+margin-left: 10px !important;
+}
+
+.portletHeader {
+    background-color: transparent !important;
+    background-image: url(../images/pucetitre.gif) !important;
+    background-repeat: no-repeat !important;
+    background-position: 0px 7px !important;
+    padding-left: 20px !important;
+    font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+dd.portletItem.odd {
+padding-top: 5px !important;
+padding-left: 0px !important;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+font-size: 10px;
+margin-left: 10px !important;
+}
+
+#portal-column-two.cell {
+    margin-top: 0px;
+    border-bottom: 1px solid @grey;
+}
+#portal-column-two dl.portlet {
+    margin: 0px 0 0px;
+    font-size: 80%;
+}
+.portletItemPrevious {
+margin-top: 5px;
+margin-bottom: 10px;
+margin-left: -35px;
+}
+.portaltype-document.site-broadcastchanel_v1.section-posdownload.kssActive .portletItemPrevious {
+    display: none;
+}
+.portletItemPrevious a {
+    padding-left: 15px;
+    font-size: 12px;
+    background-image: url(../images/previousorange.gif);
+    background-repeat: no-repeat;
+    background-position: 0px;
+    color: gray;
+}
+.portletItemPrevious a:hover {
+    color: black;
+}
+
+.portletStaticText p  {
+margin-bottom: 5px !important;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+font-size: 9px;
+font-weight: 100;
+}
+
+dl.portlet.portletStaticText.portlet-static-informations,
+dl.portlet.portletStaticText.portlet-static-information,
+dl.portlet.portletStaticText.portlet-static-campaign-information {
+margin-left: -35px;
+margin-top: 20px;
+}
+
+#portletmanager-plone-rightcolumn.portlets-manager {
+  margin-top: 20px;
+}
+#portletmanager-plone-leftcolumn.portlets-manager {
+  margin-top: 20px;
+}
+
+
+/* ----------------- */
+/*   Navigation     */
+/* ----------------- */
+
+.portletNavigationTree {
+margin-top: 20px !important;
+}
+.navTreeCurrentNode.navTreeFolderish.contenttype-folder {
+background-image: url(../images/pucenavn0.gif);
+background-repeat: no-repeat;
+padding-left: 0px;
+}
+dl.portlet ul.navTree .navTreeCurrentItem {
+background-color: transparent;
+background-image: none !important;
+border-left: none;
+margin-left: 0px;
+margin-right: -10px;
+font-weight: 600;
+color: black !important;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+border-bottom: 0px solid #a9aaaa !important;
+}
+li.navTreeItem.navTreeTopNode a {
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+color: black !important;
+font-size: 20px !important;
+font-weight: 400 !important;
+margin-bottom: 20px;
+text-transform: uppercase;
+margin-left: -10px;
+}
+li.navTreeItem.navTreeTopNode {
+background-image: none !important;
+border-bottom: 0px solid #a9aaaa !important;
+}
+dl.portlet ul.navTreeLevel0 > .navTreeItem {
+background-image: url(../images/pucenavn0.gif);
+background-repeat: no-repeat;
+padding-left: 10px;
+padding-top: 3px;
+line-height: 2em;
+border-bottom: 1px solid #a9aaaa;
+margin-left: 5px;
+}
+.navTreeLevel0 {
+font-size: 10px;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+}
+dl.portlet ul.navTreeLevel1 .navTreeItem {
+padding-left: 15px;
+line-height: 2em;
+font-size: 10px;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+/*   Cacher les liens video dans nav    */
+.section-posformats .portletNavigationTree a.state-private.contenttype-rtinternalvideo {
+display: none;
+}
+
+.navTreeLevel1 .navTreeFolderish.contenttype-folder,
+.navTreeLevel2 .navTreeFolderish.contenttype-folder {
+  line-height: 12px;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+/* ------------------- */
+/*   ContentLeadImage    */
+/* ------------------- */
+
+#content img.tileImage,
+#content div.newsImageContainer {
+    float: left;
+    margin: 0 1em 1em 0em;
+}
+.tileItem .tileFooter a {
+    display: none;
+}
+
+/* ------------------- */
+/*   Videos    */
+/* ------------------- */
+.video.minimal {
+    width: 208px !important;
+    height: 156px !important;
+    margin-left: -12px;
+}
+.flowPlaylistHidden {
+    height: 120px !important;
+}
+
+
+
+/* -------------- */
+/* flowplayer.css */
+/* -------------- */
+
+.playListFlowPlayer.video {
+    width: 480px !important;
+    height: 270px !important;
+}
+a.playListFlowPlayer.video:link {
+    border-bottom: none !important;
+}
+.flowPlaylistVisible a.playListFlowPlayer {
+    padding-left: 15px;
+    padding-bottom: 8px;
+}
+
+
+#pl {
+    border:none;
+    width:480px;
+    position:relative;
+    overflow:hidden;
+    padding:0px 0;
+    float:left;
+    background-image: none;
+    background-color: transparent;
+    margin-left: -13px;
+}
+
+
+#pl div#flowPlaylist {
+    margin-top: 0px;
+    position:absolute;
+    width:10000em;
+}
+
+
+#pl div#flowPlaylist a {
+    background-image: none;
+    color:#666;
+    float:left;
+    font-family:"bitstream vera sans","lucida grande","verdana";
+    font-size:11px;
+    margin:0px 4px;
+    padding:10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration:none;
+    width:150px;
+    border:none !important;
+}
+
+#pl div#flowPlaylist a.playListItem #info_title {
+    position: absolute;
+    background-image: none;
+    float:left;
+    font-size:11px;
+    margin-top: 90px;
+    padding:10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration:none;
+    width:150px;
+    font-size:12px;
+    border:none !important;
+    line-height: 12px;
+}
+#pl div#flowPlaylist a.playListItem #info_description {
+    position: absolute;
+    background-image: none;
+    float:left;
+    font-size:11px;
+    height:40px;
+    margin-top: 125px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration:none;
+    width:150px;
+    border:none !important;
+    line-height: 12px;
+}
+
+#pl div#flowPlaylist a.playListItem.playing #info_title,
+#pl div#flowPlaylist a.playListItem.paused #info_title {
+    position: absolute;
+    background-image: none;
+    float:left;
+    font-size:11px;
+    margin-top: 90px;
+    padding:10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration:none;
+    width:150px;
+    border:none !important;
+    font-weight: normal;
+    font-size:12px;
+    color: black;
+    line-height: 12px;
+}
+#pl div#flowPlaylist a.playListItem.playing #info_description,
+#pl div#flowPlaylist a.playListItem.paused #info_description {
+    position: absolute;
+    background-image: none;
+    float:left;
+    font-size:11px;
+    height:200px;
+    margin-top: 125px;
+    padding:10px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration:none;
+    width:150px;
+    border:none !important;
+    color: black;
+    line-height: 12px;
+}
+
+.playlist_wrap #pl {
+    height: 180px;
+}
+
+a .vignettes-videos {
+    opacity: 0.6;
+    display: block;
+    height: 88px;
+    width: 156px;
+}
+a:hover .vignettes-videos {
+    opacity: 1;
+    display: block;
+}
+
+a.paused .vignettes-videos {
+    opacity: 1;
+    display: block;
+}
+a.playing .vignettes-videos {
+    opacity: 1;
+    display: block;
+}
+
+#pl div#flowPlaylist a:hover {
+    background-position:-140px 0;
+    color:black;
+}
+#pl div#flowPlaylist a.playing {
+    background-position:-280px 0;
+    color:black;
+}
+#pl div#flowPlaylist a.paused {
+    background-position:-420px 0;
+    color:black;
+}
+#pl div#flowPlaylist a.progress {
+    opacity:0.8;
+}
+#pl div#flowPlaylist em {
+    float:right;
+    margin-top:15px;
+    color:red;
+    font-style:normal;
+}
+
+a.nextPage, a.prevPage {
+    display:block;
+    width:14px;
+    height:16px;
+    background:url(../images/leftflow.png) no-repeat;
+    margin:110px 10px;
+    cursor:pointer;
+    float:left;
+}
+
+a.nextPage:hover, a.prevPage:hover {
+    background-position:-2px 0px;
+}
+a.prevPage:hover {
+    background-position:2px 0px;
+}
+
+a.nextPage {
+    background-image:url(../images/rightflow.png);
+    margin-right: 0px !important;
+}
+a.prevPage {
+    margin-left: 0px !important;
+}
+
+.playListFlowPlayer.video.minimal object {
+    width: 208px;
+    height: 118px;
+}
+.portlet.portletFlowPlayer {
+    margin-top: 20px;
+}
+
+.portlet.portletFlowPlayer .portletHeader {
+    display: none;
+}
+
+/* -------------- */
+/* flowplayer.css */
+/* -------------- */
+.autoFlowPlayer {
+    display: block;
+    border: 0px;
+}
+
+.template-flowplayer.portaltype-rtinternalvideo form {
+    display: block;
+}
+.template-flowplayer .duration_metainfo {
+    margin-top:  20px;
+}
+.template-flowplayer .duration_metainfo label {
+    display: inline;
+}
+.row #commenting legend,
+.row .discussion legend {
+    padding: 0.5em 1em 0.5em 1em;
+    font-size: 85%;
+}
+.template-flowplayer input#embed {
+    display: none;
+}
+.template-flowplayer label {
+    
+}
+.template-flowplayer label.horizontal {
+    display: inline;
+}
+
+.autoFlowPlayer, .internalVideoContent {
+    width: 480px;
+    height: 270px;
+}
+
+.template-flowplayer #content div form label {
+    display: none;
+}
+
+.template-flowplayer .video_metainfo.field .duration_metainfo {
+    display: none;
+}
+
+/* flowplayer.css section library */
+
+.section-library .autoFlowPlayer.video.videoContent.internalVideoContent {
+  width: 480px !important;
+  height: 270px !important;
+}
+
+
+/* -------------- */
+/* Video Download    */
+/* -------------- */
+
+#video_download {
+margin-top: 10px;
+}
+#video_download img {
+width: 40px;
+height: 40px;
+}
+#video_download #video_download_title {
+display: inline-table !important;
+text-transform: lowercase;
+color: gray;
+font-weight: 100;
+font-size: 14px;
+}
+
+/* -------------- */
+/* Prefs perso    */
+/* -------------- */
+#contentview-user_data-personal-preferences {
+    display: none;
+}
+
+/* ---------------------------- */
+/* Upload posformat and Sortings */
+/* -----------------------------*/
+#upload-files.btn.btn-success {
+    display: none;
+}
+
+/* -------------- */
+/*      Home      */
+/* -------------- */
+
+.portletItem.videoResource {
+    margin-left: 0px !important;
+    width: 300px;
+    margin-bottom: 10px !important;
+    border-bottom: 1px solid #cbcbcc;
+    padding-bottom: 17px !important;
+}
+.portletItem.videoResource img {
+    margin-left: -10px !important;
+}
+.portletItem.videoResource .informationvideo {
+    position: relative;
+    margin-left: 135px;
+    margin-top: -60px;
+}
+.portletItem.videoResource .informationvideo .Duration {
+    color: #706f77;
+}
+
+/* -------------------------- */
+/*   ContentWellPortlet       */
+/* -------------------------- */
+
+.manageInHeaderPortletsLink a.managePortletsFallback {
+position: absolute;
+margin-left: -200px;
+margin-top: 35px;
+margin-bottom: 5px;
+}
+.managePortletsAboveLink a.managePortletsFallback {
+margin-top: 60px;
+}
+
+
+/* -------------------------- */
+/*   Portlet video       */
+/* -------------------------- */
+.portletItem .video.minimal {
+width: 208px !important;
+height: 156px !important;
+margin-left: -12px;
+}
+
+.portletFlowPlayer dd.portletFooter {
+    display: none;
+}
+
+/* -------------------------- */
+/*       Page recherche       */
+/* -------------------------- */
+
+body.template-search.portaltype-plone-site.site-broadcastchanel_v1.kssActive #portal-columns {
+    padding-left: 20px;
+}
+body.template-search.portaltype-plone-site.site-broadcastchanel_v1.kssActive #portal-columns.row {
+    width: 900px;
+}
+body.template-search.portaltype-plone-site.site-broadcastchanel_v1.kssActive #rss-subscription {
+    display: none;
+}
+body.template-search.portaltype-plone-site.site-broadcastchanel_v1.kssActive #rss-subscription {
+    display: none;
+}
+
+body.template-search.portaltype-plone-site.site-broadcastchanel_v1.kssActive #search-field input.searchPage.searchButton.allowMultiSubmit {
+    height: 32px;
+}
+
+
+/* -------------------------- */
+/*          Divers HOME       */
+/* -------------------------- */
+
+
+.section-library .documentFirstHeading,
+.section-posformats .documentFirstHeading,
+.section-last_campaign .documentFirstHeading,
+.section-coco_mademoiselle .documentFirstHeading,
+.section-tvc-films .documentFirstHeading {
+display: none;
+}
+.section-library .pb-ajax .documentFirstHeading,
+.section-posformats .pb-ajax .documentFirstHeading,
+.section-last_campaign .pb-ajax .documentFirstHeading,
+.section-coco_mademoiselle .pb-ajax .documentFirstHeading {
+display: block;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-front-page.kssActive h1#parent-fieldname-title.documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-front-page.kssActive div#portal-breadcrumbs {
+display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-ad.kssActive .documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-ad.kssActive #portal-breadcrumbs {
+display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-posplanning.kssActive .documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-posplanning.kssActive #portal-breadcrumbs {
+display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-archive.kssActive .documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-archive.kssActive #portal-breadcrumbs {
+display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-posdownload.kssActive .documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-posdownload.kssActive #portal-breadcrumbs {
+display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-last_campaign.kssActive .documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-last_campaign.kssActive #portal-breadcrumbs {
+display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-coco_mademoiselle.kssActive .documentFirstHeading,
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-coco_mademoiselle.kssActive #portal-breadcrumbs {
+display: none;
+}
+
+/* Home */
+#parent-fieldname-text-cf8464e9d4be41da8dfc5a28c9b53fb9 p img.image-inline {
+   margin-left: -10px;
+   margin-top: -10px;
+   margin-bottom: -14px;
+   width: 958px !important;
+}
+/* Pos Formats */
+#parent-fieldname-text-348f1919c55e48e698664636e48eadcd p img.image-inline {
+    margin-left: -12px;
+    margin-top: -11px;
+    margin-bottom: -16px;
+    width: 750px;
+}
+/* Artistic Department */
+#parent-fieldname-text-bf4acee1ab194e5a8d527ee275f322e1 p img.image-inline {
+    margin-left: -12px;
+    margin-top: -10px;
+    margin-bottom: -14px;
+}
+/* Pos Planning */
+#parent-fieldname-text-47975a0152df49b4b3ba527583d8feed p img.image-inline {
+    margin-left: -12px;
+    margin-top: -10px;
+    margin-bottom: -14px;
+}
+/* Video archive */
+#parent-fieldname-text-a03b43a6c75d40d7b6d24a69a39727ab p img.image-inline,
+#parent-fieldname-text-211843b363334fab8c0fb92b73e0b78a p img.image-inline,
+#parent-fieldname-text-554059a97aff487891483d922736c796 p img.image-inline {
+    margin-left: -11px;
+    margin-top: -10px;
+    margin-bottom: -16px;
+    width: 750px;
+}
+/* Pos Download */
+#parent-fieldname-text-6e6fdbb24e0e4db3aeebd84d0aec135c p img.image-inline {
+    margin-left: -12px;
+    margin-top: -10px;
+    margin-bottom: -14px;   
+}
+/* Video Library */
+#parent-fieldname-text-b5824c00d3cb48439b9b2245c2a17394 p img.image-inline {
+    margin-left: -12px;
+    margin-top: -11px;
+    margin-bottom: -16px;
+    width: 750px;  
+}
+/* Last Campaign */
+#parent-fieldname-text-7565acf47d3e47d6b469cf988231cc0e p img.image-inline,
+#parent-fieldname-text-8f7c84276c94405eb30004e14f4d390c p img.image-inline,
+#parent-fieldname-text-6103031b349e430f818fb16c75ab0bdc p img.image-inline,
+#parent-fieldname-text-a8a227e5faec40378c49cfc31e6be506 p img.image-inline {
+    margin-left: -12px;
+    margin-top: -10px;
+    margin-bottom: -16px;
+    width: 750px; 
+}
+/* Coco Mademoiselle*/
+#parent-fieldname-text-d16473cbdcdc45ac9ef3b37d612d00ad p span.internal-link img.image-left {
+  margin-left: -12px;
+  margin-top: -10px;
+  margin-bottom: -14px;
+}
+
+#content-core div.item.visualIEFloatFix p.more a span {
+    display: none;
+}
+
+#portletwrapper-706c6f6e652e6c656674636f6c756d6e0a636f6e746578740a2f7061636b30312f62726f6164636173746368616e656c5f76310a6e617669676174696f6e dl.portlet.portletNavigationTree dd.portletItem.lastItem ul.navTree.navTreeLevel0 li.navTreeItem.navTreeTopNode.navTreeCurrentNode div a.contenttype-folder.navTreeCurrentItem {
+    display: none;
+}
+body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-posdownload.kssActive #portal-columns {
+   min-height: 400px;
+   height: 400px !important;
+}
+#parent-fieldname-text-66a10d7e5e574e3db4ee35d3d637d39d table.plain {
+    font-size: 10px;
+}
+
+
+/* -------------------------- */
+/*         COMMENTAIRE           */
+/* -------------------------- */
+
+#commenting fieldset p {
+  display: none;
+}
+
+.comment .documentByLine {
+    display: block !important;
+}
+
+
+/* -------------------------- */
+/*          BACK OFFICE            */
+/* -------------------------- */
+
+
+ul.formTabs li.formTab a {
+  color: silver !important;
+}
+
+#www .enableUnloadProtection.enableAutoFocus.enableFormTabbing.enableUnlockProtection {
+margin-left: 0px;
+min-width: 940px;
+}
+
+
+/* Pour test */
+
+.section-lift_15sec_vo_digital_720x405_h264-mp4 a.state-private.contenttype-rtinternalvideo,
+.section-lift_20sec_vo_digital_720x405_h264-mp4 a.state-private.contenttype-rtinternalvideo {
+  display: none;
+}
+
+.section-last_campaign .playListFlowPlayer.video,
+.section-ad .playListFlowPlayer.video,
+.section-coco_mademoiselle .playListFlowPlayer.video,
+.section-tvc-films .playListFlowPlayer.video {
+width: 720px !important;
+height: 405px !important;
+}
+.section-last_campaign .flowPlaylistVisible a.playListFlowPlayer,
+.section-ad .flowPlaylistVisible a.playListFlowPlayer,
+.section-coco_mademoiselle .flowPlaylistVisible a.playListFlowPlayer,
+.section-tvc-films .flowPlaylistVisible a.playListFlowPlayer {
+padding-left: 4px;
+padding-bottom: 8px;
+}
+
+.section-last_campaign div.flowPlaylistVisible,
+.section-ad div.flowPlaylistVisible,
+.section-coco_mademoiselle div.flowPlaylistVisible,
+.section-tvc-films div.flowPlaylistVisible {
+  width: 720px;
+}
+.section-last_campaign #pl,
+.section-ad #pl,
+.section-coco_mademoiselle #pl,
+.section-tvc-films #pl {
+width: 680px;
+}
+
+
+/* -------------------------- */
+/*          SILVER            */
+/* -------------------------- */
+
+.section-silver {
+background-color: black;
+background-image: none;
+}
+.section-silver #sil-top {
+background-color: black;
+height: 140px;
+}
+.section-silver #sil-logo img {
+margin-left: 342px;
+margin-top: 20px;
+}
+
+.section-silver #portal-top.row {
+display: none;
+background-image: url(../images/calicoco-285px.png) ;
+background-color: black;
+background-repeat: no-repeat;
+background-position: 342px 20px;
+height: 140px;
+}
+.section-silver #portal-columns.row  {
+background-image: none;
+background-color: black;
+border: none;
+}
+.section-silver #portal-footer,
+.section-silver #portal-logo,
+.section-silver #portal-globalnav,
+.section-silver #portal-personaltools,
+.section-silver #portal-breadcrumbs,
+.section-silver .documentFirstHeading  {
+display: none;
+}
+.section-silver .portalMessage.info  {
+display: none;
+}
+.section-silver #cocolinkblock {
+margin-left: 72px;
+margin-bottom: 5px;
+color: white;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+letter-spacing: 1px;
+font-size: 9px;
+font-weight: 100;
+width: 854px;
+}
+.section-silver #cocolinkblock div {
+line-height: 15px;
+}
+.section-silver #cocolinkblock a {
+color: #606060;
+font-family: "Lucida Sans","Lucida Grande", Lucida, Verdana, sans-serif;
+letter-spacing: 1px;
+font-size: 9px;
+font-weight: 100;
+}
+.section-silver #cocolinkblock a:hover {
+color: white !important;
+}
+.section-silver #cocoimg {
+margin-bottom: 20px;
+margin-left: 0px;
+}
+.section-silver #cocodiv {
+margin-bottom: 2px;
+margin-top: 2px;
+}
+
+.section-silver #content div div.video-remote p.videoDownlaod {
+  display: none;
+}
+
+.section-silver a.autoFlowPlayer.video.videoContent.externalVideoContent.videoWrapper {
+  margin-left: 72px;
+}
+
+/* Silver Login Success */
+
+.template-login_success.section-silver #portal-columns.row {
+  width: 400px;
+}
+.template-login_success.section-silver #content {
+  margin-left: 380px;
+}
+.template-login_success.section-silver #content-core {
+  width: 300px;
+}
+.template-login_success.section-silver #content-core p a:hover {
+  color: white !important;
+}
+
+/* Silver Login Form */
+
+#sil.template-login_form #sil-top {
+display:none;
+}
+
+#sil.template-login_form,
+#sil.template-logged_out,
+#sil.template-login_failed,
+#sil.template-insufficient_privileges {
+    background-color: black;
+    background-image: none;
+    color: white;
+}
+
+#sil.template-login_form #portal-logo,
+#sil.template-logged_out #portal-logo,
+#sil.template-login_failed #portal-logo,
+#sil.template-insufficient_privileges #portal-logo {
+    display: none;
+}
+
+#sil.template-login_form #portal-footer,
+#sil.template-logged_out #portal-footer,
+#sil.template-login_failed #portal-footer,
+#sil.template-insufficient_privileges #portal-footer {
+    display: none;
+}
+
+#sil.template-login_form #portal-top.row,
+#sil.template-logged_out #portal-top.row,
+#sil.template-login_failed #portal-top.row,
+#sil.template-insufficient_privileges #portal-top.row {
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: 342px 40px;
+    height: 170px;
+}
+
+#sil.template-login_form #portal-columns.row,
+#sil.template-logged_out #portal-columns.row,
+#sil.template-login_failed #portal-columns.row,
+#sil.template-insufficient_privileges #portal-columns.row  {
+    background-image: none;
+    background-color: black;
+    border: none;
+    width: 300px;
+    margin-left: 370px;
+}
+
+
+/* Silver Backoffice */
+
+.section-silver a.managePortletsFallback {
+  display: none !important;
+}
+.section-silver #folderlisting-main-table-noplonedrag,
+.section-silver #folderlisting-main-table-noplonedrag .even td a,
+.section-silver #folderlisting-main-table-noplonedrag .even td,
+.section-silver #folderlisting-main-table-noplonedrag .even td span {
+  color: silver !important;
+}
+
+.section-silver.kssActive .documentEditable {
+  min-width: 960px;
+  background-color: white;
+}
+.section-silver .enableUnloadProtection.enableAutoFocus.enableFormTabbing.enableUnlockProtection {
+  margin-left: 30px;
+  min-width: 940px;
+}
+.dialog-wrapper fieldset {
+margin-top: -1em;
+margin-left: 3em !important;
+}

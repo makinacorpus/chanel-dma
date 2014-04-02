@@ -1,0 +1,11 @@
+<div metal:define-macro="portal_footer"
+     i18n:domain="plone"
+     id="portal-footer">
+          <p  class="popupcontent" tal:define="navigation_root_url context/@@plone_portal_state/navigation_root_url">
+               <a href="#"
+                  tal:attributes="href python:navigation_root_url+'/technical-support-form'">
+                 Technical support
+               </a>
+          </p>
+
+</div>

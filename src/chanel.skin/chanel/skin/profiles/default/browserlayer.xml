@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layers>
+
+  <layer name="chanel.skin" interface="chanel.skin.interfaces.IThemeSpecific"/>
+
+</layers>

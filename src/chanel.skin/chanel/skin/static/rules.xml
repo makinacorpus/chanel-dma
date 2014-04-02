@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://namespaces.plone.org/diazo"
+       xmlns:css="http://namespaces.plone.org/diazo/css"
+       xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <rules css:if-content="#visual-portal-wrapper">
+    <theme href="theme-three.html"     css:if-content=".template-manage-portlets"/>
+    <theme href="theme-three.html"                 if="$have_both_portlets"/>
+    <theme href="theme-two-left.html"              if="$have_left_portlets"/>
+    <theme href="theme-two-right.html"             if="$have_right_portlets"/>
+    <theme href="theme-one.html" />
+
+    <drop css:theme=".drop"/>
+
+    <drop content='/html/head/meta[@name="viewport"]'/>
+    <before css:theme-children="head" css:content="base" />
+
+    <!--  RESOURCES -->
+    <replace css:theme="title" css:content="title" />
+    <before theme-children="/html/head" content="/html/head/meta" />
+    <after theme-children="/html/head/meta">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    </after>
+    <before theme-children="/html/head" content="/html/head/link | /html/head/style | /html/head/comment()" />
+    <before theme-children="/html/head" content="/html/head/script" />
+    
+    <merge attributes="class" css:content="body" css:theme="body" />
+
+    <copy attributes="id dir" css:content="body" css:theme="body" />
+
+    <!-- HEADER -->
+    <prepend css:content="#portal-logo" css:theme="#portal-logo-wrapper"/>
+    <append  css:content="#portal-globalnav" css:theme="#portal-globalnav-wrapper"/>
+    <append  css:content="#portal-searchbox" css:theme="#portal-searchbox-wrapper" />
+    <append  css:content="#portal-languageselector" css:theme="#language-links-wrapper" />
+    <append  css:content-children="#portal-personaltools-wrapper" css:theme="#portal-personaltools-wrapper" />
+
+    <!-- CONTENT -->
+    <append css:content-children="#portal-column-content" css:theme="#portal-column-content"/>
+    <append css:content-children="#portal-column-one"     css:theme="#portal-column-one" />
+    <append css:content-children="#portal-column-two"     css:theme="#portal-column-two" />
+    <drop css:content="#portal-breadcrumbs" />
+
+    <!-- FOOTER -->
+    <append css:content="#portal-colophon"       css:theme="#portal-colophon-wrapper" />
+    <append css:content="#portal-siteactions"    css:theme="#portal-siteactions-wrapper" />
+    <append css:content="#portal-footer"         css:theme="#plone-portal-footer-wrapper" />
+  </rules>
+
+  <!-- SIMPLE PAGES -->
+  <rules if-path="image_view_fullscreen/ plonebrowser.htm/">
+    <theme href="empty.html" />
+    <drop css:content="img" attributes="height" />
+    <before css:theme-children="head" css:content-children="head" />
+    <replace css:theme-children="body" css:content-children="body" />
+    <copy css:theme="body" css:content="body" attributes="id" />
+  </rules>
+
+</rules>
