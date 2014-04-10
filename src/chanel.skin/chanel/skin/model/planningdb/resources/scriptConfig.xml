@@ -1,0 +1,42 @@
+<plominodatabase id="planningdb">
+  <design>
+    <resource id="scriptConfig" title="" type="Script (Python)"><![CDATA[## Script (Python) "scriptConfig"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##parameters=
+##title=
+##
+def getConfigValue(db, key, default=""):
+  """ Look up a config by name, return the value as a string.
+  """
+  config_form = db.getForm('configuration_holder')
+  if key not in config_form.objectIds():
+    return default
+  return config_form.computeFieldValue(key, config_form)
+
+def getConfigValuesAsList(db, key, default=[]):
+  """ Look up a config document by name, return the value as a list, splitting the string on newlines.
+  """
+  value_string = getConfigValue(db, key, default=None)
+  if value_string is None:
+    db.portal_skins.plone_scripts.plone_log('getConfigValue> Absent key: %s'%key)
+    return default
+  value_string = value_string.strip()
+  return value_string.replace('\r', '').split('\n')
+
+def getConfigValuesAsDict(db, key, separator='|'):
+  """ Look up a config document by name, return the value as a dictionary, splitting each line on `separator`.
+  """
+  # TODO: Use csv module to parse the value, treating the first line as a header row.
+  value_list = getConfigValuesAsList(db, key)
+  d = {}
+  for row in value_list:
+    (label, key) = row.split(separator)
+    d[key] = label
+  return d
+]]></resource>
+  </design>
+</plominodatabase>

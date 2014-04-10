@@ -1,0 +1,25 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="migrate_configdocs" title="migrate_configdocs" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">migrate_configdocs</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+config_form = db.getForm('configuration_holder')
+for doc in db.getView('configview').getAllDocuments():
+    config_id = doc.getItem('configId')
+    if not config_id:
+        continue
+    config_value = doc.getItem('configValues')
+    if not config_value:
+        continue
+    if config_id.startswith('frmConfig_'):
+        continue
+    if config_id not in config_form.objectIds():
+        config_form.invokeFactory('PlominoField', Title=config_id, id=config_id, FieldType="TEXT", FieldMode="EDITABLE")
+    field = config_form.getFormField(config_id)
+    formula = """return \"\"\"%s\"\"\" """ % config_value
+    field.setFormula(formula)
+    field.at_post_edit_script()]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>
