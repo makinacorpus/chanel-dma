@@ -32,3 +32,5 @@ report
 coverage
 *.old
 adminPassword.txt
+src/Products.CMFPlomino
+dev-ebr.cfg
