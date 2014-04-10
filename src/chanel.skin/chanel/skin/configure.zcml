@@ -19,6 +19,7 @@
       />
 
   <include package=".browser" />
+  <include package=".upgrades" />
   
   <include package="z3c.jbot" file="meta.zcml" />
   <interface name="chanel.skin"
