@@ -69,6 +69,37 @@
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>jssettings</name>
+<value><string>"aoColumns": [
+    { "sTitle": "Name" },
+],
+"bPaginate": false,
+"bLengthChange": false,
+"bFilter": false,
+"bSort": false,
+"bInfo": false,
+"bAutoWidth": false,
+"plominoDialogOptions": {
+        "width": 400,
+        "height": 300
+    }
+</string></value>
+</member>
+<member>
+<name>associated_form</name>
+<value><string>dgMovie</string></value>
+</member>
+<member>
+<name>field_mapping</name>
+<value><string>name</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
         <element id="doctype" title="doctype" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">doctype</id>
