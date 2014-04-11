@@ -10,13 +10,30 @@
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<table class="plain">
+<tbody>
+<tr>
+<td colspan="3">
+<p><span class="plominoFieldClass">movie_is_published</span></p>
 <p>Title : <span class="plominoFieldClass">movie_title</span></p>
-<p>Is published : <span class="plominoFieldClass">movie_is_published</span></p>
 <p>Subtitle : <span class="plominoFieldClass">movie_subtitle</span></p>
 <p>Information : <span class="plominoFieldClass">movie_information</span></p>
-<p>Formats : <span class="plominoFieldClass">movie_formats</span></p>
-<p>Markets : <span class="plominoFieldClass">movie_markets</span></p>
-<p>Axes : <span class="plominoFieldClass">movie_axes</span></p>
+<p>Link  : <span class="plominoFieldClass">movie_link</span></p>
+</td>
+</tr>
+<tr>
+<td>
+<p>Formats : <br><span class="plominoFieldClass">movie_formats</span></p>
+</td>
+<td>
+<p>Markets : <br><span class="plominoFieldClass">movie_markets</span></p>
+</td>
+<td>
+<p>Axes : <br><span class="plominoFieldClass">movie_axes</span></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p><span class="plominoActionClass">submit</span></p>
 <p><span class="plominoActionClass">submit_and_generate_new_form</span></p>
 ]]></FormLayout>
@@ -46,7 +63,7 @@
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -88,7 +105,7 @@
         </element>
         <element id="movie_link" title="movie_link" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_link</id>
-          <FieldType type="Products.Archetypes.Field.StringField">DOCLINK</FieldType>
+          <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
@@ -102,8 +119,45 @@
 <param>
 <value><struct>
 <member>
+<name>separator</name>
+<value><nil/></value></member>
+<member>
+<name>selectionlistformula</name>
+<value><string>library = context.getParentNode().posformats
+main_path = library.getPhysicalPath()
+main_path_nb = len(main_path)
+main_path_str = '/'.join(main_path)
+movies = {}
+
+html=""""""
+for brain in library.getFolderContents(contentFilter= {
+                 'path': {
+                         'query': main_path_str,
+                         'depth': -1,
+                  },
+                  'Type': 'Video file',}):
+
+    parent = brain.getObject().getParentNode()
+    movie_path = parent.getPhysicalPath()
+    movie_path_str = "/".join(movie_path)
+
+    if movie_path_str not in movies.keys():
+        parent_tmp = parent
+        titles = [parent.Title()]
+        for a in movie_path[main_path_nb+1:]:
+            parent_tmp = parent_tmp.getParentNode()
+            titles.append(parent_tmp.Title())
+        titles.reverse()    
+        movies[movie_path_str] = " / ".join(titles)
+    all_movies = [(k, v) for k,v in movies.items()]
+    all_movies.sort(key=lambda movie: movie[1].split("/")[0])
+
+return ["%s|%s" % (v, k) for (k, v) in all_movies]
+</string></value>
+</member>
+<member>
 <name>widget</name>
-<value><string>SELECT</string></value>
+<value><string>PICKLIST</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -113,10 +167,6 @@
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>sourceview</name>
-<value><string>allDisplays</string></value>
 </member>
 </struct></value>
 </param>
@@ -143,6 +193,14 @@
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
 </member>
 <member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -150,10 +208,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 </struct></value>
 </param>
@@ -180,6 +234,14 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
 </member>
 <member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -187,10 +249,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 </struct></value>
 </param>
@@ -217,6 +275,14 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
 </member>
 <member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -224,10 +290,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 </struct></value>
 </param>
@@ -239,7 +301,7 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
-          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField">on_off</FieldEditTemplate>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
