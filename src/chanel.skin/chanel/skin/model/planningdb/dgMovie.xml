@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="dgMovie" title="dgMovie" type="PlominoForm">
+    <element id="dgMovie" title="Movie" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">dgMovie</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -9,7 +9,10 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<p>Movie : <span class="plominoFieldClass">movie</span></p>]]></FormLayout>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<p>Movie : <span class="plominoFieldClass">movie</span></p>
+<p>Additional information : <span class="plominoFieldClass">information</span></p>
+]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -43,8 +46,8 @@
 <param>
 <value><struct>
 <member>
-<name>labelcolumn</name>
-<value><string>name</string></value>
+<name>sourceview</name>
+<value><string>allMovies</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -56,8 +59,35 @@
 'bAutoWidth': false</string></value>
 </member>
 <member>
-<name>sourceview</name>
-<value><string>allMovies</string></value>
+<name>labelcolumn</name>
+<value><string>name</string></value>
+</member>
+</struct></value>
+</param>
+</params>
+        </element>
+        <element id="information" title="information" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">information</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>4</string></value>
 </member>
 </struct></value>
 </param>

@@ -44,7 +44,7 @@
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -90,9 +90,8 @@
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
+<name>widget</name>
+<value><string>RADIO</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -104,8 +103,9 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 'bAutoWidth': false</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>RADIO</string></value>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
 </member>
 </struct></value>
 </param>

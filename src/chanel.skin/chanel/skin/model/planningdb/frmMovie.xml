@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="frmMovie" title="frmMovie" type="PlominoForm">
+    <element id="frmMovie" title="Movie" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frmMovie</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -119,8 +119,18 @@
 <param>
 <value><struct>
 <member>
-<name>separator</name>
-<value><nil/></value></member>
+<name>widget</name>
+<value><string>PICKLIST</string></value>
+</member>
+<member>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
+</member>
 <member>
 <name>selectionlistformula</name>
 <value><string>library = context.getParentNode().posformats
@@ -156,18 +166,8 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 </string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>PICKLIST</string></value>
-</member>
-<member>
-<name>dynamictableparam</name>
-<value><string>'bPaginate': true,
-'bLengthChange': true,
-'bFilter': true,
-'bSort': true,
-'bInfo': true,
-'bAutoWidth': false</string></value>
-</member>
+<name>separator</name>
+<value><nil/></value></member>
 </struct></value>
 </param>
 </params>
@@ -188,15 +188,6 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>CHECKBOX</string></value>
 </member>
@@ -208,6 +199,15 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -229,15 +229,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>CHECKBOX</string></value>
 </member>
@@ -249,6 +240,15 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -270,15 +270,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>CHECKBOX</string></value>
 </member>
@@ -291,6 +282,15 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 'bInfo': true,
 'bAutoWidth': false</string></value>
 </member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
+</member>
 </struct></value>
 </param>
 </params>
@@ -300,7 +300,7 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
-          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField">on_off</FieldReadTemplate>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField">on_off</FieldEditTemplate>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>

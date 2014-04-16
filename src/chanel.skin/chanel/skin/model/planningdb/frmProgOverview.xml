@@ -12,6 +12,7 @@
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p>Month : <span class="plominoFieldClass">program_month</span></p>
 <p>Markets : <span class="plominoFieldClass">program_markets</span></p>
+<p><span class="plominoFieldClass">programs</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -46,11 +47,6 @@
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
-</member>
-<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -58,6 +54,11 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months"
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
 </member>
 </struct></value>
 </param>
@@ -68,6 +69,43 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months"
           <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="programs" title="programs" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">programs</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoDocument.getParentDatabase()
+
+markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "markets")
+
+month = plominoContext.REQUEST.get("program_month","SEPTEMBER")
+
+results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_name': month})]
+
+form = db.getForm("frmProgram")
+form_url = form.absolute_url() + "?program_name=" + month + "&program_market=%s"
+def isFound(market):
+    for result in results:
+        if result.getItem("program_market") == market:
+            return result
+
+def getUrl(program):
+    pass
+
+html = """<table class="listing table">"""
+for market in markets.values():
+    button = isFound(market) and "<button class='btn btn-default'>Open</button>" or "<button rel='%s' class='btn btn-default'>Create</button>" % (form_url % market)
+    html+= """<tr><td>%s</td><td>%s</td></tr>""" % (market, button)
+html += """</table>"""
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

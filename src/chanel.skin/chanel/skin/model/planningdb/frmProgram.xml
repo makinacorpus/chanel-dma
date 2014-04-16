@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="frmProgram" title="frmProgram" type="PlominoForm">
+    <element id="frmProgram" title="Program" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frmProgram</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -13,6 +13,8 @@
 <p>Program name : <span class="plominoFieldClass">program_name</span></p>
 <p>Market : <span class="plominoFieldClass">program_market</span></p>
 <p>Movies : <span class="plominoFieldClass">program_movies</span></p>
+<p><span class="plominoActionClass">submit</span></p>
+<p><span class="plominoActionClass">submit_and_generate_new_form</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -40,7 +42,7 @@
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -76,6 +78,7 @@
 <name>jssettings</name>
 <value><string>"aoColumns": [
     { "sTitle": "Name" },
+    { "sTitle": "Additional information" },
 ],
 "bPaginate": false,
 "bLengthChange": false,
@@ -95,7 +98,11 @@
 </member>
 <member>
 <name>field_mapping</name>
-<value><string>name</string></value>
+<value><string>movie,information</string></value>
+</member>
+<member>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
 </member>
 </struct></value>
 </param>
@@ -113,6 +120,22 @@
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="submit_and_generate_new_form" title="Submit and generate new form" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">submit_and_generate_new_form</id>
+          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
+        </element>
+        <element id="submit" title="Submit" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">submit</id>
+          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
         </element>
       </elements>
     </element>

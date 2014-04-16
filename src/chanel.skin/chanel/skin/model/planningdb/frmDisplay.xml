@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="frmDisplay" title="frmDisplay" type="PlominoForm">
+    <element id="frmDisplay" title="Display" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frmDisplay</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -9,7 +9,8 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<table class="plain">
 <tbody>
 <tr>
 <td colspan="2">
@@ -26,7 +27,10 @@
 </td>
 </tr>
 </tbody>
-</table>]]></FormLayout>
+</table>
+<p><span class="plominoActionClass">submit</span></p>
+<p><span class="plominoActionClass">submit_and_generate_new_form</span></p>
+]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -53,7 +57,7 @@
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -86,9 +90,8 @@
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
+<name>widget</name>
+<value><string>RADIO</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -100,8 +103,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 'bAutoWidth': false</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>RADIO</string></value>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -124,13 +132,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
 <param>
 <value><struct>
 <member>
-<name>separator</name>
-<value><string>&lt;/br&gt;</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -142,8 +145,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 'bAutoWidth': false</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -161,6 +169,22 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="submit_and_generate_new_form" title="Submit and generate new form" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">submit_and_generate_new_form</id>
+          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
+        </element>
+        <element id="submit" title="Submit" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">submit</id>
+          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
         </element>
       </elements>
     </element>

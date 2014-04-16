@@ -72,12 +72,12 @@ if config_id:
 <param>
 <value><struct>
 <member>
-<name>size</name>
-<value><string>10</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>10</string></value>
 </member>
 </struct></value>
 </param>
