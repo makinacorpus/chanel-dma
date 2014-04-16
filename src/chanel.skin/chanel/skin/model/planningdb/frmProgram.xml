@@ -13,8 +13,6 @@
 <p>Program name : <span class="plominoFieldClass">program_name</span></p>
 <p>Market : <span class="plominoFieldClass">program_market</span></p>
 <p>Movies : <span class="plominoFieldClass">program_movies</span></p>
-<p><span class="plominoActionClass">submit</span></p>
-<p><span class="plominoActionClass">submit_and_generate_new_form</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -36,7 +34,7 @@
         <element id="program_name" title="program_name" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">program_name</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
-          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
@@ -49,7 +47,7 @@
         <element id="program_market" title="program_market" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">program_market</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
-          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>

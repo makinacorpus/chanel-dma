@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="frmShop" title="frmShop" type="PlominoForm">
+    <element id="frmShop" title="Shop" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frmShop</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -15,7 +15,6 @@
 <p>Information : <span class="plominoFieldClass">shop_information</span></p>
 <p>Market : <span class="plominoFieldClass">shop_market</span></p>
 <p>City : <span class="plominoFieldClass">shop_city</span></p>
-<p>Nb display : <span class="plominoFieldClass">shop_nb_display</span></p>
 <p>Displays : <span class="plominoFieldClass">shop_displays</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
@@ -90,6 +89,11 @@
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
+</member>
+<member>
 <name>widget</name>
 <value><string>RADIO</string></value>
 </member>
@@ -101,11 +105,6 @@
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
 </member>
 </struct></value>
 </param>
@@ -139,7 +138,7 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
         </element>
         <element id="shop_displays" title="shop_displays" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">shop_displays</id>
-          <FieldType type="Products.Archetypes.Field.StringField">DOCLINK</FieldType>
+          <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
@@ -153,8 +152,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return [ "%s|%s" % (a.getItem("display_name"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
+</member>
+<member>
 <name>widget</name>
-<value><string>PICKLIST</string></value>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -164,10 +168,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>sourceview</name>
-<value><string>allDisplays</string></value>
 </member>
 </struct></value>
 </param>

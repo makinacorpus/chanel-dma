@@ -46,6 +46,10 @@
 <param>
 <value><struct>
 <member>
+<name>labelcolumn</name>
+<value><string>name</string></value>
+</member>
+<member>
 <name>sourceview</name>
 <value><string>allMovies</string></value>
 </member>
@@ -57,10 +61,6 @@
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>labelcolumn</name>
-<value><string>name</string></value>
 </member>
 </struct></value>
 </param>
@@ -82,12 +82,12 @@
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>TEXTAREA</string></value>
-</member>
-<member>
 <name>size</name>
 <value><string>4</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
 </member>
 </struct></value>
 </param>

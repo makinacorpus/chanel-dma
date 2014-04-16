@@ -47,6 +47,11 @@
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -54,11 +59,6 @@
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
 </member>
 </struct></value>
 </param>
@@ -101,7 +101,7 @@ def getUrl(program):
 
 html = """<table class="listing table">"""
 for market in markets.values():
-    button = isFound(market) and "<button class='btn btn-default'>Open</button>" or "<button rel='%s' class='btn btn-default'>Create</button>" % (form_url % market)
+    button = isFound(market) and "<button class='btn btn-default'>Open</button>" or "<a href='%s' class='btn btn-default'>Create</a>" % (form_url % market)
     html+= """<tr><td>%s</td><td>%s</td></tr>""" % (market, button)
 html += """</table>"""
 return html

@@ -2,7 +2,7 @@
   <design>
     <element id="allDisplays" title="allDisplays" type="PlominoView">
       <id type="Products.Archetypes.Field.StringField">allDisplays</id>
-      <SelectionFormula type="Products.Archetypes.Field.TextField"><![CDATA[return plominoDocument.getItem('doctype') == u"display"]]></SelectionFormula>
+      <SelectionFormula type="Products.Archetypes.Field.TextField"><![CDATA[return plominoDocument.getItem('doctype') == "display"]]></SelectionFormula>
       <SortColumn type="Products.Archetypes.Field.StringField"/>
       <KeyColumn type="Products.Archetypes.Field.StringField"/>
       <Categorized type="Products.Archetypes.Field.BooleanField">False</Categorized>
