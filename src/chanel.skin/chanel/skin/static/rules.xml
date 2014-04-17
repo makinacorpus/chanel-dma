@@ -56,4 +56,14 @@
     <copy css:theme="body" css:content="body" attributes="id" />
   </rules>
 
+    <!-- buttons -->
+    <xsl:template match="input/@class[contains(., 'context') or contains(., 'standalone') or contains(., 'destructive')]">
+        <xsl:attribute name="class">btn</xsl:attribute>
+    </xsl:template>
+    <xsl:template match="input[@type='submit']">
+        <xsl:copy>
+            <xsl:attribute name="class">btn</xsl:attribute>
+            <xsl:apply-templates select="@*|node()" />
+        </xsl:copy>
+    </xsl:template>
 </rules>
