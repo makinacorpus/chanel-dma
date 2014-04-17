@@ -115,6 +115,10 @@
 <param>
 <value><struct>
 <member>
+<name>widget</name>
+<value><string>PICKLIST</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>library = context.getParentNode().posformats
 main_path = library.getPhysicalPath()
@@ -152,10 +156,6 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 <name>separator</name>
 <value><nil/></value></member>
 <member>
-<name>widget</name>
-<value><string>PICKLIST</string></value>
-</member>
-<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -184,6 +184,10 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 <param>
 <value><struct>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
@@ -191,10 +195,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -225,6 +225,10 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <param>
 <value><struct>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
@@ -232,10 +236,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -266,6 +266,10 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
@@ -273,10 +277,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -296,7 +296,7 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
-          <FieldReadTemplate type="Products.Archetypes.Field.StringField">on_off</FieldReadTemplate>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField">on_off_read</FieldReadTemplate>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField">on_off</FieldEditTemplate>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>

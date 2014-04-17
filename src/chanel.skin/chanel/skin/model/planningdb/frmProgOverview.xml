@@ -13,6 +13,7 @@
 <p>Month : <span class="plominoFieldClass">program_month</span></p>
 <p>Markets : <span class="plominoFieldClass">program_markets</span></p>
 <p><span class="plominoFieldClass">programs</span></p>
+<p><span class="plominoFieldClass">programs_js</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -85,27 +86,62 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months"
 
 markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "markets")
 
-month = plominoContext.REQUEST.get("program_month","SEPTEMBER")
+month = plominoContext.REQUEST.get("program_month","JANUARY")
 
 results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_name': month})]
 
 form = db.getForm("frmProgram")
 form_url = form.absolute_url() + "?program_name=" + month + "&program_market=%s"
-def isFound(market):
+
+# search program using market name
+def getProgram(market):
     for result in results:
         if result.getItem("program_market") == market:
             return result
 
-def getUrl(program):
-    pass
-
+# start table tag
 html = """<table class="listing table">"""
+odd = True
 for market in markets.values():
-    button = isFound(market) and "<button class='btn btn-default'>Open</button>" or "<a href='%s' class='btn btn-default'>Create</a>" % (form_url % market)
-    html+= """<tr><td>%s</td><td>%s</td></tr>""" % (market, button)
+    # program object
+    program = getProgram(market)
+
+    class_row = odd is True and "odd" or "even"
+    odd = not odd 
+    # button
+    button = program and "<a href='%s/EditDocument?openwithform=frmChart' class='btn btn-primary'>Open</button>" % program.absolute_url() or "<a href='%s' class='btn btn-info'>Create</a>" % (form_url % market)
+
+    # add row in html
+    html+= """<tr class='%s'><td>%s</td><td>%s</td></tr>""" % (class_row, market, button)
+
+# close table tag
 html += """</table>"""
+
 return html
 ]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="programs_js" title="programs_js" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">programs_js</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html = """
+<script>
+ $("#program_month").change(function(event){
+    $.get("tojson?item=programs&program_month=" + $("#program_month :selected").text(),
+          function(data){
+                $("form .listing.table").html($(data).html());
+          });
+  });
+</script>
+"""
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

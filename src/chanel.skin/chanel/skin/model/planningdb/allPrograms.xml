@@ -31,6 +31,13 @@
           <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
           <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
         </element>
+        <element id="market" title="market" type="PlominoColumn">
+          <id type="Products.Archetypes.Field.StringField">market</id>
+          <SelectedField type="Products.Archetypes.Field.StringField">frmProgram/program_market</SelectedField>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
+          <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
+        </element>
       </elements>
     </element>
   </design>

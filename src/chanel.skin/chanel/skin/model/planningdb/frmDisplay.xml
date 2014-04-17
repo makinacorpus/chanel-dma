@@ -79,12 +79,16 @@
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
           <params>
 <param>
 <value><struct>
+<member>
+<name>widget</name>
+<value><string>RADIO</string></value>
+</member>
 <member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
@@ -93,10 +97,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>RADIO</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -121,12 +121,16 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
           <params>
 <param>
 <value><struct>
+<member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
 <member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
@@ -135,10 +139,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>

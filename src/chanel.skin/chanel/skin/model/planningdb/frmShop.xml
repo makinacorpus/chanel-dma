@@ -9,14 +9,32 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
-<p>Shop name : <span class="plominoFieldClass">shop_name</span></p>
-<p>Is published : <span class="plominoFieldClass">shop_is_published</span></p>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="table">
+<tbody>
+<tr>
+<td>
+<p><span class="plominoFieldClass">shop_is_published</span></p>
+<p>Name : <span class="plominoFieldClass">shop_name</span></p>
 <p>Information : <span class="plominoFieldClass">shop_information</span></p>
-<p>Market : <span class="plominoFieldClass">shop_market</span></p>
-<p>City : <span class="plominoFieldClass">shop_city</span></p>
 <p>Displays : <span class="plominoFieldClass">shop_displays</span></p>
-]]></FormLayout>
+</td>
+<td>
+<table class="table">
+<tbody>
+<tr>
+<td>City :</td>
+<td><span class="plominoFieldClass">shop_city</span></td>
+</tr>
+<tr>
+<td>Market :</td>
+<td><span class="plominoFieldClass">shop_market</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -52,8 +70,8 @@
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
-          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
-          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField">on_off_read</FieldReadTemplate>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField">on_off</FieldEditTemplate>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
@@ -72,6 +90,20 @@
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>size</name>
+<value><string>3</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
         <element id="shop_market" title="shop_market" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">shop_market</id>
@@ -89,13 +121,17 @@
 <param>
 <value><struct>
 <member>
+<name>widget</name>
+<value><string>RADIO</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>RADIO</string></value>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -152,13 +188,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return [ "%s|%s" % (a.getItem("display_name"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>CHECKBOX</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return [ "%s - %s|%s" % (a.getItem("display_name"), a.getItem("display_formats"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>

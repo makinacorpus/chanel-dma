@@ -53,7 +53,7 @@
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -72,6 +72,10 @@
           <params>
 <param>
 <value><struct>
+<member>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
+</member>
 <member>
 <name>jssettings</name>
 <value><string>"aoColumns": [
@@ -97,10 +101,6 @@
 <member>
 <name>field_mapping</name>
 <value><string>movie,information</string></value>
-</member>
-<member>
-<name>associated_form_rendering</name>
-<value><string>INLINE</string></value>
 </member>
 </struct></value>
 </param>
