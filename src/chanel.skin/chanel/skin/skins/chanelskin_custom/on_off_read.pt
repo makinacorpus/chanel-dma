@@ -1,0 +1,9 @@
+<span class="onoffswitch" tal:define="value options/fieldvalue;
+ 									  fieldname options/fieldname;">
+    	<input tal:attributes="id fieldname;
+    						   name fieldname;
+    						   checked python:test(value,1,0);" type="checkbox" class="onoffswitch-checkbox" value="1" disabled/>
+    	<label class="onoffswitch-label" tal:attributes="for fieldname">
+    		<span class="onoffswitch-inner"></span>
+    	</label>
+</span> 
