@@ -1,0 +1,24 @@
+<span>
+
+<input id="shop_city" type="text" tal:attributes="name options/fieldname; value options/fieldvalue;" />
+<script>
+$( "#shop_city" ).autocomplete({
+        source: function(req, add){            
+            $.getJSON("http://api.geonames.org/searchJSON?maxRows=15&featureClass=P&username=chanel_dma&name_startsWith="+$("#city").val(), req,
+                function(data) {  
+                    var suggestions = [];  
+
+                    //read city names in results  
+                    data = data.geonames;
+                    $.each(data, function(i, val){  
+                        suggestions.push({ label: val.name + "[" + val.countryName + "]", value: val.name}); 
+                    });
+
+                    //give values to add callback  
+                    add(suggestions);
+                }
+            );
+        }
+    });
+</script>
+</span>
