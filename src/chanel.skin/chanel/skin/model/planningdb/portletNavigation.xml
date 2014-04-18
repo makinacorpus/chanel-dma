@@ -46,7 +46,7 @@ def computeMain(date):
     for market in markets:
         market_name = market.split("|")[0]
         market_id = market.split("|")[1]
-        programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id})]
+        programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id, 'program_name': str(month_id)})]
         if programs:
             shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': market_id})] 
             tmp_html += """<li><a href="#"><span>%s</span></a>""" % market_name
