@@ -4,7 +4,7 @@
 <script>
 $( "#shop_city" ).autocomplete({
         source: function(req, add){            
-            $.getJSON("http://api.geonames.org/searchJSON?maxRows=15&featureClass=P&username=chanel_dma&name_startsWith="+$("#city").val(), req,
+            $.getJSON("http://api.geonames.org/searchJSON?maxRows=15&featureClass=P&username=chanel_dma&name_startsWith="+$("#shop_city").val(), req,
                 function(data) {  
                     var suggestions = [];  
 
