@@ -10,9 +10,11 @@
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
-<p>Program name : <span class="plominoFieldClass">program_name</span></p>
-<p>Market : <span class="plominoFieldClass">program_market</span></p>
-<p>Movies : <span class="plominoFieldClass">program_movies</span></p>
+<p><span class="plominoFieldClass">program_is_published</span></p>
+<p>Program name: <span class="plominoFieldClass">program_name</span></p>
+<p>Year: <span class="plominoFieldClass">program_year</span></p>
+<p>Market: <span class="plominoFieldClass">program_market</span></p>
+<p>Movies: <span class="plominoFieldClass">program_movies</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -73,8 +75,8 @@
 <param>
 <value><struct>
 <member>
-<name>associated_form_rendering</name>
-<value><string>INLINE</string></value>
+<name>field_mapping</name>
+<value><string>movie,information</string></value>
 </member>
 <member>
 <name>jssettings</name>
@@ -99,8 +101,8 @@
 <value><string>dgMovie</string></value>
 </member>
 <member>
-<name>field_mapping</name>
-<value><string>movie,information</string></value>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
 </member>
 </struct></value>
 </param>
@@ -134,6 +136,32 @@
           <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
+        </element>
+        <element id="program_is_published" title="program_is_published" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_is_published</id>
+          <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField">on_off_read</FieldReadTemplate>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField">on_off</FieldEditTemplate>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="program_year" title="program_year" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_year</id>
+          <FieldType type="Products.Archetypes.Field.StringField">NUMBER</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
       </elements>
     </element>

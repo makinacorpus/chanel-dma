@@ -10,8 +10,9 @@
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
-<p>Month : <span class="plominoFieldClass">program_month</span></p>
-<p>Markets : <span class="plominoFieldClass">program_markets</span></p>
+<p><span class="plominoFieldClass">program_year</span></p>
+<p>Month: <span class="plominoFieldClass">program_month</span></p>
+<p>Markets: <span class="plominoFieldClass">program_markets</span></p>
 <p><span class="plominoFieldClass">programs</span></p>
 <p><span class="plominoFieldClass">programs_js</span></p>
 ]]></FormLayout>
@@ -36,7 +37,7 @@
           <id type="Products.Archetypes.Field.StringField">program_month</id>
           <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return str(Now().month())]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -48,11 +49,6 @@
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
-</member>
-<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -60,6 +56,11 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months"
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
 </member>
 </struct></value>
 </param>
@@ -84,14 +85,15 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months"
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoDocument.getParentDatabase()
 
-markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "markets")
+markets = [(config.split("|")[1], config.split("|")[0]) for config in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
+markets_dict = dict(markets)
+month = plominoContext.REQUEST.get("program_month", Now().month())
+year = plominoContext.REQUEST.get("program_year", Now().year())
 
-month = plominoContext.REQUEST.get("program_month","JANUARY")
-
-results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_name': month})]
+results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_name': str(month), 'program_year': year})]
 
 form = db.getForm("frmProgram")
-form_url = form.absolute_url() + "?program_name=" + month + "&program_market=%s"
+form_url = form.absolute_url() + "?program_name=%s&program_year=%s" % (month, year) + "&program_market=%s" 
 
 # search program using market name
 def getProgram(market):
@@ -99,20 +101,24 @@ def getProgram(market):
         if result.getItem("program_market") == market:
             return result
 
+def getStatus(program):
+     if program:
+        return program.getItem("program_is_published") and 'published' or 'not published'
+     return 'not found'
+
 # start table tag
 html = """<table class="listing table">"""
 odd = True
-for market in markets.values():
+for market_id, market_name in markets:
     # program object
-    program = getProgram(market)
+    program = getProgram(market_id)
 
     class_row = odd is True and "odd" or "even"
     odd = not odd 
     # button
-    button = program and "<a href='%s/EditDocument?openwithform=frmChart' class='btn btn-primary'>Open</button>" % program.absolute_url() or "<a href='%s' class='btn btn-info'>Create</a>" % (form_url % market)
-
+    button = program and "<a href='%s/EditDocument?openwithform=frmProgram' class='btn btn-primary'>Open</button>" % program.absolute_url() or "<a href='%s' class='btn btn-info'>Create</a>" % (form_url % market_id)
     # add row in html
-    html+= """<tr class='%s'><td>%s</td><td>%s</td></tr>""" % (class_row, market, button)
+    html+= """<tr class='%s'><td>%s</td><td>%s</td><td>%s</td></tr>""" % (class_row, market_name, getStatus(program), button)
 
 # close table tag
 html += """</table>"""
@@ -134,7 +140,7 @@ return html
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html = """
 <script>
  $("#program_month").change(function(event){
-    $.get("tojson?item=programs&program_month=" + $("#program_month :selected").text(),
+    $.get("tojson?item=programs&program_month=" + $("#program_month").val(),
           function(data){
                 $("form .listing.table").html($(data).html());
           });
@@ -149,6 +155,29 @@ return html]]></Formula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="program_year" title="program_year" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_year</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[Now().year()]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>HIDDEN</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
       </elements>
     </element>
