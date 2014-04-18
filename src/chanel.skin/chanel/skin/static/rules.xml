@@ -60,6 +60,9 @@
     <xsl:template match="input/@class[contains(., 'context') or contains(., 'standalone') or contains(., 'destructive')]">
         <xsl:attribute name="class">btn</xsl:attribute>
     </xsl:template>
+    <xsl:template match="button/@class">
+        <xsl:attribute name="class">btn</xsl:attribute>
+    </xsl:template>
     <xsl:template match="input[@type='submit']">
         <xsl:copy>
             <xsl:attribute name="class">btn</xsl:attribute>
