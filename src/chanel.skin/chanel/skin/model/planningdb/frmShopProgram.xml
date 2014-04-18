@@ -35,6 +35,13 @@
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 all_movies = program.getItem("program_movies")
+# TODO: get the actual month from the doc
+year = 2014
+month = 4
+start_date_str = "%d-%02d-01" % (year, month)
+next_month = StringToDate(start_date_str, "%Y-%m-%d") + 31
+next_month_date_str = "%d-%02d-01" % (next_month.year(), next_month.month())
+end_date_str = DateToString(StringToDate(next_month_date_str, "%Y-%m-%d") - 1, "%Y-%m-%d")
 movies_by_format = {}
 for movie in all_movies:
     movie_doc = db.getDocument(movie[0])
@@ -49,9 +56,11 @@ for movie in all_movies:
         movies_by_format[f] = movies
 displays = [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))]
 html = u"""
+<h2 class="planning-shop">%s</h2>
+<h3 class="planning-program">%s Programmation</h3>
 <div class="planning-table">
   <div class="display-row">
-"""
+""" % (shop.getItem('shop_name'), program.getItem('program_name'))
 for display in displays:
     html += """
     <div class="display-cell"><span>%s</span></div>""" % (display.getItem('display_name'))
@@ -63,7 +72,24 @@ for display in displays:
     <div class="movies-column">"""
     for movie in movies_by_format.get(display.getItem('display_formats'), []):
         html += """
-      <div class="movie-cell"><span class="title">%s</span></div>""" % (movie['title'])
+      <div class="movie-cell">
+        <div class="title">%(title)s</div>
+        <div class="actions">
+          <input type="radio" name="choice-%(id)s" value="Y" /> Yes
+          <input type="radio" name="choice-%(id)s" value="N" /> No
+          <input type="radio" name="choice-%(id)s" value="X" /> ?
+        </div>
+        <div class="dates">
+          <div><span>FROM</span><span><input disabled="disabled" type="date" min="%(start)s" max="%(end)s" name="start-%(id)s"></span></div>
+          <div><span>TO</span><span><input disabled="disabled" type="date" min="%(start)s" max="%(end)s" name="end-%(id)s"></span></div>
+        </div>
+      </div>
+""" % {
+    'title': movie['title'],
+    'id': movie['id'], 
+    'start': start_date_str,
+    'end': end_date_str,
+}
     html += """
     </div>"""
 html += """

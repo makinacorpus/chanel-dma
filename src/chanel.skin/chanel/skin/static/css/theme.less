@@ -47,6 +47,8 @@
 @grey: #bcbfc6;
 @darkgrey: #757367;
 @rose: #f9dbad;
+@cream: #fef4e4;
+@green: #5eba65;
 
 // BOOTSTRAP/PLONE FIXES
 
@@ -121,6 +123,19 @@ ul.submenu {
 /* Style global*/
 
 /* Planning DB */
+.planning-shop {
+    text-transform: uppercase;
+    text-align: center;
+}
+.planning-program {
+    text-align: center;
+    color: @grey;
+    border-top: 1px @grey solid;
+    width: 60%;
+    margin: 10px auto;
+    padding-top: 10px;
+    font-size: 16px;
+}
 .planning-table {
     display: table;
     width: 100%;
@@ -155,10 +170,37 @@ ul.submenu {
                 text-align: center;
                 display: block;
                 border: 1px @darkgrey solid;
-                background-color: @rose;
+                background-color: @cream;
                 .title {
                     text-transform: uppercase;
                     font-weight: bold;
+                    margin: 20px auto;
+                }
+                .actions {
+                    border: 1px black solid;
+                    background-color: @darkgrey;
+                }
+                &.yes {
+                    background-color: @green;
+                }
+                &.no {
+                    background-color: @grey;
+                }
+                .dates {
+                    display: table;
+                    width: 100%;
+                    background-color: @grey;
+                    & > div {
+                        display: table-row;
+                        span {
+                            display: table-cell;
+                            text-align: left;
+                            padding: 1px 3px;
+                            input {
+                                height: 2em;
+                            }
+                        }
+                    }
                 }
             }
         }
