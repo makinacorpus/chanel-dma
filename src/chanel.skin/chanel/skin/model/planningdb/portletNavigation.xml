@@ -1,0 +1,116 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="portletNavigation" title="Navigation" type="PlominoForm">
+      <id type="Products.Archetypes.Field.StringField">portletNavigation</id>
+      <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
+      <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
+      <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
+      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSaveDocument>
+      <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
+      <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
+      <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<p><span class="plominoFieldClass">portlet_html</span></p>
+<p><span class="plominoFieldClass">portlet_js</span></p>
+]]></FormLayout>
+      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
+      <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
+      <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
+      <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
+      <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentId>
+      <ActionBarPosition type="Products.Archetypes.Field.StringField">TOP</ActionBarPosition>
+      <HideDefaultActions type="Products.Archetypes.Field.BooleanField">False</HideDefaultActions>
+      <HideInMenu type="Products.Archetypes.Field.BooleanField">False</HideInMenu>
+      <isSearchForm type="Products.Archetypes.Field.BooleanField">False</isSearchForm>
+      <isPage type="Products.Archetypes.Field.BooleanField">True</isPage>
+      <SearchView type="Products.Archetypes.Field.StringField"/>
+      <SearchFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></SearchFormula>
+      <Position type="Products.Archetypes.Field.IntegerField"/>
+      <ResourcesJS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesJS>
+      <ResourcesCSS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesCSS>
+      <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
+      <elements>
+        <element id="portlet_html" title="portlet_html" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">portlet_html</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
+markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")
+months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
+current_month = months[str(Now().month())]
+previous_month = months[str((Now()-31).month())]
+#previous_year = 
+current_year = str(Now().year())
+html = """<div id="portlet_navigation"> <ul>"""
+html += """<li class="main"><p><span>%s - %s</span></p></li>""" % (current_month, current_year)
+for market in markets:
+    market_name = market.split("|")[0]
+    market_id = market.split("|")[1]
+    programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id})]
+    if programs:
+        shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': market_id})] 
+	html += """<li><a href="#"><span>%s</span></a>""" % market_name
+        if shops:
+            html += """<ul>"""
+            for shop in shops:
+                html += """<li><a href="#"><span>%s</span></a></li>""" % shop.shop_city
+	    html += """</ul>"""
+        html += """</li>"""
+    else:
+        html += """<li><a href="#"><span style="color:lightgrey;">%s</span></a></li>""" % market_name
+html += """<li class="main"><p><span>%s - %s</span></p></li>""" % (previous_month, current_year)
+html += """</ul></div>"""
+return html]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="portlet_js" title="portlet_js" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">portlet_js</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html="""
+<script>
+$('#portlet_navigation > ul > li:has(ul)').addClass("has-sub");
+$('#portlet_navigation > ul > li > a').click(function(event) {
+        event.preventDefault();
+	var checkElement = $(this).next();
+
+	$('#portlet_navigation li').removeClass('active');
+	$(this).closest('li').addClass('active');	
+
+	if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+		$(this).closest('li').removeClass('active');
+		checkElement.slideUp('normal');
+	}
+
+	if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+		$('#cssmenu ul ul:visible').slideUp('normal');
+		checkElement.slideDown('normal');
+	}
+
+	if (checkElement.is('ul')) {
+		return false;
+	} else {
+		return true;	
+	}
+});
+</script>
+"""
+return html]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+      </elements>
+    </element>
+  </design>
+</plominodatabase>
