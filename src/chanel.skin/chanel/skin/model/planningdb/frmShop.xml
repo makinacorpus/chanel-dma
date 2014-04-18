@@ -16,7 +16,8 @@
 <p><span class="plominoFieldClass">shop_is_published</span></p>
 <p>Name: <span class="plominoFieldClass">shop_name</span></p>
 <p>Information: <span class="plominoFieldClass">shop_information</span></p>
-<p>Displays: <span class="plominoFieldClass">shop_displays</span></p>
+<p>Displays:</p>
+<p><span class="plominoFieldClass">shop_displays</span></p>
 </td>
 <td>
 <table class="table">
@@ -197,13 +198,17 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 'bAutoWidth': false</string></value>
 </member>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return [ "%s - %s|%s" % (a.getItem("display_name"), a.getItem("display_formats"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
+</member>
+<member>
 <name>widget</name>
 <value><string>CHECKBOX</string></value>
 </member>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return [ "%s - %s|%s" % (a.getItem("display_name"), a.getItem("display_formats"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
+<name>separator</name>
+<value><string>&lt;br/&gt;</string></value>
 </member>
 </struct></value>
 </param>
