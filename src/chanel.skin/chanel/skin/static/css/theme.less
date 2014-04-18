@@ -46,7 +46,7 @@
 // PROJECT VARIABLES
 @grey: #bcbfc6;
 @darkgrey: #757367;
-
+@rose: #f9dbad;
 
 // BOOTSTRAP/PLONE FIXES
 
@@ -120,6 +120,50 @@ ul.submenu {
 }
 /* Style global*/
 
+/* Planning DB */
+.planning-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    .display-row {
+        display: table-row;
+        border-top: 1px @grey solid;
+        border-bottom: 3px @grey solid;
+        padding-top: 3px;
+        .display-cell {
+            text-align: center;
+            display: table-cell;
+            span {
+                border-right: 1px @grey solid;
+                display: inline-block;
+                width: 100%;
+                margin: 5px 0;
+            }
+            &:last-child span {
+                border-right: 0;
+            }
+        }
+    }
+    .movies-row {
+        display: table-row;
+        .movies-column {
+            display: table-cell;
+            .movie-cell {
+                width: 95%;
+                max-width: 200px;
+                margin: 5px auto;
+                text-align: center;
+                display: block;
+                border: 1px @darkgrey solid;
+                background-color: @rose;
+                .title {
+                    text-transform: uppercase;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
 
 /* --------------------------*/
 /*         Gabarit site       */
