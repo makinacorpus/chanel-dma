@@ -37,30 +37,39 @@
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
 markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
-current_month = months[str(Now().month())]
-previous_month = months[str((Now()-31).month())]
-#previous_year = 
-current_year = str(Now().year())
+dates = [ Now() , Now()-31]
+def computeMain(date):
+    month_id = date.month()
+    month = months[str(month_id)]
+    year = date.year()
+    tmp_html = """<li class="main"><a><span>%s</span></a><ul>""" % (month)
+    for market in markets:
+        market_name = market.split("|")[0]
+        market_id = market.split("|")[1]
+        programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id})]
+        if programs:
+            shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': market_id})] 
+            tmp_html += """<li><a href="#"><span>%s</span></a>""" % market_name
+            if shops:
+                tmp_html += """<ul>"""
+                for shop in shops:
+                    tmp_html += """<li><a href="#"><span>%s</span></a></li>""" % shop.shop_city
+                tmp_html += """</ul>"""
+            tmp_html += """</li>"""
+        else:
+            tmp_html += """<li class="empty"><a href="#"><span>%s</span></a></li>""" % market_name
+    tmp_html += """</ul></li>"""
+    return tmp_html
+
 html = """<div id="portlet_navigation"> <ul>"""
-html += """<li class="main"><p><span>%s - %s</span></p></li>""" % (current_month, current_year)
-for market in markets:
-    market_name = market.split("|")[0]
-    market_id = market.split("|")[1]
-    programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id})]
-    if programs:
-        shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': market_id})] 
-	html += """<li><a href="#"><span>%s</span></a>""" % market_name
-        if shops:
-            html += """<ul>"""
-            for shop in shops:
-                html += """<li><a href="#"><span>%s</span></a></li>""" % shop.shop_city
-	    html += """</ul>"""
-        html += """</li>"""
-    else:
-        html += """<li><a href="#"><span style="color:lightgrey;">%s</span></a></li>""" % market_name
-html += """<li class="main"><p><span>%s - %s</span></p></li>""" % (previous_month, current_year)
+
+for date in dates:
+   html += computeMain(date)
+
 html += """</ul></div>"""
-return html]]></Formula>
+
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -76,9 +85,10 @@ return html]]></Formula>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html="""
 <script>
 $('#portlet_navigation > ul > li:has(ul)').addClass("has-sub");
-$('#portlet_navigation > ul > li > a').click(function(event) {
+$('#portlet_navigation  li > a').click(function(event) {
         event.preventDefault();
 	var checkElement = $(this).next();
+
 
 	$('#portlet_navigation li').removeClass('active');
 	$(this).closest('li').addClass('active');	
@@ -89,7 +99,7 @@ $('#portlet_navigation > ul > li > a').click(function(event) {
 	}
 
 	if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-		$('#cssmenu ul ul:visible').slideUp('normal');
+		$(this).parents("ul").eq(0).find('ul:visible').slideUp('normal');
 		checkElement.slideDown('normal');
 	}
 
@@ -99,6 +109,7 @@ $('#portlet_navigation > ul > li > a').click(function(event) {
 		return true;	
 	}
 });
+$("#portlet_navigation ul > li > ul:first").show()
 </script>
 """
 return html]]></Formula>
