@@ -180,7 +180,7 @@ return html]]></Formula>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """5 screens
 7 screens
 16 x 9
-ALL""" ]]></Formula>
+ALL"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -194,7 +194,7 @@ ALL""" ]]></Formula>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """Make Up|MU
-Flagrance|FL
+Fragrance|FR
 Skincare|SC""" ]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
@@ -214,7 +214,7 @@ Europe|EU
 Japan|JP
 UK|UK
 US|US
-""" ]]></Formula>
+"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -239,7 +239,7 @@ SEPTEMBER|9
 OCTOBER|10
 NOVEMBER|11
 DECEMBER|12
-""" ]]></Formula>
+"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
