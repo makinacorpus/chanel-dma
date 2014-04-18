@@ -9,13 +9,13 @@
       <debugMode type="Products.Archetypes.Field.BooleanField">True</debugMode>
       <CountDocuments type="Products.Archetypes.Field.BooleanField">False</CountDocuments>
       <DateTimeFormat type="Products.Archetypes.Field.StringField">%Y-%m-%d</DateTimeFormat>
-      <StartPage type="Products.Archetypes.Field.StringField"/>
+      <StartPage type="Products.Archetypes.Field.StringField">backoffice</StartPage>
       <i18n type="Products.Archetypes.Field.StringField"/>
       <DoNotListUsers type="Products.Archetypes.Field.BooleanField">False</DoNotListUsers>
       <DoNotReindex type="Products.Archetypes.Field.BooleanField">False</DoNotReindex>
       <IsDatabaseTemplate type="Products.Archetypes.Field.BooleanField">False</IsDatabaseTemplate>
       <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
-      <acl AnomynousAccessRight="NoAccess" AuthenticatedAccessRight="NoAccess">
+      <acl AnomynousAccessRight="NoAccess" AuthenticatedAccessRight="PlominoAuthor">
         <params id="UserRoles">
 <param>
 <value><struct>
