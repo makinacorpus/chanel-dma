@@ -37,16 +37,17 @@
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
 markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
-dates = [ Now() , Now()-31]
+dates = [ Now()-31, Now() , Now()+31]
 def computeMain(date):
     month_id = date.month()
     month = months[str(month_id)]
     year = date.year()
-    tmp_html = """<li class="main"><a><span>%s</span></a><ul>""" % (month)
+    class_css = dates.index(date) == 1 and "current" or ""
+    tmp_html = """<li class="main %s"><a><span>%s</span></a><ul>""" % (class_css, month)
     for market in markets:
         market_name = market.split("|")[0]
         market_id = market.split("|")[1]
-        programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id, 'program_name': str(month_id)})]
+        programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id, 'program_month': month_id, 'program_year': year})]
         if programs:
             shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': market_id})] 
             tmp_html += """<li><a href="#"><span>%s</span></a>""" % market_name
@@ -109,7 +110,7 @@ $('#portlet_navigation  li > a').click(function(event) {
 		return true;	
 	}
 });
-$("#portlet_navigation ul > li > ul:first").show()
+$("#portlet_navigation ul > li.current > ul:first").show()
 </script>
 """
 return html]]></Formula>
