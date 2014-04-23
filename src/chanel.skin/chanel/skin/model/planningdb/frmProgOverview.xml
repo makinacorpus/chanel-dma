@@ -90,10 +90,10 @@ markets_dict = dict(markets)
 month = plominoContext.REQUEST.get("program_month", Now().month())
 year = plominoContext.REQUEST.get("program_year", Now().year())
 
-results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_name': str(month), 'program_year': year})]
+results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_month': int(month), 'program_year': year})]
 
 form = db.getForm("frmProgram")
-form_url = form.absolute_url() + "?program_name=%s&program_year=%s" % (month, year) + "&program_market=%s" 
+form_url = form.absolute_url() + "?program_month=%s&program_year=%s" % (month, year) + "&program_market=%s" 
 
 # search program using market name
 def getProgram(market):
@@ -165,7 +165,7 @@ return html]]></Formula>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
           <params>
