@@ -40,7 +40,6 @@ def getConfigValuesAsDict(db, key, separator='|'):
 
 def getSingleConfigValue(db, config_key, key):
    value_dict = getConfigValuesAsDict(db, config_key)
-   import pdb;pdb.set_trace()
    return value_dict.get(str(key))
 ]]></resource>
   </design>
