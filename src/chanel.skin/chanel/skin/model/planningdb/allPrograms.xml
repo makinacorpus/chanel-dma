@@ -51,14 +51,6 @@ return months.get(str(program_month))]]></Formula>
           <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
           <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
         </element>
-        <element id="add_new" title="Add a new program" type="PlominoAction">
-          <id type="Products.Archetypes.Field.StringField">add_new</id>
-          <ActionType type="Products.Archetypes.Field.StringField">OPENFORM</ActionType>
-          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
-          <Content type="Products.Archetypes.Field.TextField"><![CDATA[frmProgram]]></Content>
-          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
-          <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
-        </element>
         <element id="year" title="Year" type="PlominoColumn">
           <id type="Products.Archetypes.Field.StringField">year</id>
           <SelectedField type="Products.Archetypes.Field.StringField">frmProgOverview/program_year</SelectedField>
