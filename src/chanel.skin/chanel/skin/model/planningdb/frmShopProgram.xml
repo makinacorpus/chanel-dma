@@ -5,12 +5,16 @@
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
       <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
-      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSaveDocument>
+      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<p><span class="plominoFieldClass">display_planning</span></p>]]></FormLayout>
-      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<p><span class="plominoFieldClass">display_planning</span></p>
+<p><span class="plominoFieldClass">planning_data</span></p>
+<p><span class="plominoActionClass">save</span></p>
+]]></FormLayout>
+      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
@@ -35,14 +39,22 @@
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 all_movies = program.getItem("program_movies")
-# TODO: get the actual month from the doc
-year = 2014
-month = 4
+
+planning_data = context.getItem("planning_data")
+planning_data = (planning_data) and json_loads(planning_data) or {}
+
+movie_css_dict = {"Y": "yes", "N": "no", "X": ""}
+
+year = program.getItem("program_year")
+month = program.getItem("program_month")
+
 start_date_str = "%d-%02d-01" % (year, month)
 next_month = StringToDate(start_date_str, "%Y-%m-%d") + 31
 next_month_date_str = "%d-%02d-01" % (next_month.year(), next_month.month())
 end_date_str = DateToString(StringToDate(next_month_date_str, "%Y-%m-%d") - 1, "%Y-%m-%d")
+
 movies_by_format = {}
+
 for movie in all_movies:
     movie_doc = db.getDocument(movie[0])
     formats = movie_doc.getItem('movie_formats')
@@ -54,7 +66,9 @@ for movie in all_movies:
             'information': movie[1],
         })
         movies_by_format[f] = movies
+
 displays = [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))]
+
 html = u"""
 <h2 class="planning-shop">%s</h2><h3 class="planning-program">%s Programmation</h3><div class="planning-table">
   <div class="display-row">
@@ -62,37 +76,58 @@ html = u"""
 for display in displays:
     html += """
     <div class="display-cell"><span>%s</span></div>""" % (display.getItem('display_name'))
+
 html += """
   </div>
   <div class="movies-row">"""
+
 for display in displays:
+    display_data = planning_data.get(display.id, {})
+
     html += """
-    <div class="movies-column">"""
+    <div class="movies-column" rel="%s">""" % display.id
     for movie in movies_by_format.get(display.getItem('display_formats'), []):
+
+        movie_data = display_data.get(movie["id"], {})
+        movie_data_status = movie_data.get("status","X")
+        movie_data_disabled = (movie_data_status == "Y") and " " or "disabled"
+        for status in ("Y","N","X"):
+            movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
         html += """
-      <div class="movie-cell">
+      <div class="movie-cell %(class_css)s" rel="%(id)s">
         <div class="title">%(title)s</div>
         <div class="actions">
-          <input type="radio" name="choice-%(id)s" value="Y" /> Yes
-          <input type="radio" name="choice-%(id)s" value="N" /> No
-          <input type="radio" name="choice-%(id)s" value="X" /> ?
+          <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
+          <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
+          <input type="radio" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /> ?
         </div>
         <div class="dates">
-          <div><span>FROM</span><span><input disabled="disabled" type="date" min="%(start)s" max="%(end)s" name="start-%(id)s"></span></div>
-          <div><span>TO</span><span><input disabled="disabled" type="date" min="%(start)s" max="%(end)s" name="end-%(id)s"></span></div>
+          <div><span>FROM</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="start-%(id)s" value="%(date1)s"></span></div>
+          <div><span>TO</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="end-%(id)s" value="%(date2)s"></span></div>
         </div>
       </div>
 """ % {
     'title': movie['title'],
     'id': movie['id'], 
+    'display_id': display.id,
     'start': start_date_str,
     'end': end_date_str,
+    'is_y': movie_data.get("is_Y"),
+    'is_n': movie_data.get("is_N"),
+    'is_x': movie_data.get("is_X"),
+    'date1': movie_data.get("start_date", ""),
+    'date2': movie_data.get("end_date", ""),
+    'class_css': movie_css_dict.get(movie_data_status, ""),
+    'disabled': movie_data_disabled,
 }
+
     html += """
     </div>"""
+
 html += """
   </div></div>"""
-return html]]></Formula>
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -139,6 +174,37 @@ return html]]></Formula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="save" title="Save" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">save</id>
+          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
+        </element>
+        <element id="planning_data" title="planning_data" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">planning_data</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>HIDDEN</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
       </elements>
     </element>
