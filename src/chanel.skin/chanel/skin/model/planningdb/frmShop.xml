@@ -15,6 +15,7 @@
 <td>
 <p><span class="plominoFieldClass">shop_is_published</span></p>
 <p>Name: <span class="plominoFieldClass">shop_name</span></p>
+<p>Manager: <span class="plominoFieldClass">shop_manager</span></p>
 <p>Information: <span class="plominoFieldClass">shop_information</span></p>
 <p>Displays:</p>
 <p><span class="plominoFieldClass">shop_displays</span></p>
@@ -219,6 +220,19 @@ return [ "%s - %s|%s" % (a.getItem("display_name"), a.getItem("display_formats")
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">COMPUTEDONSAVE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return "shop"]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="shop_manager" title="shop_manager" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">shop_manager</id>
+          <FieldType type="Products.Archetypes.Field.StringField">NAME</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
