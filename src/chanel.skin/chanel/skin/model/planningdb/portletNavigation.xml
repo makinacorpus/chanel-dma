@@ -57,7 +57,9 @@ for program in programs:
     programs_by_market.setdefault(program_year, {}).setdefault(program_month,{})
     programs_by_market[program_year][program_month][program_market] = program
 
-shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_id': {'query': [a.id for a in programs], 'operator': 'OR'}})]
+shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shopprogram', 
+                        'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},
+                        })]
 
 shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop'})]
 #, 'shop_market': {'query': market_ids, 'operator': 'OR'}})]
@@ -70,9 +72,9 @@ for shop in shops:
 
 shopprograms_by_shop = {}
 for sp in shop_programs:
-    shop_id = sp.getItem("shop_id")
+    shop_id = str(sp.getItem("shop_id"))
     shopprograms_by_shop.setdefault(shop_id, {})
-    shopprograms_by_shop[shop_id][sp.getItem("program_id")] = shopprogram
+    shopprograms_by_shop[shop_id][str(sp.getItem("program_id"))] = sp
 
 def computeMain(date):
     month_id = date.month()
@@ -86,8 +88,8 @@ def computeMain(date):
         return ""
     
     for market_name, market_id in markets:
-        programs = month_programs.get(market_id)
-        if programs:
+        program = month_programs.get(market_id)
+        if program:
             shops = shops_by_market.get(market_id)
             tmp_html += """<li><a href="#"><span>%s</span></a>""" % market_name
             if shops:
