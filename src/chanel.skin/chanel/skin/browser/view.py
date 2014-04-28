@@ -1,5 +1,18 @@
+from zope import interface
+from zope import component
+from Acquisition import aq_inner
+import urllib
+import os
+
 from plone.memoize.instance import memoize
+from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
+from collective.flowplayer.utils import properties_to_dict, \
+                                        flash_properties_to_dict
+from collective.flowplayer.interfaces import IFlowPlayable
+from collective.flowplayer.interfaces import IMediaInfo, IFlowPlayerView
 from collective.flowplayer.browser.view import File, Folder
+
 
 class ChanelFile(File):
 
