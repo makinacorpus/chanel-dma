@@ -1,0 +1,109 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="frontoffice" title="frontoffice" type="PlominoForm">
+      <id type="Products.Archetypes.Field.StringField">frontoffice</id>
+      <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
+      <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
+      <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
+      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSaveDocument>
+      <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
+      <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
+      <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<p><span class="plominoFieldClass">shop_programs</span></p>]]></FormLayout>
+      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
+      <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
+      <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
+      <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
+      <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentId>
+      <ActionBarPosition type="Products.Archetypes.Field.StringField">TOP</ActionBarPosition>
+      <HideDefaultActions type="Products.Archetypes.Field.BooleanField">False</HideDefaultActions>
+      <HideInMenu type="Products.Archetypes.Field.BooleanField">False</HideInMenu>
+      <isSearchForm type="Products.Archetypes.Field.BooleanField">False</isSearchForm>
+      <isPage type="Products.Archetypes.Field.BooleanField">True</isPage>
+      <SearchView type="Products.Archetypes.Field.StringField"/>
+      <SearchFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></SearchFormula>
+      <Position type="Products.Archetypes.Field.IntegerField"/>
+      <ResourcesJS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesJS>
+      <ResourcesCSS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesCSS>
+      <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
+      <elements>
+        <element id="shop_programs" title="shop_programs" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">shop_programs</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
+user_id = db.getCurrentUserId()
+
+shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_manager': user_id})]
+months = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")]
+markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
+
+markets_id = []
+shops_id = []
+
+form = db.getForm("frmShopProgram")
+
+shops_by_market={}
+for shop in shops:
+   shop_market = shop.getItem("shop_market")
+   shops_by_market.setdefault(shop_market,{})
+   shops_by_market[shop_market][shop.id] = shop
+   shops_id.append(shop.id)
+   if shop_market not in markets_id:
+        markets_id.append(shop_market)
+
+programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': {'query': markets_id, 'operator': 'OR'}})]
+
+programs_by_market= {}
+for program in programs:
+    programs_by_market.setdefault(program.getItem("program_market"),{})
+    programs_by_market[program.getItem("program_market")][str(program.getItem("program_month"))] = program
+
+programs_id = [a.id for a in programs]
+
+shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shopprogram', 
+                        'program_id': {'query': programs_id, 'operator': 'OR'},
+                        'shop_id': {'query': shops_id, 'operator': 'OR'}})]
+
+shopprograms_by_shop = {}
+for shopprogram in shop_programs:
+    shop_id = shopprogram.getItem("shop_id")
+    shopprograms_by_shop.setdefault(shop_id, {})
+    shopprograms_by_shop[shop_id][shopprogram.getItem("program_id")] = shopprogram
+
+html = """<ul>"""
+
+for shop in shops:
+   shop_market = shop.getItem("shop_market")
+   programs_market = programs_by_market.get(shop_market,{})
+   html += """<li><h4>%s</h4><ul>""" % shop.getItem("shop_name")
+
+   for name, month_id in months:
+         if month_id in programs_market.keys():
+                program = programs_market[month_id]
+                
+                if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
+                    url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
+                else:
+                    url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
+                
+                html += """<li><a href="%s">%s</a></li>""" % (url, programs_market[month_id].getItem("program_name"))
+   
+   html += """</ul></li>"""
+
+html += """</ul>"""
+
+
+return html]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+      </elements>
+    </element>
+  </design>
+</plominodatabase>
