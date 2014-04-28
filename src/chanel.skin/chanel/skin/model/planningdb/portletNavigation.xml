@@ -57,7 +57,7 @@ for program in programs:
     programs_by_market.setdefault(program_year, {}).setdefault(program_month,{})
     programs_by_market[program_year][program_month][program_market] = program
 
-shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_id': {'query': [program.id in programs], 'operator': 'OR'}})]
+shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_id': {'query': [a for program.id in programs], 'operator': 'OR'}})]
 
 shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop'})]
 #, 'shop_market': {'query': market_ids, 'operator': 'OR'}})]
