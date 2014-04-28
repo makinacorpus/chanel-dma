@@ -5,21 +5,28 @@
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
       <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
-      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
+      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+authors = context.getItem("Plomino_Authors")
+shop = db.getDocument(context.getItem("shop_id"))
+user_id = str(shop.getItem("shop_manager"))
+if not user_id in authors:
+    authors.append(user_id)
+context.setItem("Plomino_Authors", authors)
+
+return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">display_planning</span></p>
 <p><span class="plominoFieldClass">planning_data</span></p>
-<p><span class="plominoActionClass">save</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
       <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentId>
-      <ActionBarPosition type="Products.Archetypes.Field.StringField">TOP</ActionBarPosition>
+      <ActionBarPosition type="Products.Archetypes.Field.StringField">BOTTOM</ActionBarPosition>
       <HideDefaultActions type="Products.Archetypes.Field.BooleanField">True</HideDefaultActions>
       <HideInMenu type="Products.Archetypes.Field.BooleanField">False</HideInMenu>
       <isSearchForm type="Products.Archetypes.Field.BooleanField">False</isSearchForm>
@@ -145,7 +152,7 @@ return html
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -158,7 +165,7 @@ return html
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -180,7 +187,7 @@ return html
           <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
           <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
           <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
-          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[return not plominoDocument.isNewDocument() and not plominoDocument.isEditMode()]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
         </element>
         <element id="planning_data" title="planning_data" type="PlominoField">
@@ -205,6 +212,16 @@ return html
 </struct></value>
 </param>
 </params>
+        </element>
+        <element id="back_to_frontoffice" title="Back to frontoffice" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">back_to_frontoffice</id>
+          <ActionType type="Products.Archetypes.Field.StringField">REDIRECT</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField"/>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+form = db.getForm("frontoffice")
+return form.absolute_url()]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
         </element>
       </elements>
     </element>
