@@ -35,26 +35,71 @@
           <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
-markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")
+markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
-dates = [ Now()-31, Now() , Now()+31]
+form = db.getForm("frmShopProgram")
+current_date = Now()
+previous_date = DateTime(((current_date.month()==1) and current_date.month.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
+next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
+
+dates = [ previous_date, current_date, next_date]
+#dates_month = [
+programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_month': {'query': [a.month() for a in dates], 'operator': 'OR'}})]
+
+programs_by_market= {}
+market_ids = []
+for program in programs:
+    program_market = program.getItem("program_market")
+    if program_market not in market_ids:
+        market_ids.append(program_market)
+    program_year = program.getItem("program_year")
+    program_month = program.getItem("program_month")
+    programs_by_market.setdefault(program_year, {}).setdefault(program_month,{})
+    programs_by_market[program_year][program_month][program_market] = program
+
+shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_id': {'query': [program.id in programs], 'operator': 'OR'}})]
+
+shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop'})]
+#, 'shop_market': {'query': market_ids, 'operator': 'OR'}})]
+
+shops_by_market = {}
+for shop in shops:
+     shop_market = shop.getItem("shop_market")
+     shops_by_market.setdefault(shop_market, [])
+     shops_by_market[shop_market].append(shop)
+
+shopprograms_by_shop = {}
+for sp in shop_programs:
+    shop_id = sp.getItem("shop_id")
+    shopprograms_by_shop.setdefault(shop_id, {})
+    shopprograms_by_shop[shop_id][sp.getItem("program_id")] = shopprogram
+
 def computeMain(date):
     month_id = date.month()
     month = months[str(month_id)]
     year = date.year()
-    class_css = dates.index(date) == 1 and "current" or ""
+    class_css = date is current_date and "current" or ""
     tmp_html = """<li class="main %s"><a><span>%s</span></a><ul>""" % (class_css, month)
-    for market in markets:
-        market_name = market.split("|")[0]
-        market_id = market.split("|")[1]
-        programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': market_id, 'program_month': month_id, 'program_year': year})]
+    month_programs = programs_by_market.setdefault(year,{}).get(month_id, {})
+    
+    if not month_programs:
+        return ""
+    
+    for market_name, market_id in markets:
+        programs = month_programs.get(market_id)
         if programs:
-            shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': market_id})] 
+            shops = shops_by_market.get(market_id)
             tmp_html += """<li><a href="#"><span>%s</span></a>""" % market_name
             if shops:
                 tmp_html += """<ul>"""
                 for shop in shops:
-                    tmp_html += """<li><a href="#"><span>%s</span></a></li>""" % shop.shop_name
+                 
+                    if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
+                        url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
+                    else:
+                        url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
+                    
+                    tmp_html += """<li><a href="%s"><span>%s</span></a></li>""" % (url, shop.getItem("shop_name"))
                 tmp_html += """</ul>"""
             tmp_html += """</li>"""
         else:
@@ -85,32 +130,7 @@ return html
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html="""
 <script>
-$('#portlet_navigation > ul > li:has(ul)').addClass("has-sub");
-$('#portlet_navigation  li > a').click(function(event) {
-        event.preventDefault();
-	var checkElement = $(this).next();
-
-
-	$('#portlet_navigation li').removeClass('active');
-	$(this).closest('li').addClass('active');	
-
-	if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-		$(this).closest('li').removeClass('active');
-		checkElement.slideUp('normal');
-	}
-
-	if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-		$(this).parents("ul").eq(0).find('ul:visible').slideUp('normal');
-		checkElement.slideDown('normal');
-	}
-
-	if (checkElement.is('ul')) {
-		return false;
-	} else {
-		return true;	
-	}
-});
-$("#portlet_navigation ul > li.current > ul:first").show()
+    $("#portlet_navigation ul > li.current > ul:first").show()
 </script>
 """
 return html]]></Formula>

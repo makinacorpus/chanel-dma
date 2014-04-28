@@ -54,6 +54,34 @@ chanel.planning.event_onsave = function() {
     });
 };
 
+chanel.initPortletNavigation = function(){
+    $('#portlet_navigation > ul > li:has(ul)').addClass("has-sub");
+    $('#portlet_navigation > ul > li> ul > li> a,#portlet_navigation > ul > li> a').click(function(event) {
+        event.preventDefault();
+        var checkElement = $(this).next();
+
+
+        $('#portlet_navigation li').removeClass('active');
+        $(this).closest('li').addClass('active');   
+
+        if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+            $(this).closest('li').removeClass('active');
+            checkElement.slideUp('normal');
+        }
+
+        if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+            $(this).parents("ul").eq(0).find('ul:visible').slideUp('normal');
+            checkElement.slideDown('normal');
+        }
+
+        if (checkElement.is('ul')) {
+            return false;
+        } else {
+            return true;    
+        }
+    });
+};
+
 chanel.initDatepicker = function() {
     $('input[type=date]').each(function() {
         var $input = $(this);
@@ -69,6 +97,7 @@ $(document).ready(function() {
 
     chanel.planning.enable_choices();
     chanel.planning.event_onsave();
+    chanel.initPortletNavigation();
 
     if(!Modernizr.inputtypes.date){
         chanel.initDatepicker();
