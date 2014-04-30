@@ -179,7 +179,13 @@ return html]]></Formula>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """5 screens
 7 screens
-16 x 9""" ]]></Formula>
+16 x 9
+1 x 3
+1 x 5
+1 x 7
+1 x 4 vertical
+9 x 16
+Led""" ]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -194,7 +200,11 @@ return html]]></Formula>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """Make Up|MU
 Fragrance|FR
-Skincare|SC""" ]]></Formula>
+Skincare|SC
+Brand Event|BE
+Led|LE
+Backstage|BA
+Art digital|AD""" ]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
