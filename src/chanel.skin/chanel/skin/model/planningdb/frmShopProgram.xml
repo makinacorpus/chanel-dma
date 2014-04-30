@@ -7,19 +7,29 @@
       <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
       <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 authors = context.getItem("Plomino_Authors")
-shop = db.getDocument(context.getItem("shop_id"))
-user_id = str(shop.getItem("shop_manager"))
-if not user_id in authors:
-    authors.append(user_id)
-context.setItem("Plomino_Authors", authors)
-
-return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
+is_locked = context.getItem("planning_locked", False)
+if not is_locked:
+   Log("unlocked")
+   shop = db.getDocument(context.getItem("shop_id"))
+   user_id = str(shop.getItem("shop_manager"))
+   if not user_id in authors:
+      authors.append(user_id)
+   context.setItem("Plomino_Authors", authors)
+   return plominoDocument.absolute_url() + "/EditDocument"
+else:
+   Log("locked")
+   context.setItem("Plomino_Authors", ["[manager]"])
+]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">display_planning</span></p>
 <p><span class="plominoFieldClass">planning_data</span></p>
+<div class="actions">
+<span class="plominoActionClass">save</span><span class="plominoFieldClass">special_request</span> <span class="plominoHidewhenClass">start:isRead</span><span class="plominoFieldClass">submit</span><span class="plominoHidewhenClass">end:isRead</span>
+</div>
+<div><span class="plominoFieldClass">planning_locked</span></div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -62,6 +72,11 @@ end_date_str = DateToString(StringToDate(next_month_date_str, "%Y-%m-%d") - 1, "
 
 movies_by_format = {}
 
+def html_information(information, id):
+    if information:
+        return """<i rel="#info-%s" class="glyphicon glyphicon-info-sign"></i><div class="tooltip" id="info-%s">%s<div class="arrow"></div></div>""" % (id, id, information)
+    return ""
+
 for movie in all_movies:
     movie_doc = db.getDocument(movie[0])
     formats = movie_doc.getItem('movie_formats')
@@ -102,7 +117,7 @@ for display in displays:
             movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
         html += """
       <div class="movie-cell %(class_css)s" rel="%(id)s">
-        <div class="title">%(title)s</div>
+        <div class="title">%(title)s %(information)s</div>
         <div class="actions">
           <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
           <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
@@ -189,7 +204,7 @@ return html
           <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
           <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[return not plominoDocument.isNewDocument() and not plominoDocument.isEditMode()]]></Hidewhen>
-          <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
         </element>
         <element id="planning_data" title="planning_data" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">planning_data</id>
@@ -222,7 +237,69 @@ return html
 form = db.getForm("frontoffice")
 return form.absolute_url()]]></Content>
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
-          <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
+        </element>
+        <element id="special_request" title="special_request" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">special_request</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html= """<p class="popupcontent">
+               <a href="sendto_form" class="btn btn-default context" rel="#pb_2" class="link-overlay" style="cursor: pointer;">
+                 Special Request
+               </a>
+          </p>
+"""
+return html]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="submit" title="Submit" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">submit</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """
+<button id="submit_sp" class="btn">Submit</button>
+"""]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[return "style='visibility:hidden'"]]></HTMLAttributesFormula>
+        </element>
+        <element id="planning_locked" title="planning_locked" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">planning_locked</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>HIDDEN</string></value>
+</member>
+</struct></value>
+</param>
+</params>
+        </element>
+        <element id="isRead" title="isRead" type="PlominoHidewhen">
+          <id type="Products.Archetypes.Field.StringField">isRead</id>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return not plominoDocument.isNewDocument() and not plominoDocument.isEditMode()]]></Formula>
+          <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>
     </element>

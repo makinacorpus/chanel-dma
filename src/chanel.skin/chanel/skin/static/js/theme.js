@@ -16,8 +16,36 @@ chanel.planning.enable_choices = function() {
             $(this).parents('.movie-cell').removeClass('no');
             $(this).parents('.movie-cell').find('input[type="date"]').attr('disabled', 'disabled');
         }
+        chanel.planning.manage_show_submit();
     });
 };
+
+chanel.planning.check_all_is_done = function(){
+    console.log($(".planning-table .movie-cell .actions :checked[value=X]").length);
+    return $(".planning-table .movie-cell .actions :checked[value=X]").length === 0
+}
+
+chanel.planning.check_is_already_locked = function(){
+    var field = JSON.parse($("#planning_locked").val()||false);
+    return field === true;
+}
+
+chanel.planning.manage_show_submit = function(){
+    console.log(chanel.planning.check_is_already_locked())
+    if(chanel.planning.check_is_already_locked() === false){
+        if(chanel.planning.check_all_is_done() === true){ $("#submit_sp").css("visibility", "visible"); console.log("done")}
+        else{ $("#submit_sp").css("visibility", "hidden"); console.log("unlocked and not done")}
+    }
+    else{ $("#submit_sp").css("visibility", "hidden"); console.log("locked");}
+}
+
+chanel.planning.event_onsubmit = function() {
+    $('#submit_sp').click(function(event){
+        event.preventDefault();
+        $("#planning_locked").val("true");
+        $("form[name='frmShopProgram'] input[name='save']").click();
+    });
+}
 
 chanel.planning.event_onsave = function() {
     $('form[name="frmShopProgram"] input[name="save"]').click(function(event){
@@ -97,6 +125,8 @@ $(document).ready(function() {
 
     chanel.planning.enable_choices();
     chanel.planning.event_onsave();
+    chanel.planning.event_onsubmit();
+    chanel.planning.manage_show_submit();
     chanel.initPortletNavigation();
     $('.movie-cell i').tooltip({ 
                                 relative:true, 
