@@ -98,7 +98,11 @@ $(document).ready(function() {
     chanel.planning.enable_choices();
     chanel.planning.event_onsave();
     chanel.initPortletNavigation();
-
+    $('.movie-cell i').tooltip({ 
+                                relative:true, 
+                                effect:"fade", 
+                                offset: [-12,0]
+                              });
     if(!Modernizr.inputtypes.date){
         chanel.initDatepicker();
     };

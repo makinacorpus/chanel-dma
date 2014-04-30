@@ -126,6 +126,7 @@ for display in displays:
     'date2': movie_data.get("end_date", ""),
     'class_css': movie_css_dict.get(movie_data_status, ""),
     'disabled': movie_data_disabled,
+    'information': html_information(movie["information"],  "%s-%s" % (movie['id'],display.id))
 }
 
     html += """

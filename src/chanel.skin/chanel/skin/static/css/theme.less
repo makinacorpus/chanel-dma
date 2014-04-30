@@ -172,6 +172,7 @@ ul.submenu {
                 border: 1px @darkgrey solid;
                 background-color: @cream;
                 .title {
+                    position: relative;
                     text-transform: uppercase;
                     font-weight: bold;
                     margin: 20px auto;
@@ -179,6 +180,12 @@ ul.submenu {
                 .actions {
                     border: 1px black solid;
                     background-color: @darkgrey;
+                }
+                i {
+                    position: absolute;
+                    right: 5px;
+                    top: 20px;
+                    cursor: pointer;
                 }
                 &.yes {
                     background-color: @green;
@@ -1445,7 +1452,7 @@ body.template-document_view.portaltype-document.site-broadcastchanel_v1.section-
 /* -------------------------- */
 
 #commenting fieldset p {
-  display: none;
+    display: none;
 }
 
 .comment .documentByLine {
