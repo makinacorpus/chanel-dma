@@ -9,7 +9,7 @@
       <debugMode type="Products.Archetypes.Field.BooleanField">True</debugMode>
       <CountDocuments type="Products.Archetypes.Field.BooleanField">False</CountDocuments>
       <DateTimeFormat type="Products.Archetypes.Field.StringField">%Y-%m-%d</DateTimeFormat>
-      <StartPage type="Products.Archetypes.Field.StringField">backoffice</StartPage>
+      <StartPage type="Products.Archetypes.Field.StringField">frontoffice</StartPage>
       <i18n type="Products.Archetypes.Field.StringField"/>
       <DoNotListUsers type="Products.Archetypes.Field.BooleanField">False</DoNotListUsers>
       <DoNotReindex type="Products.Archetypes.Field.BooleanField">False</DoNotReindex>
@@ -19,6 +19,11 @@
         <params id="UserRoles">
 <param>
 <value><struct>
+<member>
+<name>[manager]</name>
+<value><struct>
+</struct></value>
+</member>
 </struct></value>
 </param>
 </params>

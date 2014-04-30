@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="frontoffice" title="frontoffice" type="PlominoForm">
+    <element id="frontoffice" title="Front office" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frontoffice</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -9,7 +9,13 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<p><span class="plominoFieldClass">shop_programs</span></p>]]></FormLayout>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<h4>PERSONAL SHOPS</h4>
+<p><span class="plominoFieldClass">shop_programs</span></p>
+<p><span class="plominoHidewhenClass">start:allowed</span></p>
+<h4>BACKOFFICE</h4>
+<p><span class="plominoSubformClass">backoffice</span> <span class="plominoHidewhenClass">end:allowed</span></p>
+]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -71,7 +77,7 @@ for shopprogram in shop_programs:
     shopprograms_by_shop.setdefault(shop_id, {})
     shopprograms_by_shop[shop_id][shopprogram.getItem("program_id")] = shopprogram
 
-html = """<ul>"""
+html = """<ul class="shops_frontoffice">"""
 
 for shop in shops:
    shop_market = shop.getItem("shop_market")
@@ -102,6 +108,12 @@ return html]]></Formula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="allowed" title="allowed" type="PlominoHidewhen">
+          <id type="Products.Archetypes.Field.StringField">allowed</id>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles'):
+    return "[manager]" not in context.getCurrentUserRoles()]]></Formula>
+          <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>
     </element>
