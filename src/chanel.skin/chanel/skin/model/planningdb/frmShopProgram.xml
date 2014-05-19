@@ -6,19 +6,29 @@
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
       <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
       <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
-authors = context.getItem("Plomino_Authors")
+current_user_id = context.getCurrentUserId()
+current_user_roles = context.getCurrentUserRoles()
+authors = asList(context.getItem("Plomino_Authors"))
 is_locked = context.getItem("planning_locked", False)
+authorized = ["[manager]"]
+
 if not is_locked:
    Log("unlocked")
    shop = db.getDocument(context.getItem("shop_id"))
    user_id = str(shop.getItem("shop_manager"))
-   if not user_id in authors:
-      authors.append(user_id)
-   context.setItem("Plomino_Authors", authors)
-   return plominoDocument.absolute_url() + "/EditDocument"
+   for auth in authors:
+        if auth not in authorized:
+            authorized.append(user_id)
+
+   if not user_id in authorized:
+      authorized.append(user_id)
 else:
    Log("locked")
-   context.setItem("Plomino_Authors", ["[manager]"])
+
+context.setItem("Plomino_Authors", authorized)
+
+if "[manager]" in current_user_roles or current_user_id in authorized:
+   return plominoDocument.absolute_url() + "/EditDocument"
 ]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
@@ -65,7 +75,7 @@ movie_css_dict = {"Y": "yes", "N": "no", "X": ""}
 year = program.getItem("program_year")
 month = program.getItem("program_month")
 
-start_date_str = "%d-%02d-01" % (year, month)
+start_date_str = "%d-%02d-01" % (year, month) 
 next_month = StringToDate(start_date_str, "%Y-%m-%d") + 31
 next_month_date_str = "%d-%02d-01" % (next_month.year(), next_month.month())
 end_date_str = DateToString(StringToDate(next_month_date_str, "%Y-%m-%d") - 1, "%Y-%m-%d")
@@ -80,21 +90,30 @@ def html_information(information, id):
 for movie in all_movies:
     movie_doc = db.getDocument(movie[0])
     formats = movie_doc.getItem('movie_formats')
+    axes = asList(movie_doc.getItem('movie_axes'))
+    title = movie_doc.getItem('movie_title')
     for f in formats:
         movies = movies_by_format.setdefault(f, [])
         movies.append({
             'id': movie[0],
-            'title': movie_doc.getItem('movie_title'),
+            'title': title,
             'information': movie[1],
+            'axes': axes,
         })
         movies_by_format[f] = movies
 
+Log(movies_by_format)
+
 displays = [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))]
 
+planning_locked = context.getItem("planning_locked", False)
+lock_html = planning_locked and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
+
 html = u"""
-<h2 class="planning-shop">%s</h2><h3 class="planning-program">%s Programmation</h3><div class="planning-table">
+<h2 class="planning-shop">%s%s</h2><h3 class="planning-program">%s Programmation</h3><div class="planning-table">
   <div class="display-row">
-""" % (shop.getItem('shop_name'), program.getItem('program_name'))
+""" % (shop.getItem('shop_name'), lock_html, program.getItem('program_name'))
+
 for display in displays:
     html += """
     <div class="display-cell"><span>%s</span></div>""" % (display.getItem('display_name'))
@@ -105,48 +124,49 @@ html += """
 
 for display in displays:
     display_data = planning_data.get(display.id, {})
+    display_axes = asList(display.getItem("display_axes"))
 
     html += """
     <div class="movies-column" rel="%s">""" % display.id
     for movie in movies_by_format.get(display.getItem('display_formats'), []):
-
-        movie_data = display_data.get(movie["id"], {})
-        movie_data_status = movie_data.get("status","X")
-        movie_data_disabled = (movie_data_status == "Y") and " " or "disabled"
-        for status in ("Y","N","X"):
-            movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
-        html += """
-      <div class="movie-cell %(class_css)s" rel="%(id)s">
-        <div class="title">%(title)s %(information)s</div>
-        <div class="actions">
-          <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
-          <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
-          <input type="radio" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /> ?
-        </div>
-        <div class="dates">
-          <div><span>FROM</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="start-%(id)s" value="%(date1)s"></span></div>
-          <div><span>TO</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="end-%(id)s" value="%(date2)s"></span></div>
-        </div>
-      </div>
-""" % {
-    'title': movie['title'],
-    'id': movie['id'], 
-    'display_id': display.id,
-    'start': start_date_str,
-    'end': end_date_str,
-    'is_y': movie_data.get("is_Y"),
-    'is_n': movie_data.get("is_N"),
-    'is_x': movie_data.get("is_X"),
-    'date1': movie_data.get("start_date", ""),
-    'date2': movie_data.get("end_date", ""),
-    'class_css': movie_css_dict.get(movie_data_status, ""),
-    'disabled': movie_data_disabled,
-    'information': html_information(movie["information"],  "%s-%s" % (movie['id'],display.id))
-}
+        is_concerned =  [m for m in movie["axes"] if m in display_axes]
+        if is_concerned:
+            movie_data = display_data.get(movie["id"], {})
+            movie_data_status = movie_data.get("status","X")
+            movie_data_disabled = (movie_data_status == "Y") and " " or "disabled"
+            for status in ("Y","N","X"):
+                movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
+            html += """
+          <div class="movie-cell %(class_css)s" rel="%(id)s">
+            <div class="title">%(title)s %(information)s</div>
+            <div class="actions">
+              <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
+              <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
+              <input type="radio" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /> ?
+            </div>
+            <div class="dates">
+              <div><span>FROM</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="start-%(id)s" value="%(date1)s"></span></div>
+              <div><span>TO</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="end-%(id)s" value="%(date2)s"></span></div>
+            </div>
+          </div>
+    """ % {
+        'title': movie['title'],
+        'id': movie['id'], 
+        'display_id': display.id,
+        'start': start_date_str,
+        'end': end_date_str,
+        'is_y': movie_data.get("is_Y"),
+        'is_n': movie_data.get("is_N"),
+        'is_x': movie_data.get("is_X"),
+        'date1': movie_data.get("start_date", ""),
+        'date2': movie_data.get("end_date", ""),
+        'class_css': movie_css_dict.get(movie_data_status, ""),
+        'disabled': movie_data_disabled,
+        'information': html_information(movie["information"],  "%s-%s" % (movie['id'],display.id))
+    }
 
     html += """
     </div>"""
-
 html += """
   </div></div>"""
 return html
