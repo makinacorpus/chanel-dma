@@ -36,6 +36,7 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">display_planning</span></p>
 <p><span class="plominoFieldClass">planning_data</span></p>
+<p><span class="plominoFieldClass">popup_html</span></p>
 <div class="actions">
 <span class="plominoActionClass">save</span><span class="plominoFieldClass">special_request</span> <span class="plominoHidewhenClass">start:isRead</span><span class="plominoFieldClass">submit</span><span class="plominoHidewhenClass">end:isRead</span>
 </div>
@@ -63,6 +64,23 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
           <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+
+library = context.getParentNode().posformats
+
+def getPreviewUrl(path):
+    preview = library.getFolderContents(contentFilter= {
+                     'path': {
+                             'query': path,
+                             'depth': -1,
+                             'Title': '16/9'
+                      },
+                      'Type': 'Video file',})
+    if preview:
+        return preview[0].getObject().absolute_url() + "/at_download/file"
+    else:
+        return ""
+
+
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 all_movies = program.getItem("program_movies")
@@ -92,6 +110,8 @@ for movie in all_movies:
     formats = movie_doc.getItem('movie_formats')
     axes = asList(movie_doc.getItem('movie_axes'))
     title = movie_doc.getItem('movie_title')
+    movie_path = asList(movie_doc.getItem('movie_link'))
+    movie_preview = getPreviewUrl(movie_path)
     for f in formats:
         movies = movies_by_format.setdefault(f, [])
         movies.append({
@@ -99,6 +119,7 @@ for movie in all_movies:
             'title': title,
             'information': movie[1],
             'axes': axes,
+            'preview': movie_preview
         })
         movies_by_format[f] = movies
 
@@ -138,7 +159,7 @@ for display in displays:
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
             html += """
           <div class="movie-cell %(class_css)s" rel="%(id)s">
-            <div class="title">%(title)s %(information)s</div>
+            <div class="title"><span rel="div.overlay" data-url="%(url)s">%(title)s</span>%(information)s</div>
             <div class="actions">
               <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
               <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
@@ -154,6 +175,7 @@ for display in displays:
         'id': movie['id'], 
         'display_id': display.id,
         'start': start_date_str,
+        'url': movie['preview'],
         'end': end_date_str,
         'is_y': movie_data.get("is_Y"),
         'is_n': movie_data.get("is_N"),
@@ -320,6 +342,22 @@ return html]]></Formula>
           <id type="Products.Archetypes.Field.StringField">isRead</id>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return not plominoDocument.isNewDocument() and not plominoDocument.isEditMode()]]></Formula>
           <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
+        </element>
+        <element id="popup_html" title="popup_html" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">popup_html</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """<div class="overlay overlay-contact">
+<a class="close"></a>
+<a id="player">   </a>
+</div>"""]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
       </elements>
     </element>

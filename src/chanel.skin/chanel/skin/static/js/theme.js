@@ -1,5 +1,26 @@
 chanel = {};
 chanel.planning = {};
+//player = ""; 
+chanel.planning.showFlowPopup = function() {
+    
+    // set up button action. it will fire our overlay
+    $(".title span[rel]").overlay({
+ 
+        // when overlay is opened, load our player
+        onLoad: function() {
+            var preview_url = this.getTrigger().attr("data-url");
+            var config = jQuery.extend(true, {}, window.collective_flowplayer.config);
+            config.clip.baseUrl = preview_url
+            config.clip.url = preview_url;
+            var player = $f("player", window.collective_flowplayer.params, config);
+        },
+ 
+        // when overlay is closed, unload our player
+        onClose: function() {
+            //player.unload();
+        }
+    });
+};
 
 chanel.planning.enable_choices = function() {
     $('.planning-table input[type="radio"]').change(function() {
@@ -128,6 +149,7 @@ $(document).ready(function() {
     chanel.planning.event_onsubmit();
     chanel.planning.manage_show_submit();
     chanel.initPortletNavigation();
+    chanel.planning.showFlowPopup();
     $('.movie-cell i').tooltip({ 
                                 relative:true, 
                                 effect:"fade", 
