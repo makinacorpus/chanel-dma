@@ -35,16 +35,24 @@
           <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
+form = db.getForm("frmShopProgram")
+
+# config values
 markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
-form = db.getForm("frmShopProgram")
+
+# months
 current_date = Now()
 previous_date = DateTime(((current_date.month()==1) and current_date.month.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
 next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
-
 dates = [ previous_date, current_date, next_date]
-#dates_month = [
+
+#programs
 programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_month': {'query': [a.month() for a in dates], 'operator': 'OR'}})]
+
+#user
+is_manager = "[manager]" in context.getCurrentUserRoles()
+current_user_id = context.getCurrentUserId()
 
 programs_by_market= {}
 market_ids = []
@@ -57,10 +65,11 @@ for program in programs:
     programs_by_market.setdefault(program_year, {}).setdefault(program_month,{})
     programs_by_market[program_year][program_month][program_market] = program
 
+#shop programs
 shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shopprogram', 
                         'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},
                         })]
-
+#shops
 shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop'})]
 #, 'shop_market': {'query': market_ids, 'operator': 'OR'}})]
 
@@ -75,6 +84,9 @@ for sp in shop_programs:
     shop_id = str(sp.getItem("shop_id"))
     shopprograms_by_shop.setdefault(shop_id, {})
     shopprograms_by_shop[shop_id][str(sp.getItem("program_id"))] = sp
+
+def is_allowed_to_edit(shop_programme):
+    return is_manager or current_user_id in asList(shop_programme.getItem("Plomino_Authors", []))
 
 def computeMain(date):
     month_id = date.month()
@@ -95,12 +107,15 @@ def computeMain(date):
             if shops:
                 tmp_html += """<ul>"""
                 for shop in shops:
-                 
                     if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
-                        url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
+                        if is_allowed_to_edit(shopprograms_by_shop[shop.id][program.id]):
+                            url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
+                        else:
+                            url = "%s" % shopprograms_by_shop[shop.id][program.id].absolute_url()
+                    elif is_manager or current_user_id == shop.getItem("shop_manager"):
+                            url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
-                        url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
-                    
+                        continue
                     tmp_html += """<li><a href="%s"><span>%s</span></a></li>""" % (url, shop.getItem("shop_name"))
                 tmp_html += """</ul>"""
             tmp_html += """</li>"""
@@ -116,8 +131,7 @@ for date in dates:
 
 html += """</ul></div>"""
 
-return html
-]]></Formula>
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
