@@ -72,12 +72,12 @@ if config_id:
 <param>
 <value><struct>
 <member>
-<name>size</name>
-<value><string>10</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>10</string></value>
 </member>
 </struct></value>
 </param>
@@ -177,15 +177,13 @@ return html]]></Formula>
           <id type="Products.Archetypes.Field.StringField">video_formats</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """5 screens
-7 screens
-16 x 9
-1 x 3
-1 x 5
-1 x 7
-1 x 4 vertical
-9 x 16
-Led""" ]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """16 x 9|16/9
+1 x 3|1/3
+1 x 5|1/5
+1 x 7|1/7
+1 x 4 vertical|1/4
+9 x 16|9/16
+Led|led""" ]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
