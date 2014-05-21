@@ -37,6 +37,8 @@
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
 form = db.getForm("frmShopProgram")
 
+in_sp = plominoDocument.isDocument() and plominoDocument.getItem("doctype") == "shopprogramme"
+
 # config values
 markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
@@ -53,6 +55,8 @@ programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program',
 #user
 is_manager = "[manager]" in context.getCurrentUserRoles()
 current_user_id = context.getCurrentUserId()
+current_user = context.getCurrentUser()
+is_zope_user = "Manager" in current_user.getRoles()
 
 programs_by_market= {}
 market_ids = []
@@ -86,7 +90,7 @@ for sp in shop_programs:
     shopprograms_by_shop[shop_id][str(sp.getItem("program_id"))] = sp
 
 def is_allowed_to_edit(shop_programme):
-    return is_manager or current_user_id in asList(shop_programme.getItem("Plomino_Authors", []))
+    return is_zope_user or is_manager or current_user_id in asList(shop_programme.getItem("Plomino_Authors", []))
 
 def computeMain(date):
     month_id = date.month()
@@ -112,9 +116,10 @@ def computeMain(date):
                             url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
                         else:
                             url = "%s" % shopprograms_by_shop[shop.id][program.id].absolute_url()
-                    elif is_manager or current_user_id == shop.getItem("shop_manager"):
+                    elif is_zope_user or is_manager or current_user_id == shop.getItem("shop_manager"):
                             url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
+                        tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
                         continue
                     tmp_html += """<li><a href="%s"><span>%s</span></a></li>""" % (url, shop.getItem("shop_name"))
                 tmp_html += """</ul>"""
