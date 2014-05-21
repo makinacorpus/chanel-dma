@@ -7,6 +7,7 @@ chanel.planning.showFlowPopup = function() {
     $(".title span[rel]").overlay({
  
         // when overlay is opened, load our player
+        fixed: true,
         onLoad: function() {
             var preview_url = this.getTrigger().attr("data-url");
             var config = jQuery.extend(true, {}, window.collective_flowplayer.config);
