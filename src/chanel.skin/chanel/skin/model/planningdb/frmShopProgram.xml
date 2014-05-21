@@ -127,7 +127,7 @@ for movie in all_movies:
 
 Log(movies_by_format)
 
-displays = [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))]
+displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
 
 planning_locked = context.getItem("planning_locked", False)
 lock_html = planning_locked and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
