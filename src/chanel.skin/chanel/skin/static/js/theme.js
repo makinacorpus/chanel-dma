@@ -53,12 +53,21 @@ chanel.planning.check_is_already_locked = function(){
 }
 
 chanel.planning.manage_show_submit = function(){
-    console.log(chanel.planning.check_is_already_locked())
     if(chanel.planning.check_is_already_locked() === false){
-        if(chanel.planning.check_all_is_done() === true){ $("#submit_sp").css("visibility", "visible"); console.log("done")}
-        else{ $("#submit_sp").css("visibility", "hidden"); console.log("unlocked and not done")}
+        if(chanel.planning.check_all_is_done() === true){
+            // ready
+            $("#submit_sp").css("visibility", "visible");
+        }
+        else{
+            // not ready
+            $("#submit_sp").css("visibility", "hidden");
+        }
     }
-    else{ $("#submit_sp").css("visibility", "hidden"); console.log("locked");}
+    else{
+        // already locked
+        $("#submit_sp").css("visibility", "hidden");
+        $(".planning-table input").attr("disabled","disabled");
+    }
 }
 
 chanel.planning.event_onsubmit = function() {
@@ -144,16 +153,14 @@ chanel.initDatepicker = function() {
 };
 
 $(document).ready(function() {
-
     chanel.planning.enable_choices();
     chanel.planning.event_onsave();
     chanel.planning.event_onsubmit();
-    chanel.planning.manage_show_submit();
     chanel.initPortletNavigation();
     chanel.planning.showFlowPopup();
     $('.movie-cell i').tooltip({ 
-                                relative:true, 
-                                effect:"fade", 
+                                relative:true,
+                                effect:"fade",
                                 offset: [-12,0]
                               });
     if(!Modernizr.inputtypes.date){
