@@ -129,18 +129,25 @@ form[name=frmShop] .table{
 	}
 }
 
-form .overlay {
-    display: none;
-//    padding: 40px;
-	height: 422px; 
-	width: 750px;
+form {
+	.overlay {
+	    display: none;
+		height: 422px;
+		width: 750px;
+		#player {
+	    	display: block;
+	    	height: 450px;
+		}
+	}
+	
+	input[name=plomino_close] {
+		display: none;
+	}
+
+	.title span[rel]{
+		cursor: pointer;
+	}
 }
 
-#player {
-    display: block;
-    height: 450px;
-}
 
-.title span[rel]{
-	cursor: pointer;
-}
+

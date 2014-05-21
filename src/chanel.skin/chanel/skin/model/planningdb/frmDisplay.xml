@@ -182,6 +182,14 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
         </element>
+        <element id="close" title="Close" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">close</id>
+          <ActionType type="Products.Archetypes.Field.StringField">REDIRECT</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[return plominoContext.getParentDatabase().getView("allDisplays").absolute_url()]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
+        </element>
       </elements>
     </element>
   </design>
