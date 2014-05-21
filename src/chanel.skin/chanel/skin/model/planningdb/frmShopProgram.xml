@@ -36,11 +36,13 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">display_planning</span></p>
 <p><span class="plominoFieldClass">planning_data</span></p>
-<p><span class="plominoFieldClass">popup_html</span></p>
 <div class="actions">
 <span class="plominoActionClass">save</span><span class="plominoFieldClass">special_request</span> <span class="plominoHidewhenClass">start:isRead</span><span class="plominoFieldClass">submit</span><span class="plominoHidewhenClass">end:isRead</span>
 </div>
 <div><span class="plominoFieldClass">planning_locked</span></div>
+<div>
+<p><span class="plominoFieldClass">popup_html</span></p>
+</div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -348,9 +350,15 @@ return html]]></Formula>
           <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """<div class="overlay overlay-contact">
-<a class="close"></a>
-<a id="player">   </a>
-</div>"""]]></Formula>
+      <div class="close">
+           <span><a href="#">Close this box.</a></span>
+      </div>
+      <a id="player">   </a>
+</div>
+<script>
+    chanel.planning.manage_show_submit();
+</script>"""
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
