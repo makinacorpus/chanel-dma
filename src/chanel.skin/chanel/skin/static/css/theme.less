@@ -136,6 +136,23 @@ ul.submenu {
     padding-top: 10px;
     font-size: 16px;
 }
+
+.cells-3 .display-cell{
+    width: 33.3%;
+}
+
+.cells-4 .display-cell{
+    width: 25%;
+}
+
+.cells-5 .display-cell{
+    width: 20%;
+}
+
+.cells-6 .display-cell{
+    width: 16.6%;
+}
+
 .planning-table {
     display: table;
     width: 100%;
@@ -145,14 +162,18 @@ ul.submenu {
         border-top: 1px @grey solid;
         border-bottom: 3px @grey solid;
         padding-top: 3px;
+        height: 1px;
+        margin:0;
+        padding:0;
         .display-cell {
             text-align: center;
             display: table-cell;
             span {
                 border-right: 1px @grey solid;
-                display: inline-block;
+                display: inline-table;
+                height: 90%;
                 width: 100%;
-                margin: 5px 0;
+                margin: 1% 0;
             }
             &:last-child span {
                 border-right: 0;

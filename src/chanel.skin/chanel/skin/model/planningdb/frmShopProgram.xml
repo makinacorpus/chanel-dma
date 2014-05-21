@@ -28,8 +28,7 @@ else:
 context.setItem("Plomino_Authors", authorized)
 
 if "[manager]" in current_user_roles or current_user_id in authorized:
-   return plominoDocument.absolute_url() + "/EditDocument"
-]]></onSaveDocument>
+   return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
@@ -40,9 +39,7 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
 <span class="plominoActionClass">save</span><span class="plominoFieldClass">special_request</span> <span class="plominoHidewhenClass">start:isRead</span><span class="plominoFieldClass">submit</span><span class="plominoHidewhenClass">end:isRead</span>
 </div>
 <div><span class="plominoFieldClass">planning_locked</span></div>
-<div>
-<p><span class="plominoFieldClass">popup_html</span></p>
-</div>
+<div><p><span class="plominoFieldClass">popup_html</span></p></div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -77,15 +74,16 @@ def getPreviewUrl(path):
                              'Title': '16/9'
                       },
                       'Type': 'Video file',})
-    if preview:
-        return preview[0].getObject().absolute_url() + "/at_download/file"
-    else:
-        return ""
+    return preview and preview[0].getObject().absolute_url() + "/at_download/file" or ""
 
 
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
+
 all_movies = program.getItem("program_movies")
+displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
+
+lock_html = context.getItem("planning_locked") and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
 
 planning_data = context.getItem("planning_data")
 planning_data = (planning_data) and json_loads(planning_data) or {}
@@ -125,18 +123,16 @@ for movie in all_movies:
         })
         movies_by_format[f] = movies
 
-Log(movies_by_format)
-
-displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
-
-planning_locked = context.getItem("planning_locked", False)
-lock_html = planning_locked and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
-
 html = u"""
-<h2 class="planning-shop">%s%s</h2><h3 class="planning-program">%s Programmation</h3><div class="planning-table">
+<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation</h3><div class="planning-table cells-%(nb_cells)s">
   <div class="display-row">
-""" % (shop.getItem('shop_name'), lock_html, program.getItem('program_name'))
-
+""" % {
+         'shop_name': shop.getItem('shop_name'),
+         'lock_html': lock_html,
+         'nb_cells': len(displays),
+         'program_name' : program.getItem('program_name')
+       }
+   
 for display in displays:
     html += """
     <div class="display-cell"><span>%s</span></div>""" % (display.getItem('display_name'))
@@ -191,10 +187,11 @@ for display in displays:
 
     html += """
     </div>"""
+
 html += """
   </div></div>"""
-return html
-]]></Formula>
+
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -353,12 +350,9 @@ return html]]></Formula>
       <div class="close">
            <span><a href="#">Close this box.</a></span>
       </div>
-      <a id="player">   </a>
-</div>
-<script>
+      <a id="player">   </a></div><script>
     chanel.planning.manage_show_submit();
-</script>"""
-]]></Formula>
+</script>"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
