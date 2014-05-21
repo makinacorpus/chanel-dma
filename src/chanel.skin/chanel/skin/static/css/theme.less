@@ -143,10 +143,31 @@ ul.submenu {
 
 .cells-4 .display-cell{
     width: 25%;
+
 }
 
-.cells-5 .display-cell{
-    width: 20%;
+.cells-5 {
+    .display-cell{
+        width: 20%;
+    }
+    .movies-row {
+        .movies-column {
+            .movie-cell {
+                .dates input{
+                      position: relative;
+                      &::-webkit-inner-spin-button{
+                        display: none;
+                      }
+                      &::-webkit-calendar-picker-indicator{
+                        display: inline-block;
+                        position: absolute;
+                        right: 0;
+                        top:20%;
+                        }
+                    }
+            }
+        }
+    }
 }
 
 .cells-6 .display-cell{
@@ -193,10 +214,18 @@ ul.submenu {
                 border: 1px @darkgrey solid;
                 background-color: @cream;
                 .title {
+                    height: 78px;
+                    line-height: 78px;
                     position: relative;
                     text-transform: uppercase;
                     font-weight: bold;
-                    margin: 20px auto;
+                    text-align: center;
+                    //margin: 20px auto;
+                    &>span {
+                        vertical-align: middle;
+                        line-height: normal;
+                        display: inline-block;
+                    }
                 }
                 .actions {
                     border: 1px black solid;
@@ -216,8 +245,11 @@ ul.submenu {
                 }
                 .dates {
                     display: table;
-                    width: 100%;
                     background-color: @grey;
+                    width: 100%;
+                    div:last-child input{
+                        margin-bottom:2px;
+                    }
                     & > div {
                         display: table-row;
                         span {
@@ -225,8 +257,10 @@ ul.submenu {
                             text-align: left;
                             padding: 1px 3px;
                             input {
-                                height: 2em;
                                 width: 100%;
+                                padding: 1px;
+                                height: 1.6em;
+                                display: inline-block;
                             }
                         }
                     }
