@@ -37,7 +37,8 @@
           <id type="Products.Archetypes.Field.StringField">program_month</id>
           <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return str(Now().month())]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[program_month = context.REQUEST.get("program_month")
+return program_month and program_month or str(Now().month())]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
