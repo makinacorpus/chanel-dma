@@ -111,8 +111,9 @@ return html]]></Formula>
         </element>
         <element id="allowed" title="allowed" type="PlominoHidewhen">
           <id type="Products.Archetypes.Field.StringField">allowed</id>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles'):
-    return "[manager]" not in context.getCurrentUserRoles()]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles') and hasattr(context, 'getCurrentUser'):
+     return not("[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles())
+    ]]></Formula>
           <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>
