@@ -45,7 +45,16 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
-      <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentId>
+      <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+request = context.REQUEST
+program = db.getDocument(request.get("program_id"))
+shop = db.getDocument(request.get("shop_id"))
+           
+month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", program.getItem("program_month"))
+
+market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program.getItem("program_market"))
+
+return "%s - %s - %s - %s - %s" % (context.getItem("doctype").upper(), shop.getItem("shop_name"), market, month, program.getItem("program_year"))]]></DocumentId>
       <ActionBarPosition type="Products.Archetypes.Field.StringField">BOTTOM</ActionBarPosition>
       <HideDefaultActions type="Products.Archetypes.Field.BooleanField">True</HideDefaultActions>
       <HideInMenu type="Products.Archetypes.Field.BooleanField">False</HideInMenu>
