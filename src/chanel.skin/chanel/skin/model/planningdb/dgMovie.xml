@@ -30,42 +30,6 @@
       <ResourcesCSS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesCSS>
       <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
       <elements>
-        <element id="movie" title="movie" type="PlominoField">
-          <id type="Products.Archetypes.Field.StringField">movie</id>
-          <FieldType type="Products.Archetypes.Field.StringField">DOCLINK</FieldType>
-          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
-          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
-          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
-          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
-          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
-          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
-          <params>
-<param>
-<value><struct>
-<member>
-<name>labelcolumn</name>
-<value><string>name</string></value>
-</member>
-<member>
-<name>sourceview</name>
-<value><string>allMovies</string></value>
-</member>
-<member>
-<name>dynamictableparam</name>
-<value><string>'bPaginate': true,
-'bLengthChange': true,
-'bFilter': true,
-'bSort': true,
-'bInfo': true,
-'bAutoWidth': false</string></value>
-</member>
-</struct></value>
-</param>
-</params>
-        </element>
         <element id="information" title="information" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">information</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
@@ -82,12 +46,52 @@
 <param>
 <value><struct>
 <member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
+</member>
+<member>
 <name>size</name>
 <value><string>4</string></value>
 </member>
+</struct></value>
+</param>
+</params>
+        </element>
+        <element id="movie" title="Movie" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">movie</id>
+          <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
 <member>
-<name>widget</name>
-<value><string>TEXTAREA</string></value>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = context.getParentDatabase()
+market = context.REQUEST.get("Plomino_Parent_Document")  and db.getDocument(context.REQUEST.get("Plomino_Parent_Document")).getItem("program_market") or context.REQUEST.get("program_market")
+
+if market:
+    results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'movie', 'movie_markets': asList(market)})]
+else:
+    results = db.getView("allMovies").getAllDocuments()
+
+return [( "%s - %s|%s" % (r.getItem("movie_title"), r.getItem("movie_subtitle"), r.id)) for r in results]</string></value>
 </member>
 </struct></value>
 </param>
