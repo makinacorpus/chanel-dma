@@ -11,26 +11,28 @@
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">program_is_published</span></p>
-<p>Name: <span class="plominoFieldClass">program_month_display</span><span class="plominoFieldClass">program_year_display</span><span class="plominoHidewhenClass">start:isRead</span><span class="plominoFieldClass">program_month</span><span class="plominoFieldClass">program_year</span><span class="plominoHidewhenClass">end:isRead</span></p>
-<p>Market: <span class="plominoFieldClass">program_market_display</span><span class="plominoFieldClass">program_market</span></p>
+<p>Name: <span class="plominoFieldClass">program_month_display</span><span class="plominoFieldClass">program_year_display</span><span class="plominoHidewhenClass"></span></p>
+<p>Market: <span class="plominoFieldClass">program_market_display</span></p>
 <p>Movies: <span class="plominoFieldClass">program_movies</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+request = context.REQUEST
 
-month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", context.getItem("program_month"))
+month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", request.get("program_month"))
 
-market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", context.getItem("program_market"))
+market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", request.get("program_market"))
 
 return "%s - %s - %s - %s" % (context.getItem("doctype").upper(), market, month, context.getItem("program_year"))
 ]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</StoreDynamicDocumentTitle>
       <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+request = context.REQUEST
 
-month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", context.getItem("program_month"))
+month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", request.get("program_month"))
 
-market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", context.getItem("program_martket"))
+market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", request.get("program_market"))
 
 return "%s-%s-%s-%s-%s" % (context.getItem("doctype"), market, month, context.getItem("program_year"), context.id)]]></DocumentId>
       <ActionBarPosition type="Products.Archetypes.Field.StringField">TOP</ActionBarPosition>
