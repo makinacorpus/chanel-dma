@@ -37,11 +37,13 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">display_planning</span></p>
 <p><span class="plominoFieldClass">planning_data</span></p>
-<div class="actions">
-<span class="plominoActionClass">save</span><span class="plominoFieldClass">special_request</span> <span class="plominoHidewhenClass">start:isRead</span><span class="plominoFieldClass">submit</span><span class="plominoHidewhenClass">end:isRead</span>
+<p><span class="plominoFieldClass">buttons</span></p>
+<div>
+<span class="plominoFieldClass">planning_locked</span>
+<div>
+<p><span class="plominoFieldClass">popup_html</span></p>
 </div>
-<div><span class="plominoFieldClass">planning_locked</span></div>
-<div><p><span class="plominoFieldClass">popup_html</span></p></div>
+</div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
@@ -87,14 +89,14 @@ def getPreviewUrl(path):
                       'Type': 'Video file',})
     return preview and preview[0].getObject().absolute_url() + "/at_download/file" or ""
 
-
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 
 all_movies = program.getItem("program_movies")
 displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
 
-lock_html = context.getItem("planning_locked") and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
+lock = context.getItem("planning_locked")
+lock_html = (lock and lock == "true") and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
 
 planning_data = context.getItem("planning_data")
 planning_data = (planning_data) and json_loads(planning_data) or {}
@@ -170,7 +172,7 @@ for display in displays:
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
             html += """
           <div class="movie-cell %(class_css)s" rel="%(id)s">
-            <div class="title"><span rel="div.overlay" data-url="%(url)s">%(title)s</span>%(information)s</div>
+            <div class="title"><span rel="div.overlay" data-url="%(url)s">%(title)s%(subtitle)s</span>%(information)s</div>
             <div class="actions">
               <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
               <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
@@ -195,6 +197,7 @@ for display in displays:
         'date2': movie_data.get("end_date", ""),
         'class_css': movie_css_dict.get(movie_data_status, ""),
         'disabled': movie_data_disabled,
+        'subtitle': movie["subtitle"],
         'information': html_information(movie["information"],  "%s-%s" % (movie['id'],display.id))
     }
 
@@ -317,7 +320,10 @@ return html]]></Formula>
           <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return """
-<button id="submit_sp" class="btn">Submit</button>
+<div class="sp_workflow pull-right">
+<button name="lock" class='test'>Submit</button>
+<button name="unlock" class='test'>Unpublished</button>
+</div>
 """]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
@@ -325,7 +331,7 @@ return html]]></Formula>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
-          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[return "style='visibility:hidden'"]]></HTMLAttributesFormula>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
         <element id="planning_locked" title="planning_locked" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">planning_locked</id>
@@ -366,6 +372,41 @@ return html]]></Formula>
       <a id="player">   </a></div><script>
     chanel.planning.manage_show_submit();
 </script>"""]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="buttons" title="buttons" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">buttons</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[is_manager = "[manager]" in context.getCurrentUserRoles()
+current_user = context.getCurrentUser()
+is_zope_user = "Manager" in current_user.getRoles()
+class_css = (is_manager or is_zope_user) and "manager" or ""
+
+return """
+<div class="sp_actions %s">
+     <div class="actions_row">
+         <div class="save">
+              <input type="submit" value="Save" name="save" class="btn">
+         </div>
+         <div class="special_request popupcontent">
+                   <a style="cursor: pointer;" rel="#pb_2" class="btn btn-default context link-overlay" href="sendto_form">
+                     Special Request
+                   </a>
+         </div>
+         <div class="sp_workflow">
+               <button class="btn" rel="lock">Submit</button>
+               <button class="btn" rel="unlock">Unpublish</button>
+         </div>
+     </div>
+</div>
+""" % class_css]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

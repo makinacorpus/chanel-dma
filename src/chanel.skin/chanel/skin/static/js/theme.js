@@ -1,11 +1,10 @@
 chanel = {};
 chanel.planning = {};
-//player = ""; 
+
 chanel.planning.showFlowPopup = function() {
-    
+
     // set up button action. it will fire our overlay
     $(".title span[rel]").overlay({
- 
         // when overlay is opened, load our player
         fixed: true,
         onLoad: function() {
@@ -43,7 +42,6 @@ chanel.planning.enable_choices = function() {
 };
 
 chanel.planning.check_all_is_done = function(){
-    console.log($(".planning-table .movie-cell .actions :checked[value=X]").length);
     return $(".planning-table .movie-cell .actions :checked[value=X]").length === 0
 }
 
@@ -53,27 +51,36 @@ chanel.planning.check_is_already_locked = function(){
 }
 
 chanel.planning.manage_show_submit = function(){
-    if(chanel.planning.check_is_already_locked() === false){
+    if(($('form[name="frmShopProgram"]').attr("method") !=="get") && (chanel.planning.check_is_already_locked() === false)){
         if(chanel.planning.check_all_is_done() === true){
             // ready
-            $("#submit_sp").css("visibility", "visible");
+            $(".sp_workflow>[rel=lock]").show();
+            $(".sp_workflow>[rel=unlock]").hide();
         }
         else{
             // not ready
-            $("#submit_sp").css("visibility", "hidden");
+            $(".sp_workflow>[rel=lock]").hide();
+            $(".sp_workflow>[rel=unlock]").hide();
         }
     }
     else{
         // already locked
-        $("#submit_sp").css("visibility", "hidden");
+        $(".sp_workflow>[rel=lock]").hide();
+        $(".sp_actions.manager .sp_workflow>[rel=unlock]").show();
+        $(".save input").hide();
         $(".planning-table input").attr("disabled","disabled");
     }
 }
 
 chanel.planning.event_onsubmit = function() {
-    $('#submit_sp').click(function(event){
+     $(".sp_workflow>[rel=lock]").click(function(event){
         event.preventDefault();
         $("#planning_locked").val("true");
+        $("form[name='frmShopProgram'] input[name='save']").click();
+    });
+     $(".sp_workflow>[rel=unlock]").click(function(event){
+        event.preventDefault();
+        $("#planning_locked").val("false");
         $("form[name='frmShopProgram'] input[name='save']").click();
     });
 }
@@ -106,9 +113,7 @@ chanel.planning.event_onsave = function() {
             }
         };
         $("#planning_data").val(JSON.stringify(results));
-        console.log(results);
         $form = $(this).parents("form:first");
-        //form.attr("method", "POST").attr("action", "saveDocument");
         $form.submit();
     });
 };
