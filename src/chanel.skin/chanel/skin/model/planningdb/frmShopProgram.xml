@@ -119,6 +119,7 @@ for movie in all_movies:
     formats = movie_doc.getItem('movie_formats')
     axes = asList(movie_doc.getItem('movie_axes'))
     title = movie_doc.getItem('movie_title')
+    subtitle = movie_doc.getItem("movie_subtitle")
     movie_path = asList(movie_doc.getItem('movie_link'))
     movie_preview = getPreviewUrl(movie_path)
     for f in formats:
@@ -128,12 +129,13 @@ for movie in all_movies:
             'title': title,
             'information': movie[1],
             'axes': axes,
-            'preview': movie_preview
+            'preview': movie_preview,
+            'subtitle': subtitle and " - " + subtitle or "",
         })
         movies_by_format[f] = movies
 
 html = u"""
-<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation</h3><div class="planning-table cells-%(nb_cells)s">
+<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation </h3><div class="planning-table cells-%(nb_cells)s">
   <div class="display-row">
 """ % {
          'shop_name': shop.getItem('shop_name'),
