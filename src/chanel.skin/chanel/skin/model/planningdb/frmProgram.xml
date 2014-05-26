@@ -19,9 +19,11 @@
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 request = context.REQUEST
 
-month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", request.get("program_month"))
+program_month = request.get("program_month") and request.get("program_month") or context.getItem("program_month")
+month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", program_month)
 
-market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", request.get("program_market"))
+program_market = request.get("program_market") and request.get("program_market") or context.getItem("program_market")
+market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program_market)
 
 return "%s - %s - %s - %s" % (context.getItem("doctype").upper(), market, month, context.getItem("program_year"))
 ]]></DocumentTitle>

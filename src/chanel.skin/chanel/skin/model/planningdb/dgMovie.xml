@@ -73,15 +73,6 @@
 <param>
 <value><struct>
 <member>
-<name>dynamictableparam</name>
-<value><string>'bPaginate': true,
-'bLengthChange': true,
-'bFilter': true,
-'bSort': true,
-'bInfo': true,
-'bAutoWidth': false</string></value>
-</member>
-<member>
 <name>selectionlistformula</name>
 <value><string>db = context.getParentDatabase()
 market = context.REQUEST.get("Plomino_Parent_Document")  and db.getDocument(context.REQUEST.get("Plomino_Parent_Document")).getItem("program_market") or context.REQUEST.get("program_market")
@@ -91,7 +82,16 @@ if market:
 else:
     results = db.getView("allMovies").getAllDocuments()
 
-return [( "%s - %s|%s" % (r.getItem("movie_title"), r.getItem("movie_subtitle"), r.id)) for r in results]</string></value>
+return [( "%s %s |%s" % (r.getItem("movie_title"), (r.getItem("movie_subtitle") and "[%s]" % r.getItem("movie_subtitle") or ""), r.id)) for r in results]</string></value>
+</member>
+<member>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
 </member>
 </struct></value>
 </param>
