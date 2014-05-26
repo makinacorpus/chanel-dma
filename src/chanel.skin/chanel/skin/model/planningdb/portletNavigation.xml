@@ -36,8 +36,18 @@
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
 form = db.getForm("frmShopProgram")
+request = context.REQUEST
+doc = actual_context(context)
+is_sp = doc and doc.getItem("doctype") == "shopprogram"
 
-in_sp = plominoDocument.isDocument() and plominoDocument.getItem("doctype") == "shopprogramme"
+current_shop_id =  is_sp and doc.getItem("shop_id") or request.get("shop_id")
+current_shop = is_sp and db.getDocument(current_shop_id) or None
+
+current_program_id = is_sp and doc.getItem("program_id") or request.get("program_id")
+current_program = is_sp and db.getDocument(current_program_id) or None
+
+current_market = is_sp and current_shop.getItem("shop_market") or None
+current_month = is_sp and current_program.getItem("program_month") or None
 
 # config values
 markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
@@ -96,7 +106,11 @@ def computeMain(date):
     month_id = date.month()
     month = months[str(month_id)]
     year = date.year()
-    class_css = date is current_date and "current" or ""
+    if is_sp:
+         class_css = (current_month == int(month_id)) and "current" or ""
+    else:
+         class_css = date is current_date and "current" or ""
+
     tmp_html = """<li class="main %s"><a><span>%s</span></a><ul>""" % (class_css, month)
     month_programs = programs_by_market.setdefault(year,{}).get(month_id, {})
     
@@ -107,7 +121,8 @@ def computeMain(date):
         program = month_programs.get(market_id)
         if program:
             shops = shops_by_market.get(market_id)
-            tmp_html += """<li><a href="#"><span>%s</span></a>""" % market_name
+            class_css = program.id == current_program_id and "current" or ""
+            tmp_html += """<li class="%s"><a href="#"><span>%s</span></a>""" % (class_css, market_name)
             if shops:
                 tmp_html += """<ul>"""
                 for shop in shops:
@@ -151,7 +166,7 @@ return html]]></Formula>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html="""
 <script>
-    $("#portlet_navigation ul > li.current > ul:first").show()
+    $("#portlet_navigation ul li.current > ul").show()
 </script>
 """
 return html]]></Formula>
