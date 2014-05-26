@@ -27,6 +27,8 @@ else:
 
 context.setItem("Plomino_Authors", authorized)
 
+context.REQUEST.set("plominoredirecturl", "%s%s" % (plominoDocument.absolute_url(), "/EditDocument"))
+
 if "[manager]" in current_user_roles or current_user_id in authorized:
    return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
