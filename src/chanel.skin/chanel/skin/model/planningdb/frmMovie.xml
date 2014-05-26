@@ -50,20 +50,20 @@
       <ResourcesCSS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesCSS>
       <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
       <elements>
-        <element id="movie_title" title="movie_title" type="PlominoField">
+        <element id="movie_title" title="Title" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_title</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
-        <element id="movie_subtitle" title="movie_subtitle" type="PlominoField">
+        <element id="movie_subtitle" title="Subtitle" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_subtitle</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
@@ -76,7 +76,7 @@
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
-        <element id="movie_information" title="movie_information" type="PlominoField">
+        <element id="movie_information" title="Information" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_information</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
@@ -99,15 +99,16 @@
 </param>
 </params>
         </element>
-        <element id="movie_link" title="movie_link" type="PlominoField">
+        <element id="movie_link" title="Link" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_link</id>
           <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
-          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[if len(asList(context.REQUEST.get("movie_link", [])))>1:
+    return "You have to choose just one link and not many"]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
@@ -115,9 +116,8 @@
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>PICKLIST</string></value>
-</member>
+<name>separator</name>
+<value><nil/></value></member>
 <member>
 <name>selectionlistformula</name>
 <value><string>library = context.getParentNode().posformats
@@ -153,8 +153,9 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 </string></value>
 </member>
 <member>
-<name>separator</name>
-<value><nil/></value></member>
+<name>widget</name>
+<value><string>PICKLIST</string></value>
+</member>
 <member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
@@ -168,14 +169,14 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 </param>
 </params>
         </element>
-        <element id="movie_formats" title="movie_formats" type="PlominoField">
+        <element id="movie_formats" title="Formats" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_formats</id>
           <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
@@ -184,8 +185,8 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 <member>
 <name>selectionlistformula</name>
@@ -193,8 +194,8 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
 </member>
 <member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -209,14 +210,14 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 </param>
 </params>
         </element>
-        <element id="movie_markets" title="movie_markets" type="PlominoField">
+        <element id="movie_markets" title="Markets" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_markets</id>
           <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
@@ -225,8 +226,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 <member>
 <name>selectionlistformula</name>
@@ -234,8 +235,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
 </member>
 <member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -250,14 +251,14 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 </param>
 </params>
         </element>
-        <element id="movie_axes" title="movie_axes" type="PlominoField">
+        <element id="movie_axes" title="Axes" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_axes</id>
           <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
@@ -266,8 +267,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 <member>
 <name>selectionlistformula</name>
@@ -275,8 +276,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
 </member>
 <member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -291,7 +292,7 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 </param>
 </params>
         </element>
-        <element id="movie_is_published" title="movie_is_published" type="PlominoField">
+        <element id="movie_is_published" title="Is published" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">movie_is_published</id>
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
@@ -303,22 +304,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
-        </element>
-        <element id="submit" title="Submit" type="PlominoAction">
-          <id type="Products.Archetypes.Field.StringField">submit</id>
-          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
-          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
-          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
-          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
-          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
-        </element>
-        <element id="submit_and_generate_new_form" title="Submit and generate new form" type="PlominoAction">
-          <id type="Products.Archetypes.Field.StringField">submit_and_generate_new_form</id>
-          <ActionType type="Products.Archetypes.Field.StringField">SAVE</ActionType>
-          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
-          <Content type="Products.Archetypes.Field.TextField"><![CDATA[]]></Content>
-          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
-          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
         </element>
         <element id="doctype" title="doctype" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">doctype</id>
