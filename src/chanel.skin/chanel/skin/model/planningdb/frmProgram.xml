@@ -8,10 +8,17 @@
       <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
-      <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
+      <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+
+request = context.REQUEST
+program_month = request.get("program_month")
+
+if not (request.get("program_month") and request.get("program_market") and request.get("program_year")):
+     form = db.getForm("frmProgOverview")
+     context.REQUEST.RESPONSE.redirect(form.absolute_url())]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">program_is_published</span></p>
-<p>Name: <span class="plominoFieldClass">program_month_display</span><span class="plominoFieldClass">program_year_display</span><span class="plominoHidewhenClass"></span></p>
+<p>Name: <span class="plominoFieldClass">program_month_display</span><span class="plominoFieldClass">program_year_display</span></p>
 <p>Market: <span class="plominoFieldClass">program_market_display</span></p>
 <p>Movies: <span class="plominoFieldClass">program_movies</span></p>
 ]]></FormLayout>
@@ -77,7 +84,7 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
-        <element id="program_movies" title="program_movies" type="PlominoField">
+        <element id="program_movies" title="Movies" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">program_movies</id>
           <FieldType type="Products.Archetypes.Field.StringField">DATAGRID</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
@@ -92,6 +99,10 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
           <params>
 <param>
 <value><struct>
+<member>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
+</member>
 <member>
 <name>jssettings</name>
 <value><string>"aoColumns": [
@@ -111,29 +122,25 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 </string></value>
 </member>
 <member>
-<name>associated_form_rendering</name>
-<value><string>INLINE</string></value>
+<name>field_mapping</name>
+<value><string>movie,information</string></value>
 </member>
 <member>
 <name>associated_form</name>
 <value><string>dgMovie</string></value>
 </member>
-<member>
-<name>field_mapping</name>
-<value><string>movie,information</string></value>
-</member>
 </struct></value>
 </param>
 </params>
         </element>
-        <element id="program_year" title="program_year" type="PlominoField">
+        <element id="program_year" title="Year" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">program_year</id>
           <FieldType type="Products.Archetypes.Field.StringField">NUMBER</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return Now().year()]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
@@ -144,8 +151,9 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
-default = Now().year()
-program_year =  plominoContext.isDocument() and plominoDocument.getItem("program_year", default) or plominoContext.REQUEST.get("program_year", default)
+
+program_year =  plominoContext.isDocument() and plominoDocument.getItem("program_year") or plominoContext.REQUEST.get("program_year")
+
 return program_year]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
@@ -155,14 +163,14 @@ return program_year]]></Formula>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
-        <element id="program_market" title="program_market" type="PlominoField">
+        <element id="program_market" title="Market" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">program_market</id>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
@@ -183,10 +191,12 @@ return program_year]]></Formula>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
-default = "EU"
-program_market =  plominoContext.isDocument() and plominoDocument.getItem("program_market", default) or plominoContext.REQUEST.get("program_market", default)
+
+program_market =  plominoContext.isDocument() and plominoDocument.getItem("program_market") or plominoContext.REQUEST.get("program_market")
+
 markets = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "markets")
-return markets[program_market]]]></Formula>
+
+return markets.get(program_market)]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -209,10 +219,10 @@ return markets[program_market]]]></Formula>
           <id type="Products.Archetypes.Field.StringField">program_month</id>
           <FieldType type="Products.Archetypes.Field.StringField">NUMBER</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return Now().month()]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
-          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
@@ -223,10 +233,9 @@ return markets[program_market]]]></Formula>
           <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
-default = Now().month()
-program_month =  plominoContext.isDocument() and plominoDocument.getItem("program_month", default) or plominoContext.REQUEST.get("program_month", default)
+program_month =  plominoContext.isDocument() and plominoDocument.getItem("program_month") or plominoContext.REQUEST.get("program_month")
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
-return months[str(program_month)]]]></Formula>
+return months.get(str(program_month))]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
