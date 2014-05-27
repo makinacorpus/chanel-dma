@@ -60,7 +60,7 @@ next_date = DateTime(current_date.year() + (current_date.month() / 12), ((curren
 dates = [ previous_date, current_date, next_date]
 
 #programs
-programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_month': {'query': [a.month() for a in dates], 'operator': 'OR'}})]
+programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_is_published': True, 'program_month': {'query': [a.month() for a in dates], 'operator': 'OR'}})]
 
 #user
 is_manager = "[manager]" in context.getCurrentUserRoles()
@@ -84,7 +84,7 @@ shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop
                         'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},
                         })]
 #shops
-shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop'})]
+shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_is_published': True})]
 #, 'shop_market': {'query': market_ids, 'operator': 'OR'}})]
 
 shops_by_market = {}

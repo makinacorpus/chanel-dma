@@ -13,7 +13,7 @@ is_locked = context.getItem("planning_locked", False)
 authorized = ["[manager]"]
 
 if not is_locked:
-   Log("unlocked")
+   # Log("unlocked")
    shop = db.getDocument(context.getItem("shop_id"))
    user_id = str(shop.getItem("shop_manager"))
    for auth in authors:
@@ -22,8 +22,8 @@ if not is_locked:
 
    if not user_id in authorized:
       authorized.append(user_id)
-else:
-   Log("locked")
+#else:
+#   Log("locked")
 
 context.setItem("Plomino_Authors", authorized)
 
@@ -120,6 +120,8 @@ def html_information(information, id):
 
 for movie in all_movies:
     movie_doc = db.getDocument(movie[0])
+    if not movie_doc.getItem("movie_is_published"):
+        continue
     formats = movie_doc.getItem('movie_formats')
     axes = asList(movie_doc.getItem('movie_axes'))
     title = movie_doc.getItem('movie_title')

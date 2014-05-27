@@ -40,7 +40,7 @@
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
 user_id = db.getCurrentUserId()
 
-shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_manager': user_id})]
+shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_manager': user_id, 'shop_is_published': True})]
 months = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")]
 markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
 
@@ -58,7 +58,7 @@ for shop in shops:
    if shop_market not in markets_id:
         markets_id.append(shop_market)
 
-programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': {'query': markets_id, 'operator': 'OR'}})]
+programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': {'query': markets_id, 'operator': 'OR'}, 'program_is_published': True})]
 
 programs_by_market= {}
 for program in programs:
