@@ -75,7 +75,14 @@
 <member>
 <name>selectionlistformula</name>
 <value><string>db = context.getParentDatabase()
+
 market = context.REQUEST.get("Plomino_Parent_Document")  and db.getDocument(context.REQUEST.get("Plomino_Parent_Document")).getItem("program_market") or context.REQUEST.get("program_market")
+
+if not market:
+    try:
+        market = actual_context(context).getItem("program_market")
+    except:
+        return []
 
 if market:
     results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'movie', 'movie_markets': asList(market)})]
