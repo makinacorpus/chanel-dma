@@ -79,6 +79,7 @@ return "%s - %s - %s - %s - %s" % (context.getItem("doctype").upper(), shop.getI
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 
 library = context.getParentNode().posformats
+cropText = db.restrictedTraverse("plone").cropText
 
 def getPreviewUrl(path):
     preview = library.getFolderContents(contentFilter= {
@@ -175,7 +176,7 @@ for display in displays:
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
             html += """
           <div class="movie-cell %(class_css)s" rel="%(id)s">
-            <div class="title"><span rel="div.overlay" data-url="%(url)s">%(title)s%(subtitle)s</span>%(information)s</div>
+            <div class="title"><span rel="div.overlay" data-url="%(url)s" title="%(title)s%(subtitle)s">%(title_cropped)s%(subtitle)s</span>%(information)s</div>
             <div class="actions">
               <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> Yes
               <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> No
@@ -188,6 +189,7 @@ for display in displays:
           </div>
     """ % {
         'title': movie['title'],
+        'title_cropped': cropText(movie['title'],40),
         'id': movie['id'], 
         'display_id': display.id,
         'start': start_date_str,
