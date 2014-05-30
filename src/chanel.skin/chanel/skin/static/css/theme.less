@@ -147,16 +147,21 @@ ul.submenu {
 }
 
 .cells-5 {
-    .display-cell{
+    & .display-cell, & .movie-cell{
         width: 20%;
+        max-width: 151px !important;
     }
     .movies-row {
         .movies-column {
             .movie-cell {
                 .dates input{
                       position: relative;
-                      &::-webkit-inner-spin-button{
+                      &::-webkit-inner-spin-button, {
                         display: none;
+                      }
+                      &::-webkit-clear-button{
+                        display: none; /* Hide the button */
+                        -webkit-appearance: none; /* turn off default browser styling */
                       }
                       &::-webkit-calendar-picker-indicator{
                         display: inline-block;
@@ -227,6 +232,8 @@ ul.submenu {
                         vertical-align: middle;
                         line-height: normal;
                         display: inline-block;
+                        word-wrap: break-word;
+                        width: 100%;
                     }
                 }
                 .actions {
