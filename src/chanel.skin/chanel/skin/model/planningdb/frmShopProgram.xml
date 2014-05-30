@@ -37,6 +37,7 @@ if "[manager]" in current_user_roles or current_user_id in authorized:
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">display_planning</span></p>
 <p><span class="plominoFieldClass">planning_data</span></p>
+<p><span class="plominoActionClass">override_duplicate_action</span></p>
 <p><span class="plominoFieldClass">buttons</span></p>
 <div>
 <span class="plominoFieldClass">planning_locked</span>
@@ -416,6 +417,67 @@ return """
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="override_duplicate_action" title="Override/Duplicate data on all manager's shops from same market" type="PlominoAction">
+          <id type="Products.Archetypes.Field.StringField">override_duplicate_action</id>
+          <ActionType type="Products.Archetypes.Field.StringField">PYTHON</ActionType>
+          <ActionDisplay type="Products.Archetypes.Field.StringField">BUTTON</ActionDisplay>
+          <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoContext.getParentDatabase()
+
+doc = actual_context(context)
+form = db.getForm("frmShopProgram")
+def getData(sp):
+        planning_data = sp.getItem("planning_data")
+        return (planning_data) and json_loads(planning_data) or {}
+
+program_id = doc.getItem("program_id")
+shop_id = doc.getItem("shop_id")
+context.REQUEST.set("program_id", program_id)
+program = db.getDocument(program_id)
+shop = db.getDocument(shop_id)
+market = shop.getItem("shop_market")
+manager = shop.getItem("shop_manager")
+
+shop_programs_brains = db.getIndex().dbsearch({'doctype': 'shopprogram', 'program_id': program_id})
+shop_programs = [a.getObject() for a in shop_programs_brains if a.id != shop_id]
+sp_by_shop={}
+
+
+for sp in shop_programs:
+    sp_by_shop[sp.getItem("shop_id")] = sp
+
+shops = [ a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 
+                        'shop_manager': manager, 'shop_is_published': True
+                        }) if a.id != shop_id]
+
+current_planning_data = getData(doc)
+
+for shop in shops:
+    shop_id_tmp = shop.id
+    if shop_id_tmp in sp_by_shop.keys():
+        sp = sp_by_shop[shop_id_tmp]
+        if sp.getItem("planning_locked","false") == "false":
+            tmp_planning_data = getData(sp)
+            for k,v in current_planning_data.items():
+                movie_data = tmp_planning_data.get(k, {})
+                tmp_planning_data[k] = dict(movie_data.items() + v.items())
+    
+            sp.setItem("planning_data", unicode(json_dumps(tmp_planning_data)))
+            db.writeMessageOnPage("Planning for %s [%s] updated" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
+        else:
+            db.writeMessageOnPage("Planning for %s [%s] not updated because already locked" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)            
+    else:
+        sp = db.createDocument()
+        sp.setItem("program_id", program_id)
+        context.REQUEST.set("shop_id", shop_id_tmp)
+        sp.setItem("shop_id", shop_id_tmp)
+        sp.setItem("planning_data", unicode(json_dumps(current_planning_data)))
+        sp.save(form=form, creation=True)
+        db.writeMessageOnPage("Planning for %s [%s] created" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
+]]></Content>
+          <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[doc = actual_context(context)
+return not(doc and (context.getCurrentUserId() in doc.getItem("Plomino_Authors") or "[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles()))]]></Hidewhen>
+          <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
         </element>
       </elements>
     </element>
