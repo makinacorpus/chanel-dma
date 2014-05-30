@@ -1,3 +1,4 @@
+
 chanel = {};
 chanel.planning = {};
 
@@ -38,6 +39,7 @@ chanel.planning.enable_choices = function() {
             $(this).parents('.movie-cell').find('input[type="date"]').attr('disabled', 'disabled');
         }
         chanel.planning.manage_show_submit();
+        chanel.planning.disable_replication();
     });
 };
 
@@ -51,24 +53,25 @@ chanel.planning.check_is_already_locked = function(){
 }
 
 chanel.planning.manage_show_submit = function(){
-    if(($('form[name="frmShopProgram"]').attr("method") !=="get") && (chanel.planning.check_is_already_locked() === false)){
-        if(chanel.planning.check_all_is_done() === true){
-            // ready
-            $(".sp_workflow>[rel=lock]").show();
-            $(".sp_workflow>[rel=unlock]").hide();
+    if( $('form[name="frmShopProgram"]').attr("method") !=="get" ){
+        if(chanel.planning.check_is_already_locked() === false){
+            if(chanel.planning.check_all_is_done() === true){
+                // ready
+                $(".sp_workflow>[rel=lock]").show();
+                $(".sp_workflow>[rel=unlock]").hide();
+            }
+            else{
+                // not ready
+                $(".sp_workflow>button").hide();        
+            }
         }
         else{
-            // not ready
+            // already locked
             $(".sp_workflow>[rel=lock]").hide();
-            $(".sp_workflow>[rel=unlock]").hide();
+            $(".sp_actions.manager .sp_workflow>[rel=unlock]").show();
+            $(".save input").hide();
+            $(".planning-table input").enable(false);
         }
-    }
-    else{
-        // already locked
-        $(".sp_workflow>[rel=lock]").hide();
-        $(".sp_actions.manager .sp_workflow>[rel=unlock]").show();
-        $(".save input").hide();
-        $(".planning-table input").attr("disabled","disabled");
     }
 }
 
@@ -118,6 +121,11 @@ chanel.planning.event_onsave = function() {
     });
 };
 
+chanel.planning.disable_replication = function(){
+    $("#override_duplicate_action").enable(false);
+    $("#override_duplicate_action").parent().attr("title","First, you need to save last changes before using this feature or F5");
+}
+
 chanel.initPortletNavigation = function(){
     $('#portlet_navigation > ul > li:has(ul)').addClass("has-sub");
     $('#portlet_navigation > ul > li> ul > li> a,#portlet_navigation > ul > li> a').click(function(event) {
@@ -155,6 +163,7 @@ chanel.initDatepicker = function() {
             dateFormat: 'yy-mm-dd'
         });
     });
+    $('input[type=date]').change(chanel.planning.disable_replication);
 };
 
 $(document).ready(function() {
@@ -170,6 +179,6 @@ $(document).ready(function() {
                               });
     if(!Modernizr.inputtypes.date){
         chanel.initDatepicker();
-    };
+    }
 
 });
