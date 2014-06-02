@@ -73,6 +73,15 @@
 <param>
 <value><struct>
 <member>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = context.getParentDatabase()
 
@@ -82,23 +91,18 @@ if not market:
     try:
         market = actual_context(context).getItem("program_market")
     except:
-        return []
+        http_refferer = context.REQUEST.get("HTTP_REFERER")
+        id = http_refferer.split("/")[-2]
+        doc = db.getDocument(id)
+        if doc:
+            market = doc.getItem("program_market")
 
 if market:
-    results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'movie', 'movie_markets': asList(market)})]
+    results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'movie', 'movie_markets': asList(market), 'movie_is_published': True})]
 else:
-    results = db.getView("allMovies").getAllDocuments()
+    return []
 
 return [( "%s %s |%s" % (r.getItem("movie_title"), (r.getItem("movie_subtitle") and "[%s]" % r.getItem("movie_subtitle") or ""), r.id)) for r in results]</string></value>
-</member>
-<member>
-<name>dynamictableparam</name>
-<value><string>'bPaginate': true,
-'bLengthChange': true,
-'bFilter': true,
-'bSort': true,
-'bInfo': true,
-'bAutoWidth': false</string></value>
 </member>
 </struct></value>
 </param>
