@@ -51,45 +51,49 @@
 				padding: 0;
 			}    	
 	    }
-	};
-    ul ul > li > a {
-		display: block;
-		cursor: pointer;
-		text-transform: uppercase;
-		outline: 0;
-		&:hover{
-			text-decoration: none;
-			color: black;
-			outline: 0;	
-		}
-		> span {
-			display: block;
-			padding-bottom: 5px;
-			padding-top:5px;
-			padding-left: 25px;
-			-webkit-border-radius: 4px;
-			-moz-border-radius: 4px;
-			border-radius: 4px;
-		};
-	};
-	ul ul ul a {
-		padding: 6px 6px 6px 20px;
-		display: block;
-		color: 	#444444;
-		font-size: .8em;
-		font-weight: normal;
-		text-transform: uppercase;
-		&:hover{
-			color: black;
-		}
 	}
-	ul  ul li.empty > a, ul ul li.empty > a:hover{
-		cursor: default !important;
-		opacity: 0.6;
-		color: #444444 !important;
-	}
-	ul ul ul , ul ul {
+	.market-list{
 		display: none;
+		a{
+			display: block;
+			cursor: pointer;
+			text-transform: uppercase;
+			outline: 0;
+			&:hover{
+				text-decoration: none;
+				color: black;
+				outline: 0;	
+			}
+			> span {
+				display: block;
+				padding-bottom: 5px;
+				padding-top:5px;
+				padding-left: 25px;
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 4px;
+			};
+		}
+		li.empty > a, li.empty > a:hover{
+			cursor: default !important;
+			opacity: 0.6;
+			color: #444444 !important;
+		}
+	}
+	.shop-list{ 
+		display: none;
+		a{
+			padding: 6px 6px 6px 20px;
+			color: 	#444444;
+			font-size: 0.8em;
+			> span {
+				padding-bottom: 0;
+				padding-top: 0;
+			}
+			&.current{
+				font-weight: bold;
+			}
+		}
 	}
 }
 

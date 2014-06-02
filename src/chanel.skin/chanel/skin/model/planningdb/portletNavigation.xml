@@ -103,7 +103,7 @@ for sp in shop_programs:
 def is_allowed_to_edit(shop_programme):
     return is_zope_user or is_manager or current_user_id in asList(shop_programme.getItem("Plomino_Authors", []))
 
-def computeMain(date):
+def computeSection(date):
     month_id = date.month()
     month = months[str(month_id)]
     year = date.year()
@@ -112,10 +112,10 @@ def computeMain(date):
     else:
          class_css = date is current_date and "current" or ""
 
-    tmp_html = """<li class="main %s"><a><span>%s</span></a><ul>""" % (class_css, month)
+    tmp_html = """<li class="main %s"><a><span>%s</span></a><ul class="market-list">""" % (class_css, month)
     month_programs = programs_by_market.setdefault(year,{}).get(month_id, {})
     
-    if not month_programs:
+    if not (month_programs or class_css == "current"):
         return ""
     
     for market_name, market_id in markets:
@@ -124,9 +124,11 @@ def computeMain(date):
             shops = shops_by_market.get(market_id)
             class_css = program.id == current_program_id and "current" or ""
             tmp_html += """<li class="%s"><a href="#"><span>%s</span></a>""" % (class_css, market_name)
+
             if shops:
-                tmp_html += """<ul>"""
+                tmp_html += """<ul class="shop-list">"""
                 for shop in shops:
+                    class_current_css = (class_css == "current" and current_shop_id == shop.id) and "current" or ""
                     if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
                         if is_allowed_to_edit(shopprograms_by_shop[shop.id][program.id]):
                             url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
@@ -137,7 +139,8 @@ def computeMain(date):
                     else:
                         tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
                         continue
-                    tmp_html += """<li><a href="%s"><span>%s</span></a></li>""" % (url, shop.getItem("shop_name"))
+
+                    tmp_html += """<li><a href="%s" class="%s"><span>%s</span></a></li>""" % (url, class_current_css, shop.getItem("shop_name"))
                 tmp_html += """</ul>"""
             tmp_html += """</li>"""
         else:
@@ -148,7 +151,7 @@ def computeMain(date):
 html = """<div id="portlet_navigation"> <ul>"""
 
 for date in dates:
-   html += computeMain(date)
+   html += computeSection(date)
 
 html += """</ul></div>"""
 

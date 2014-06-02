@@ -133,7 +133,7 @@ chanel.initPortletNavigation = function(){
         var checkElement = $(this).next();
 
 
-        $('#portlet_navigation li').removeClass('active');
+        //$('#portlet_navigation li').removeClass('active');
         $(this).closest('li').addClass('active');   
 
         if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
