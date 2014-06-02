@@ -39,17 +39,19 @@
 form = db.getForm("frmShopProgram")
 request = context.REQUEST
 doc = actual_context(context)
-is_sp = doc and doc.getItem("doctype") == "shopprogram"
+is_sp = ( doc and doc.getItem("doctype") == "shopprogram" )
 
 current_shop_id =  is_sp and doc.getItem("shop_id") or request.get("shop_id")
-current_shop = is_sp and db.getDocument(current_shop_id) or None
+current_shop = db.getDocument(current_shop_id)
 
 current_program_id = is_sp and doc.getItem("program_id") or request.get("program_id")
-current_program = is_sp and db.getDocument(current_program_id) or None
+current_program = db.getDocument(current_program_id)
 
-current_market = is_sp and current_shop.getItem("shop_market") or None
-current_month = is_sp and current_program.getItem("program_month") or None
+current_market = current_shop and current_shop.getItem("shop_market") or None
+current_month = current_program and current_program.getItem("program_month") or None
 
+#Log("current_market %s" % current_market)
+#Log("current_month %s" % current_month)
 # config values
 markets = [a.split("|") for a in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
 months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
@@ -107,15 +109,18 @@ def computeSection(date):
     month_id = date.month()
     month = months[str(month_id)]
     year = date.year()
-    if is_sp:
+    if current_month:
          class_css = (current_month == int(month_id)) and "current" or ""
     else:
          class_css = date is current_date and "current" or ""
 
+#    Log(month_id)
+#    Log(current_month)
+
     tmp_html = """<li class="main %s"><a><span>%s</span></a><ul class="market-list">""" % (class_css, month)
     month_programs = programs_by_market.setdefault(year,{}).get(month_id, {})
     
-    if not (month_programs or class_css == "current"):
+    if not (month_programs or class_css == "current"  or date is current_date):
         return ""
     
     for market_name, market_id in markets:
