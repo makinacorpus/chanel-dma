@@ -1,0 +1,23 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="createProgramAndRedirect" title="createProgramAndRedirect" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">createProgramAndRedirect</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+
+newdoc = db.createDocument()
+form = db.getForm("frmProgram")
+
+program_market = context.REQUEST.get("program_market")
+program_month = context.REQUEST.get("program_month")
+program_year = context.REQUEST.get("program_year")
+
+if (program_market and program_month and program_year):
+    newdoc.setItem("program_market", program_market)
+    newdoc.setItem("program_month", int(program_month))    
+    newdoc.setItem("program_year", int(program_year))
+    newdoc.save(form=form, creation=True)
+    context.REQUEST.RESPONSE.redirect(newdoc.absolute_url() + "/EditDocument")]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>

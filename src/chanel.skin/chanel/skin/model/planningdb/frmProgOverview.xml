@@ -93,8 +93,8 @@ year = plominoContext.REQUEST.get("program_year", Now().year())
 
 results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_month': int(month), 'program_year': year})]
 
-form = db.getForm("frmProgram")
-form_url = form.absolute_url() + "?program_month=%s&program_year=%s" % (month, year) + "&program_market=%s" 
+agent = db.getAgent("createProgramAndRedirect")
+agent_url = agent.absolute_url() + "/runAgent?program_month=%s&program_year=%s" % (month, year) + "&program_market=%s" 
 
 # search program using market name
 def getProgram(market):
@@ -117,7 +117,7 @@ for market_id, market_name in markets:
     class_row = odd is True and "odd" or "even"
     odd = not odd 
     # button
-    button = program and "<a href='%s/EditDocument?openwithform=frmProgram' class='btn btn-primary'>Open</button>" % program.absolute_url() or "<a href='%s' class='btn btn-info'>Create</a>" % (form_url % market_id)
+    button = program and "<a href='%s/EditDocument?openwithform=frmProgram' class='btn btn-primary'>Open</button>" % program.absolute_url() or "<a href='%s' class='btn btn-info'>Create</a>" % (agent_url % market_id)
     # add row in html
     html+= """<tr class='%s'><td>%s</td><td>%s</td><td>%s</td></tr>""" % (class_row, market_name, getStatus(program), button)
 
