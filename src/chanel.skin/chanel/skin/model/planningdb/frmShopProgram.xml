@@ -3,34 +3,25 @@
     <element id="frmShopProgram" title="Shop program" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frmShopProgram</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
-      <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
-      <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
-      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+      <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 current_user_id = context.getCurrentUserId()
 current_user_roles = context.getCurrentUserRoles()
 authors = asList(context.getItem("Plomino_Authors"))
-is_locked = context.getItem("planning_locked", False)
+
+if (not context.isEditMode()) and ("[manager]" in current_user_roles or current_user_id in authors or "Manager" in context.getCurrentUser().getRoles()):
+    context.REQUEST.RESPONSE.redirect("%s%s" % (plominoDocument.absolute_url(), "/EditDocument"))]]></onOpenDocument>
+      <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
+      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+
+is_locked = context.getItem("planning_locked") == "true" 
 authorized = ["[manager]"]
 
 if not is_locked:
-   # Log("unlocked")
    shop = db.getDocument(context.getItem("shop_id"))
    user_id = str(shop.getItem("shop_manager"))
-   for auth in authors:
-        if auth not in authorized:
-            authorized.append(user_id)
+   authorized.append(user_id)
 
-   if not user_id in authorized:
-      authorized.append(user_id)
-#else:
-#   Log("locked")
-
-context.setItem("Plomino_Authors", authorized)
-
-context.REQUEST.set("plominoredirecturl", "%s%s" % (plominoDocument.absolute_url(), "/EditDocument"))
-
-if "[manager]" in current_user_roles or current_user_id in authorized:
-   return plominoDocument.absolute_url() + "/EditDocument"]]></onSaveDocument>
+context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
@@ -154,7 +145,7 @@ html = u"""
    
 for display in displays:
     html += """
-    <div class="display-cell"><span>%s</span></div>""" % (display.getItem('display_name'))
+    <div class="display-cell"><p class="display-cell-container"><span class="display-cell-text">%s</span></p></div>""" % (display.getItem('display_name'))
 
 html += """
   </div>
@@ -174,6 +165,7 @@ for display in displays:
             movie_data_disabled = (movie_data_status == "Y") and " " or "disabled"
             for status in ("Y","N","X"):
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
+
             html += """
           <div class="movie-cell %(class_css)s" rel="%(id)s">
             <div class="title"><span rel="div.overlay" data-url="%(url)s" title="%(title)s%(subtitle)s">%(title_cropped)s%(subtitle)s</span>%(information)s</div>
