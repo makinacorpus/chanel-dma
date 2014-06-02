@@ -154,8 +154,17 @@ ul.submenu {
     .movies-row {
         .movies-column {
             .movie-cell {
+                .dates{
+                   span:first-child{
+                        margin-top:2px;
+                    }
+                }
                 .dates input{
                       position: relative;
+                      //border-width:3px;
+                      &::-webkit-datetime-edit { 
+
+                      }
                       &::-webkit-inner-spin-button, {
                         display: none;
                       }
@@ -194,14 +203,20 @@ ul.submenu {
         .display-cell {
             text-align: center;
             display: table-cell;
-            span {
+            .display-cell-container{
                 border-right: 1px @grey solid;
-                display: inline-table;
-                height: 90%;
-                width: 100%;
-                margin: 1% 0;
+                margin-bottom: 6px !important;
+                margin-top: 6px;
+                line-height: 44px;
+                height: 44px;
+                .display-cell-text{
+                    padding:0 10%;
+                    display: inline-block;
+                    vertical-align: middle;
+                    line-height: normal;
+                }
             }
-            &:last-child span {
+            &:last-child .display-cell-container {
                 border-right: 0;
             }
         }
@@ -217,7 +232,7 @@ ul.submenu {
                 text-align: center;
                 display: block;
                 border: 1px @darkgrey solid;
-                background-color: @cream;
+                background-color: none;
                 .title {
                     height: 78px;
                     line-height: 78px;
@@ -225,6 +240,7 @@ ul.submenu {
                     text-transform: uppercase;
                     font-weight: bold;
                     text-align: center;
+                    background-color: @cream;
                     //margin: 20px auto;
                     &>span {
                         padding-left: 5px;
@@ -239,6 +255,9 @@ ul.submenu {
                 .actions {
                     border: 1px black solid;
                     background-color: @darkgrey;
+                    >input{
+                        cursor: pointer;
+                    }
                 }
                 i {
                     position: absolute;
@@ -246,10 +265,10 @@ ul.submenu {
                     top: 80%;
                     cursor: pointer;
                 }
-                &.yes {
+                &.yes .title{
                     background-color: @green;
                 }
-                &.no {
+                &.no .title{
                     background-color: @grey;
                 }
                 .dates {
