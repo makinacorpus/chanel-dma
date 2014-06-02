@@ -73,6 +73,11 @@ chanel.planning.manage_show_submit = function(){
             $(".planning-table input").enable(false);
         }
     }
+    else{
+        // in read mode
+        $(".sp_workflow>btn, .save input").hide();
+        $(".planning-table input").enable(false);
+    }
 }
 
 chanel.planning.event_onsubmit = function() {
@@ -89,6 +94,9 @@ chanel.planning.event_onsubmit = function() {
 }
 
 chanel.planning.event_onsave = function() {
+    // fix
+    $(".actions input[checked=checked]").propAttr('checked',true);
+    
     $('form[name="frmShopProgram"] input[name="save"]').click(function(event){
         event.preventDefault();
 
