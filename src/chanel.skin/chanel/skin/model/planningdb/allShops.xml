@@ -53,6 +53,22 @@
           <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
           <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
         </element>
+        <element id="diffusions" title="Diffusions" type="PlominoColumn">
+          <id type="Products.Archetypes.Field.StringField">diffusions</id>
+          <SelectedField type="Products.Archetypes.Field.StringField">PlominoPlaceholder1</SelectedField>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+shop_displays = context.getItem("shop_displays")
+results = []
+
+for display_id in shop_displays:
+    display_doc = db.getDocument(display_id)
+    if display_doc:
+        results.append(display_doc.getItem("display_diffusion"))
+        
+return ", ".join(results)]]></Formula>
+          <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
+          <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
+        </element>
       </elements>
     </element>
   </design>
