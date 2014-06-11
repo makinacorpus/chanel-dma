@@ -98,7 +98,7 @@ if not market:
             market = doc.getItem("program_market")
 
 if market:
-    results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'movie', 'movie_markets': asList(market), 'movie_is_published': True})]
+    results = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'movie', 'movie_markets': asList(market), 'movie_is_published': True}, sortindex='movie_title')]
 else:
     return []
 
