@@ -201,11 +201,7 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
-return [ "%s - %s|%s" % (a.getItem("display_name"), a.getItem("display_formats"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
+return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a.getItem("display_formats"),a.getItem("display_diffusion"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -215,6 +211,10 @@ return [ "%s - %s|%s" % (a.getItem("display_name"), a.getItem("display_formats")
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 </struct></value>
 </param>
