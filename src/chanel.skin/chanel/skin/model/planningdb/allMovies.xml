@@ -39,6 +39,13 @@
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
         </element>
+        <element id="subtitle" title="Subtitle" type="PlominoColumn">
+          <id type="Products.Archetypes.Field.StringField">subtitle</id>
+          <SelectedField type="Products.Archetypes.Field.StringField">frmMovie/movie_subtitle</SelectedField>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
+          <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
+        </element>
       </elements>
     </element>
   </design>
