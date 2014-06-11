@@ -219,9 +219,10 @@ Art digital|AD""" ]]></Formula>
 China|CH
 Europe|EU
 Japan|JP
-UK|UK
+Middle East|ME
+UK & OTHERS|UK
 US|US
-"""]]></Formula>
+""" ]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
