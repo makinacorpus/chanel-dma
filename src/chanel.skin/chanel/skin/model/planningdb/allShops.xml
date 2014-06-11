@@ -58,13 +58,17 @@
           <SelectedField type="Products.Archetypes.Field.StringField">PlominoPlaceholder1</SelectedField>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 shop_displays = context.getItem("shop_displays")
-results = []
+results_by_diffusion = {}
 
 for display_id in shop_displays:
     display_doc = db.getDocument(display_id)
     if display_doc:
-        results.append(display_doc.getItem("display_diffusion"))
-        
+        diffusion = display_doc.getItem("display_diffusion")
+        if not diffusion:
+            diffusion = "no diffusion"
+        results_by_diffusion.setdefault(diffusion, [])
+        results_by_diffusion[diffusion].append(display_doc.getItem("display_name"))
+results = ["%s [%s]" % (k, ",".join(v)) for (k,v) in results_by_diffusion.items()]
 return ", ".join(results)]]></Formula>
           <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
           <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
