@@ -69,13 +69,13 @@ chanel.planning.manage_show_submit = function(){
             // already locked
             $(".sp_workflow>[rel=lock]").hide();
             $(".sp_actions.manager .sp_workflow>[rel=unlock]").show();
-            $(".save input").hide();
+            $(".sp_actions .save").hide();
             $(".planning-table input").enable(false);
         }
     }
     else{
         // in read mode
-        $(".sp_workflow>btn, .save input").hide();
+        $(".sp_actions").find(".sp_workflow, .save, .sp_reset, .sp_override").hide();
         $(".planning-table input").enable(false);
     }
 }
@@ -140,8 +140,7 @@ chanel.planning.event_onreset = function(){
 }
 
 chanel.planning.disable_replication = function(){
-    $("#override_duplicate_action").enable(false);
-    $("#override_duplicate_action").parent().attr("title","First, you need to save last changes before using this feature or F5");
+    $(".sp_override a").addClass("disabled").parent().attr("title","First, you need to save last changes before using this feature or F5");
 }
 
 chanel.initPortletNavigation = function(){
