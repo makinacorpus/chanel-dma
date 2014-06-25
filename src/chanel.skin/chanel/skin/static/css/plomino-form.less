@@ -37,6 +37,10 @@ form[name=frmShop] .table{
         padding-left: 35px;
     }
 }
+/**
+#program_movies_datagrid th:first-child{
+    width: 400px;
+}**/
 #content form[name=frmShopProgram]{
     .sp_actions{
         text-align: center;
@@ -48,8 +52,14 @@ form[name=frmShop] .table{
             display: table-row;
             &>div{
                 display: table-cell;
+                text-align: center;
                 vertical-align: top;
-                width: 33%;
+                width: 20%;
+
+                &.hidden{
+                    display: none;
+                }
+
                 &.sp_workflow{
                     &>[rel=lock], &>[rel=unlock]{
                         display: none;
@@ -60,30 +70,14 @@ form[name=frmShop] .table{
                     &>[rel=unlock]{
                         opacity: 0.8;
                     }
-                    text-align: right;
                 }
-                &.special_request{
-                    text-align: center;
-                    &>a{
-                        margin: auto;
-                        width:150px;
-                        height: 24px;
+
+                &.special_request>a, &.sp_override>a{
+                        font-family: Arial,FreeSans,sans-serif;
                         font-size: 12px;
-                        border-bottom: 1px solid transparent !important;
-                        line-height: 16px;
-                    }
+                        line-height: 17px;
                 }
-                &.save{
-                    text-align: left;
-                }
-                a:hover,.btn:hover{
-                    border-bottom: 1px solid black !important;
-                    color:white !important;
-                    border:1px solid black;
-                    -moz-box-shadow: 0px 4px 8px #205C90;
-                    -webkit-box-shadow: 0px 4px 8px #205C90;
-                    box-shadow: 0px 4px 8px #205C90;
-                }
+
                 .btn, a{
                     cursor: pointer;
                     background-image: none;
@@ -99,11 +93,20 @@ form[name=frmShop] .table{
                     -moz-box-shadow: 0px 4px 8px #000000;
                     -webkit-box-shadow: 0px 4px 8px #000000;
                     box-shadow: 0px 4px 8px #000000;
-                    border:1px solid transparent;
+                    border:1px solid transparent !important;
                     padding-bottom: 2px;
                     padding-top: 2px;
                     width:150px;
                     height: 24px;
+                }
+
+                a:hover,.btn:hover{
+                    border-bottom: 1px solid black !important;
+                    color:white !important;
+                    border:1px solid black;
+                    -moz-box-shadow: 0px 4px 8px #205C90;
+                    -webkit-box-shadow: 0px 4px 8px #205C90;
+                    box-shadow: 0px 4px 8px #205C90;
                 }
             }
         }
