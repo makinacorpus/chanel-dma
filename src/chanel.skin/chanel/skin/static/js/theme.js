@@ -24,7 +24,7 @@ chanel.planning.showFlowPopup = function() {
 };
 
 chanel.planning.enable_choices = function() {
-    $('.planning-table input[type="radio"]').change(function() {
+    $('.planning-table input[type="radio"]').click(function() {
         if(this.value=='Y') {
             $(this).parents('.movie-cell').removeClass('no');
             $(this).parents('.movie-cell').addClass('yes');
