@@ -83,8 +83,11 @@ chanel.planning.manage_show_submit = function(){
 chanel.planning.event_onsubmit = function() {
      $(".sp_workflow>[rel=lock]").click(function(event){
         event.preventDefault();
-        $("#planning_locked").val("true");
-        $("form[name='frmShopProgram'] input[name='save']").click();
+        var choice = confirm("After submit, changes on this planning won't be allowed");
+        if (choice) {
+            $("#planning_locked").val("true");
+            $("form[name='frmShopProgram'] input[name='save']").click();
+        }
     });
      $(".sp_workflow>[rel=unlock]").click(function(event){
         event.preventDefault();
