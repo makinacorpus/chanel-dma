@@ -1,0 +1,106 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="shareShopProgramAndRedirect" title="shareShopProgramAndRedirect" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">shareShopProgramAndRedirect</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+request = context.REQUEST
+doc = db.getDocument(request.get("shopprogram_id"))
+
+if not doc:
+    return ""
+
+program_id = doc.getItem("program_id")
+shop_id = doc.getItem("shop_id")
+
+program = db.getDocument(program_id)
+shop = db.getDocument(shop_id)
+
+def getData(sp):
+        planning_data = sp.getItem("planning_data")
+        return (planning_data) and json_loads(planning_data) or {}
+
+if request.get("method") == "GET":     
+
+    market = shop.getItem("shop_market")
+    manager = asList(shop.getItem("shop_manager"))
+    
+    # TODO add shop ids criteria
+    shop_programs_brains = db.getIndex().dbsearch({'doctype': 'shopprogram', 'program_id': program_id})
+    shop_programs = [a.getObject() for a in shop_programs_brains if a.id != shop_id]
+    sp_by_shop={}
+    
+    for sp in shop_programs:
+        sp_by_shop[sp.getItem("shop_id")] = sp
+    
+    # TODO add shop market criteria
+    shops = [ a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 
+                            'shop_manager': manager, 'shop_is_published': True
+                            }) if a.id != shop_id]
+    Log([shop.getItem("shop_name") for shop in shops])
+    
+    list_shops = []
+
+    list_template = """<input type='checkbox' name='shopprograms' value='%s'> %s""" 
+
+    for shop in shops:
+        shop_id_tmp = shop.id
+        if shop_id_tmp in sp_by_shop.keys():
+            sp = sp_by_shop[shop_id_tmp]
+            if sp.getItem("planning_locked","false") == "false":
+                   list_shops.append(list_template % (sp.id, shop.getItem("shop_name")))
+        else:
+            list_shops.append(list_template % ("new.%s" % shop.id, shop.getItem("shop_name")))
+
+    # TODO find better solution
+    html = """
+    <div id='content'>
+        <form class='form' action='%s/runAgent' method='POST'>
+          <fieldset>
+          <legend>Share POS</legend>
+          <p>
+             %s
+          <p>
+          <input type='hidden' name='shopprogram_id' value='%s'/>
+          <button>Submit</button>
+          </fieldset>
+        </form>
+    </div>""" % ( context.absolute_url(), "<br>".join(list_shops), doc.id )
+
+    response = context.REQUEST.RESPONSE
+    response.setBody(html)
+else:
+    shopsprogs_id = asList(request.get("shopprograms", []))
+    context.REQUEST.set("program_id", program_id)
+
+    current_planning_data = getData(doc)
+    form = db.getForm("frmShopProgram")
+
+    for shp_id in shopsprogs_id:
+        if "." in shp_id:
+            shop_tmp_id = shp_id.split(".")[-1]
+            shop_tmp = db.getDocument(shop_tmp_id)
+            sp = db.createDocument()
+            sp.setItem("program_id", program_id)
+            context.REQUEST.set("shop_id", shop_tmp_id)
+            sp.setItem("shop_id", shop_tmp_id)
+            sp.setItem("planning_data", unicode(json_dumps(current_planning_data)))
+            sp.save(form=form, creation=True)
+            db.writeMessageOnPage("Planning for %s [%s] created" % (shop_tmp.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
+        else:
+           sp = db.getDocument(shp_id)
+           if sp and sp.getItem("planning_locked","false") == "false":
+                tmp_planning_data = getData(sp)
+                for k,v in current_planning_data.items():
+                    movie_data = tmp_planning_data.get(k, {})
+                    tmp_planning_data[k] = dict(movie_data.items() + v.items())
+        
+                sp.setItem("planning_data", unicode(json_dumps(tmp_planning_data)))
+                db.writeMessageOnPage("Planning for %s [%s] updated" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
+    
+    request.RESPONSE.redirect(doc.absolute_url())
+     db.writeMessageOnPage("BOOOM", context.REQUEST)
+]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>
