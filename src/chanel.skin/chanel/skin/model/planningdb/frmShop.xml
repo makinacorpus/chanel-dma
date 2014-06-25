@@ -243,8 +243,22 @@ return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a
           <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
-          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <IndexType type="Products.Archetypes.Field.StringField">KeywordIndex</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>selector</name>
+<value><string>SEARCH</string></value>
+</member>
+<member>
+<name>type</name>
+<value><string>MULTI</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
         <element id="close" title="Close" type="PlominoAction">
           <id type="Products.Archetypes.Field.StringField">close</id>

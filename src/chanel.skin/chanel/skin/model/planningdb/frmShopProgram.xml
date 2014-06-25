@@ -18,8 +18,8 @@ authorized = ["[manager]"]
 
 if not is_locked:
    shop = db.getDocument(context.getItem("shop_id"))
-   user_id = str(shop.getItem("shop_manager"))
-   authorized.append(user_id)
+   user_ids = asList(shop.getItem("shop_manager"))
+   authorized = authorized + user_ids
 
 context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
@@ -113,7 +113,7 @@ def html_information(information, id):
 
 for movie in all_movies:
     movie_doc = db.getDocument(movie[0])
-    if not movie_doc.getItem("movie_is_published"):
+    if not (movie_doc and movie_doc.getItem("movie_is_published")):
         continue
     formats = movie_doc.getItem('movie_formats')
     axes = asList(movie_doc.getItem('movie_axes'))
