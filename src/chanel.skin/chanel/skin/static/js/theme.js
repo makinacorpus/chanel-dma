@@ -132,6 +132,13 @@ chanel.planning.event_onsave = function() {
     });
 };
 
+chanel.planning.event_onreset = function(){
+    $(".sp_reset button").click(function(event){
+        event.preventDefault();
+        $(".planning-table input[type=radio][value=X]").click();
+    });
+}
+
 chanel.planning.disable_replication = function(){
     $("#override_duplicate_action").enable(false);
     $("#override_duplicate_action").parent().attr("title","First, you need to save last changes before using this feature or F5");
@@ -181,6 +188,7 @@ $(document).ready(function() {
     chanel.planning.enable_choices();
     chanel.planning.event_onsave();
     chanel.planning.event_onsubmit();
+    chanel.planning.event_onreset();
     chanel.initPortletNavigation();
     chanel.planning.showFlowPopup();
     $('.movie-cell i').tooltip({ 
