@@ -32,11 +32,11 @@ chanel.planning.enable_choices = function() {
         } else if(this.value=='N') {
             $(this).parents('.movie-cell').removeClass('yes');
             $(this).parents('.movie-cell').addClass('no');
-            $(this).parents('.movie-cell').find('input[type="date"]').attr('disabled', 'disabled');
+            $(this).parents('.movie-cell').find('input[type="date"]').attr('disabled', 'disabled').val("");
         } else {
             $(this).parents('.movie-cell').removeClass('yes');
             $(this).parents('.movie-cell').removeClass('no');
-            $(this).parents('.movie-cell').find('input[type="date"]').attr('disabled', 'disabled');
+            $(this).parents('.movie-cell').find('input[type="date"]').attr('disabled', 'disabled').val("");
         }
         chanel.planning.manage_show_submit();
         chanel.planning.disable_replication();
