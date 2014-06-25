@@ -10,7 +10,7 @@
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
-<h4>PERSONAL SHOPS</h4>
+<h4>PERSONAL POS</h4>
 <p><span class="plominoFieldClass">shop_programs</span></p>
 <p><span class="plominoHidewhenClass">start:allowed</span></p>
 <h4>BACKOFFICE</h4>
