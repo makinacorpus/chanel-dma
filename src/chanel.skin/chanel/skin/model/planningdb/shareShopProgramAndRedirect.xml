@@ -15,6 +15,8 @@ shop_id = doc.getItem("shop_id")
 program = db.getDocument(program_id)
 shop = db.getDocument(shop_id)
 
+messages = []
+
 def getData(sp):
         planning_data = sp.getItem("planning_data")
         return (planning_data) and json_loads(planning_data) or {}
@@ -36,21 +38,30 @@ if request.get("method") == "GET":
     shops = [ a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 
                             'shop_manager': manager, 'shop_is_published': True
                             }) if a.id != shop_id]
-    Log([shop.getItem("shop_name") for shop in shops])
+    #Log([shop.getItem("shop_name") for shop in shops])
     
     list_shops = []
 
-    list_template = """<input type='checkbox' name='shopprograms' value='%s'> %s""" 
+    list_template = """<input type='checkbox' name='shopprograms' value='%(value)s'> %(shop_name)s [%(shop_manager)s]""" 
 
     for shop in shops:
         shop_id_tmp = shop.id
+        sp_id = ""
+
         if shop_id_tmp in sp_by_shop.keys():
             sp = sp_by_shop[shop_id_tmp]
             if sp.getItem("planning_locked","false") == "false":
-                   list_shops.append(list_template % (sp.id, shop.getItem("shop_name")))
+                sp_id = sp.id
         else:
-            list_shops.append(list_template % ("new.%s" % shop.id, shop.getItem("shop_name")))
+            sp_id = "new.%s" % shop.id
 
+        list_shops.append(list_template % {
+                                            "value": sp_id, 
+                                            "shop_name": shop.getItem("shop_name"), 
+                                            "shop_manager": ", ".join([userFullname(db, userid) for userid in asList(shop.getItem("shop_manager")) ] )
+                                         })
+    if not list_shops:
+        list_shops.append("<span>No market found with same managers and same program</span>");
     # TODO find better solution
     html = """
     <div id='content'>
@@ -85,7 +96,7 @@ else:
             sp.setItem("shop_id", shop_tmp_id)
             sp.setItem("planning_data", unicode(json_dumps(current_planning_data)))
             sp.save(form=form, creation=True)
-            db.writeMessageOnPage("Planning for %s [%s] created" % (shop_tmp.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
+            #messages.append("Planning for %s [%s] created" % (shop_tmp.getItem("shop_name"), program.getItem("program_name")))
         else:
            sp = db.getDocument(shp_id)
            if sp and sp.getItem("planning_locked","false") == "false":
@@ -95,10 +106,9 @@ else:
                     tmp_planning_data[k] = dict(movie_data.items() + v.items())
         
                 sp.setItem("planning_data", unicode(json_dumps(tmp_planning_data)))
-                db.writeMessageOnPage("Planning for %s [%s] updated" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
+                #messages.append("Planning for %s [%s] updated" % (shop.getItem("shop_name"), program.getItem("program_name")))
     
     request.RESPONSE.redirect(doc.absolute_url())
-     db.writeMessageOnPage("BOOOM", context.REQUEST)
 ]]></Content>
       <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
     </element>
