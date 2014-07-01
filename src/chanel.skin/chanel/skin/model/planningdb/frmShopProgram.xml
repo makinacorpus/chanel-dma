@@ -37,10 +37,20 @@ context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
 </div>
 </div>
 ]]></FormLayout>
-      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[POST]]></FormMethod>
-      <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
-      <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
-      <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
+      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
+      <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+request = context.REQUEST
+
+program = db.getDocument(context.getItem("program_id"))
+shop = db.getDocument(context.getItem("shop_id"))
+           
+month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", program.getItem("program_month"))
+
+market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program.getItem("program_market"))
+
+return "%s - %s %s" % (shop.getItem("shop_name"),month, program.getItem("program_year"))]]></DocumentTitle>
+      <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</DynamicDocumentTitle>
+      <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</StoreDynamicDocumentTitle>
       <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 request = context.REQUEST
 program = db.getDocument(request.get("program_id"))
