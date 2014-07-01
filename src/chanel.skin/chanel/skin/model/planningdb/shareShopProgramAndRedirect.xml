@@ -37,7 +37,7 @@ if request.get("method") == "GET":
     # TODO add shop market criteria
     shops = [ a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 
                             'shop_manager': manager, 'shop_is_published': True
-                            }) if a.id != shop_id]
+                            }, sortindex='shop_name') if a.id != shop_id]
     #Log([shop.getItem("shop_name") for shop in shops])
     
     list_shops = []

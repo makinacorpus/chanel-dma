@@ -87,7 +87,7 @@ shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop
                         'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},
                         })]
 #shops
-shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_is_published': True})]
+shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_is_published': True}, sortindex='shop_name')]
 #, 'shop_market': {'query': market_ids, 'operator': 'OR'}})]
 
 shops_by_market = {}
