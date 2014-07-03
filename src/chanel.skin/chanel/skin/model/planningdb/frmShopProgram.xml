@@ -20,6 +20,17 @@ if not is_locked:
    shop = db.getDocument(context.getItem("shop_id"))
    user_ids = asList(shop.getItem("shop_manager"))
    authorized = authorized + user_ids
+else:
+    html = """<br/> Planning : <a href="%s"/>planning changed<a><br/>Submitted by : %s""" % (context.absolute_url(), userFullname(db, db.getCurrentUserId())) 
+    sender = db.portal_url.getPortalObject().email_from_address
+    sendMail(
+        db,
+        ["progsubmit@mirabellstudio.com"],
+        "A submit from Chanel POS Planning",
+        html,
+        immediate=True,
+        sender=sender
+    )
 
 context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
