@@ -50,15 +50,16 @@ context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 request = context.REQUEST
-
-program = db.getDocument(context.getItem("program_id"))
-shop = db.getDocument(context.getItem("shop_id"))
-           
-month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", program.getItem("program_month"))
-
-market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program.getItem("program_market"))
-
-return "%s - %s %s" % (shop.getItem("shop_name"),month, program.getItem("program_year"))]]></DocumentTitle>
+if context and context.isDocument():
+    program = db.getDocument(context.getItem("program_id"))
+    shop = db.getDocument(context.getItem("shop_id"))
+    if(program and shop):
+        month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months", program.getItem("program_month"))
+        
+        market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program.getItem("program_market"))
+        
+        return "%s - %s %s" % (shop.getItem("shop_name"),month, program.getItem("program_year"))
+]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</StoreDynamicDocumentTitle>
       <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
@@ -181,6 +182,7 @@ html += """
 # generate all movie cells
 for display in displays:
     display_data = planning_data.get(display.id, {})
+
     display_axes = asList(display.getItem("display_axes"))
 
     html += """
@@ -189,6 +191,7 @@ for display in displays:
         is_concerned =  [m for m in movie["axes"] if m in display_axes]
         if is_concerned:
             movie_data = display_data.get(movie["id"], {})
+
             movie_data_status = movie_data.get("status","X")
             movie_data_disabled = (movie_data_status == "Y") and " " or "disabled"
             for status in ("Y","N","X"):
