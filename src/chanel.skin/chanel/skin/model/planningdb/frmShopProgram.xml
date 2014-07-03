@@ -369,33 +369,56 @@ return html
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 agent = db.getAgent("shareShopProgramAndRedirect")
 
-is_manager = "[manager]" in context.getCurrentUserRoles()
+shop = db.getDocument(context.getItem("shop_id"))
+
 current_user = context.getCurrentUser()
-is_zope_user = "Manager" in current_user.getRoles()
-class_css = (is_manager or is_zope_user) and "manager" or ""
+
+is_plone_manager = "[manager]" in context.getCurrentUserRoles()
+is_zope_manager = "Manager" in current_user.getRoles()
+is_owner = current_user.id in asList(shop.getItem("shop_manager"))
+#Log("is pm:%s , is zm:%s , is o:%s" % (is_plone_manager,is_zope_manager,is_owner))
+
+is_locked = str(plominoContext.getItem("planning_locked")) == "true"
+is_new = plominoContext.isNewDocument()
+is_edit = plominoContext.isEditMode()
+#Log("is l:%s, is n:%s,is edit:%s"% (is_locked, is_new, is_edit))
+
+allowed_to_submit = ((is_plone_manager or is_zope_manager or (is_owner and not(is_locked))))
+allowed_to_share = (is_plone_manager or is_zope_manager or is_owner)
+allowed_to_unpublish = (is_plone_manager or is_zope_manager)
+
+submit_attribute = "disabled" if not(is_edit and allowed_to_submit) else ""
+share_attribute = "disabled" if (is_new or not(allowed_to_share)) else ""
+unpublish_attribute = "disabled" if not(is_edit and allowed_to_unpublish) else ""
+unpublish_display = "hidden" if (not is_locked) else ""
+submit_display = "hidden" if (is_locked) else ""
+
+class_css = (is_plone_manager or is_zope_manager) and "manager" or ""
+
 isnew_css = "hidden" if (plominoContext.isNewDocument()) else ""
+
 display_css = "hidden" if (plominoContext.isDocument() and plominoContext.getItem("planning_locked") == "true") else ""
 
 url = "%s/runAgent?shopprogram_id=%s" % (agent.absolute_url(), context.id) if context.isDocument() else ""
 
 if context.isDocument() or context.REQUEST.get("program_id"):
-    return """
+    html = """
     <div class="sp_actions %(class_css)s">
          <div class="actions_row">
-             <div class="save %(display_css)s">
-                  <input type="submit" value="Save" name="save" class="btn">
+             <div class="save %(submit_attribute)s"">
+                  <input type="submit" value="Save" name="save" class="btn" %(submit_attribute)s>
              </div>
-             <div class="sp_override %(isnew_css)s popupcontent">
-                       <a style="cursor: pointer;" rel="#pb_2" class="btn btn-default context link-overlay" href="%(url)s">
+             <div class="sp_override popupcontent %(share_attribute)s">
+                       <a style="cursor: pointer;" rel="#pb_2" class="btn btn-default context link-overlay" href="%(url)s" %(share_attribute)s>
                          add to other pos
                        </a>
              </div>
              <div class="sp_workflow">
-                   <button class="btn" rel="lock">Submit</button>
-                   <button class="btn" rel="unlock">Unpublish</button>
+                   <button class="btn" rel="lock" display="%(submit_display)s" %(submit_attribute)s>Submit</button>
+                   <button class="btn" rel="unlock" display="%(unpublish_display)s" %(unpublish_attribute)s>Unpublish</button>
              </div>
-             <div class="sp_reset %(display_css)s">
-                   <button class="btn">reset</button>
+             <div class="sp_reset %(submit_attribute)s">
+                   <button class="btn" %(submit_attribute)s">reset</button>
              </div>
              <div class="special_request popupcontent">
                        <a style="cursor: pointer;" rel="#pb_2" class="btn btn-default context link-overlay" href="sendto_specialrequest_form">
@@ -405,7 +428,19 @@ if context.isDocument() or context.REQUEST.get("program_id"):
 
          </div>
     </div>
-    """ % { "class_css" : class_css, "display_css" : display_css, "isnew_css" : isnew_css, "url" : url}]]></Formula>
+    """ % { 
+            "submit_attribute": submit_attribute,
+            "share_attribute": share_attribute,
+            "unpublish_attribute": unpublish_attribute,
+            "submit_display": submit_display, 
+            "unpublish_display": unpublish_display, 
+            "class_css" : class_css, 
+            "display_css" : display_css, 
+            "isnew_css" : isnew_css, 
+            "url" : url}
+
+    return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
