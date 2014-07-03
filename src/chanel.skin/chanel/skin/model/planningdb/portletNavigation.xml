@@ -139,7 +139,7 @@ def computeSection(date):
                             url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
                         else:
                             url = "%s" % shopprograms_by_shop[shop.id][program.id].absolute_url()
-                    elif is_zope_user or is_manager or current_user_id == shop.getItem("shop_manager"):
+                    elif is_zope_user or is_manager or current_user_id in shop.getItem("shop_manager"):
                             url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
                         tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
