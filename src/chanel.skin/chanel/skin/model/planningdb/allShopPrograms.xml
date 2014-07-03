@@ -3,7 +3,7 @@
     <element id="allShopPrograms" title="allShopPrograms" type="PlominoView">
       <id type="Products.Archetypes.Field.StringField">allShopPrograms</id>
       <SelectionFormula type="Products.Archetypes.Field.TextField"><![CDATA[plominoDocument.getItem('doctype') == "shopprogram"]]></SelectionFormula>
-      <SortColumn type="Products.Archetypes.Field.StringField"/>
+      <SortColumn type="Products.Archetypes.Field.StringField">planningtitle</SortColumn>
       <KeyColumn type="Products.Archetypes.Field.StringField"/>
       <Categorized type="Products.Archetypes.Field.BooleanField">False</Categorized>
       <FormFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></FormFormula>
@@ -23,6 +23,15 @@
       <onOpenView type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenView>
       <Position type="Products.Archetypes.Field.IntegerField"/>
       <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
+      <elements>
+        <element id="planningtitle" title="Title" type="PlominoColumn">
+          <id type="Products.Archetypes.Field.StringField">planningtitle</id>
+          <SelectedField type="Products.Archetypes.Field.StringField">PlominoPlaceholder1</SelectedField>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return context.Title()]]></Formula>
+          <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
+          <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
+        </element>
+      </elements>
     </element>
   </design>
 </plominodatabase>
