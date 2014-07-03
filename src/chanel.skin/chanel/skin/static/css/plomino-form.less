@@ -56,14 +56,15 @@ form[name=frmShop] .table{
                 vertical-align: top;
                 width: 20%;
 
-                &.hidden{
+                &.hidden,[display=hidden]{
                     display: none;
+                }
+                
+                &.disabled{
+                    opacity: 0.5;
                 }
 
                 &.sp_workflow{
-                    &>[rel=lock], &>[rel=unlock]{
-                        display: none;
-                    }
                     &>[rel=lock]{
                         opacity: 0.9;
                     }
@@ -77,8 +78,7 @@ form[name=frmShop] .table{
                         font-size: 12px;
                         line-height: 17px;
                 }
-
-                .btn, a{
+                .btn, a{   
                     cursor: pointer;
                     background-image: none;
                     background-color: black;
@@ -99,7 +99,6 @@ form[name=frmShop] .table{
                     width:150px;
                     height: 24px;
                 }
-
                 a:hover,.btn:hover{
                     border-bottom: 1px solid black !important;
                     color:white !important;
