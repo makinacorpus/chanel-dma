@@ -149,7 +149,7 @@ for movie in all_movies:
     for f in formats:
         movies = movies_by_format.setdefault(f, [])
         movies.append({
-            'id': movie[0],
+            'id': movie_doc.id,
             'title': title,
             'information': movie[1],
             'axes': axes,
