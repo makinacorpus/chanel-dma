@@ -57,26 +57,28 @@ chanel.planning.manage_show_submit = function(){
         if(chanel.planning.check_is_already_locked() === false){
             if(chanel.planning.check_all_is_done() === true){
                 // ready
-                $(".sp_workflow>[rel=lock]").show();
+                $(".sp_workflow>[rel=lock]").enable(true);
                 $(".sp_workflow>[rel=unlock]").hide();
+                $(".sp_workflow").removeClass("disabled");
             }
             else{
                 // not ready
-                $(".sp_workflow>button").hide();        
+                $(".sp_workflow").addClass("disabled");
+                $(".sp_workflow>button").enable(false);       
             }
         }
         else{
-            // already locked
-            $(".sp_workflow>[rel=lock]").hide();
-            $(".sp_actions.manager .sp_workflow>[rel=unlock]").show();
-            $(".sp_actions .save").hide();
-            $(".planning-table input").enable(false);
+            $(".sp_workflow").addClass("disabled");
+            //$(".sp_actions .sp_workflow>[rel=unlock]").show();
+            //$(".sp_actions").find(".sp_reset>button,.save>input").enable(false);
+            //$(".planning-table input").enable(false);
         }
     }
     else{
+       $(".sp_workflow").addClass("disabled");
         // in read mode
-        $(".sp_actions").find(".sp_workflow, .save, .sp_reset, .sp_override").hide();
-        $(".planning-table input").enable(false);
+        //$(".sp_actions").find(".sp_workflow, .save, .sp_reset, .sp_override").enable(false);
+        //$(".planning-table input").enable(false);
     }
 }
 
