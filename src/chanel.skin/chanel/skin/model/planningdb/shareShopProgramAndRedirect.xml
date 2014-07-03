@@ -35,7 +35,7 @@ if request.get("method") == "GET":
         sp_by_shop[sp.getItem("shop_id")] = sp
     
     # TODO add shop market criteria
-    shops = [ a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 
+    shops = [ a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_market': shop.getItem("shop_market"),  
                             'shop_manager': manager, 'shop_is_published': True
                             }, sortindex='shop_name') if a.id != shop_id]
     #Log([shop.getItem("shop_name") for shop in shops])
