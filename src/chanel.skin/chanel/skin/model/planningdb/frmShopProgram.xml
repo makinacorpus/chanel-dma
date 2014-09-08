@@ -201,9 +201,9 @@ for display in displays:
           <div class="movie-cell %(class_css)s" rel="%(id)s">
             <div class="title"><span rel="div.overlay" data-url="%(url)s" title="%(title)s%(subtitle)s">%(title_cropped)s%(subtitle)s</span>%(information)s</div>
             <div class="actions">
-              <input type="radio" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /> <img src="/++theme++chanel.skin/images/progs-dates-icones/yes.png"/>
-              <input type="radio" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /> <img src="/++theme++chanel.skin/images/progs-dates-icones/no.png"/>
-              <input type="radio" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /> <img src="/++theme++chanel.skin/images/progs-dates-icones/rien.png"/>
+              <label class="YesCheckbox" title="YES"><input type="radio" id="RadioFieldID1" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /><span></span></label>
+              <label class="NoCheckbox" title="NO"><input type="radio" id="RadioFieldID2" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /><span></span></label>
+              <label class="RienCheckbox" title="RESET"><input type="radio" id="RadioFieldID3" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /><span></span></label>
             </div>
             <div class="dates">
               <div><span>FROM</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="start-%(id)s" value="%(date1)s"></span></div>

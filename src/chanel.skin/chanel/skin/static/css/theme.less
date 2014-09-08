@@ -45,10 +45,11 @@
 
 // PROJECT VARIABLES
 @grey: #bcbfc6;
-@darkgrey: #757367;
+@darkgrey: #888888;
 @rose: #f9dbad;
 @cream: #fef4e4;
 @green: #5eba65;
+@red: #fc291c;
 
 // BOOTSTRAP/PLONE FIXES
 
@@ -253,8 +254,10 @@ ul.submenu {
                     }
                 }
                 .actions {
-                    border: 1px black solid;
+                    border-top: 1px black solid;
+                    border-bottom: 1px black solid;
                     background-color: @darkgrey;
+                    height: 26px;
                     >input{
                         cursor: pointer;
                     }
@@ -263,18 +266,103 @@ ul.submenu {
                         margin-right: 5px;
                         margin-top: -5px;
                     }
+                    .YesCheckbox input {
+                        display: none;
+                    }
+                    .NoCheckbox input {
+                        display: none;
+                    }
+                    .RienCheckbox input {
+                        display: none;
+                    }
+                    .YesCheckbox span {
+                        width: 18px;
+                        height: 18px;
+                        display: block;
+                        background: url(../images/progs-dates-icones/yes-inerte.png) no-repeat;
+                        cursor: pointer;
+                        margin-top: 3px;
+                        margin-left: -60px;
+                    }
+                    .NoCheckbox span {
+                        width: 18px;
+                        height: 18px;
+                        display: block;
+                        background: url(../images/progs-dates-icones/no-inerte.png) no-repeat;
+                        cursor: pointer;
+                        margin-top: 3px;
+                        margin-left: -30px;
+                    }
+                    .RienCheckbox span {
+                        width: 18px;
+                        height: 18px;
+                        display: block;
+                        background: url(../images/progs-dates-icones/x-inerte.png) no-repeat;
+                        cursor: pointer;
+                        margin-top: 3px;
+                        margin-left: 0px;
+                    }
+                    label:hover {
+                        position: relative;
+                    }
+                    label[title]:hover:after {
+                        padding: 0px 8px;
+                        color: black;
+                        position: absolute;
+                        top: -120%;
+                        white-space: nowrap;
+                        z-index: 20px;
+                        -moz-border-radius: 3px;
+                        -webkit-border-radius: 3px;
+                        border-radius: 3px;
+                        -moz-box-shadow: 0px 0px 4px #222;
+                        -webkit-box-shadow: 0px 0px 4px #222;
+                        box-shadow: 0px 0px 4px #222;
+                        font-weight: 100;
+                        font-size: 12px;
+                        background-color: white;
+                    }
+                    label.YesCheckbox[title]:hover:after {
+                        content: attr(title);
+                        left: -70px;
+                    }
+                    label.NoCheckbox[title]:hover:after {
+                        content: attr(title);
+                        left: -40px;
+                    }
+                    label.RienCheckbox[title]:hover:after {
+                        content: attr(title);
+                        left: -10px;
+                    }
                 }
                 i {
                     position: absolute;
-                    right: 5px;
-                    top: 80%;
+                    right: 15px;
+                    top: 108%;
                     cursor: pointer;
+                    &.glyphicon-info-sign:before {
+                        color: transparent;
+                        font-size: 18px;
+                        background: url(../images/progs-dates-icones/info-icon.png) no-repeat 0px 0px  !important;
+                    }
+                }
+                &.yes{
+                    border: 2px solid @green;
+                }
+                &.no{
+                    border: 2px solid @red;
                 }
                 &.yes .title{
-                    background-color: @green;
+                    background-color: @cream;
                 }
                 &.no .title{
-                    background-color: @grey;
+                    background-color: @cream;
+                }
+                &.yes .YesCheckbox input:checked + span{
+                    background: url(../images/progs-dates-icones/yes-actif.png) no-repeat;
+                }
+                &.no .NoCheckbox input:checked + span{
+                    background: url(../images/progs-dates-icones/no-actif.png) no-repeat;
                 }
                 .dates {
                     display: table;
@@ -1425,7 +1513,8 @@ body.template-search.portaltype-plone-site.site-broadcastchanel_v1.kssActive #se
 .section-posformats .documentFirstHeading,
 .section-last_campaign .documentFirstHeading,
 .section-coco_mademoiselle .documentFirstHeading,
-.section-tvc-films .documentFirstHeading {
+.section-tvc-films .documentFirstHeading,
+.section-posplanning .documentFirstHeading {
 display: none;
 }
 .section-library .pb-ajax .documentFirstHeading,
