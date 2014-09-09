@@ -113,7 +113,7 @@ all_movies.sort(key = lambda m: m[0].getItem("movie_title"))
 displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
 
 lock = context.getItem("planning_locked")
-lock_html = (lock and lock == "true") and "<i class='glyphicon glyphicon-lock' style='padding:5px;font-size:60%;'></i>" or ""
+lock_html = (lock and lock == "true") and "<i class='lock-prog'></i>" or ""
 
 planning_data = context.getItem("planning_data")
 planning_data = (planning_data) and json_loads(planning_data) or {}
@@ -161,7 +161,7 @@ for movie in all_movies:
 
 # Planning header
 html = u"""
-<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation </h3><div class="planning-table cells-%(nb_cells)s">
+<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation %(lock_html)s</h3><div class="planning-table cells-%(nb_cells)s">
   <div class="display-row">
 """ % {
          'shop_name': shop.getItem('shop_name'),

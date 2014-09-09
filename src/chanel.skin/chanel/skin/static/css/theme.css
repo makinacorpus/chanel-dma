@@ -5418,6 +5418,14 @@ ul.submenu {
   margin: 10px auto;
   padding-top: 10px;
   font-size: 16px;
+  line-height: 30px;
+}
+.planning-program i.lock-prog {
+  position: absolute;
+  background: url(../images/progs-dates-icones/lock-prog.png) no-repeat 0px 0px;
+  margin-left: 20px;
+  height: 30px;
+  width: 25px;
 }
 .cells-3 .display-cell {
   width: 33.3%;
