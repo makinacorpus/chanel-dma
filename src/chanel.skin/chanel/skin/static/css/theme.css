@@ -5605,14 +5605,12 @@ ul.submenu {
 }
 .planning-table .movies-row .movies-column .movie-cell i {
   position: absolute;
-  right: 15px;
-  top: 108%;
-  cursor: pointer;
-}
-.planning-table .movies-row .movies-column .movie-cell i.glyphicon-info-sign:before {
-  color: transparent;
-  font-size: 18px;
   background: url(../images/progs-dates-icones/info-icon.png) no-repeat 0px 0px !important;
+  height: 18px;
+  width: 18px;
+  right: 15px;
+  top: 106%;
+  cursor: pointer;
 }
 .planning-table .movies-row .movies-column .movie-cell.yes {
   border: 2px solid #5eba65;

@@ -133,7 +133,7 @@ movies_by_format = {}
 # tooltip
 def html_information(information, id):
     if information:
-        return """<i rel="#info-%s" class="glyphicon glyphicon-info-sign"></i><div class="tooltip" id="info-%s">%s<div class="arrow"></div></div>""" % (id, id, information)
+        return """<i rel="#info-%s" class="video-info"></i><div class="tooltip" id="info-%s">%s<div class="arrow"></div></div>""" % (id, id, information)
     return ""
 
 # refactor movies to arrange them by format
