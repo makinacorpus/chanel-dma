@@ -130,7 +130,7 @@ for shop in shops:
 
                 img = icon_html % mapping_status[status][-1] if mapping_status.get(status, [])[-1] else ""
 
-                html += """<li><a href="%s">%s</a>%s</li>""" % (url, programs_market[month_id].getItem("program_name"), img)
+                html += """<li><a href="%s" class="%s">%s</a>%s</li>""" % (url, status, programs_market[month_id].getItem("program_name"), img)
    
    html += """</ul></li>"""
 

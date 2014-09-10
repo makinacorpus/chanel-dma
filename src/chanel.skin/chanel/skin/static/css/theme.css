@@ -5667,6 +5667,15 @@ img.planning_status {
   margin-left: 10px;
   height: 20px;
 }
+.shops_frontoffice a.notfound,
+.shops_frontoffice a.notfinished {
+  color: #fc291c !important;
+  text-decoration: underline;
+}
+.shops_frontoffice a.notfound:hover,
+.shops_frontoffice a.notfinished:hover {
+  text-decoration: underline;
+}
 /* --------------------------*/
 /*         Gabarit site       */
 /* --------------------------*/

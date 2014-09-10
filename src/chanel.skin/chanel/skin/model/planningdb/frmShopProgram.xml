@@ -415,7 +415,7 @@ if context.isDocument() or context.REQUEST.get("program_id"):
              </div>
              <div class="sp_workflow">
                    <button class="btn" rel="lock" display="%(submit_display)s" %(submit_attribute)s>Submit</button>
-                   <button class="btn" rel="unlock" display="%(unpublish_display)s" %(unpublish_attribute)s>Unpublish</button>
+                   <button class="btn" rel="unlock" display="%(unpublish_display)s" %(unpublish_attribute)s>Submitted</button>
              </div>
              <div class="sp_reset %(submit_attribute)s">
                    <button class="btn" %(submit_attribute)s">reset</button>
