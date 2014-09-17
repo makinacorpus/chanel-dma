@@ -179,6 +179,12 @@ html += """
   </div>
   <div class="movies-row">"""
 
+is_locked = str(plominoContext.getItem("planning_locked")) == "true"
+if is_locked:
+   input_disabled = "disabled"
+else:
+   input_disabled = ""
+
 # generate all movie cells
 for display in displays:
     display_data = planning_data.get(display.id, {})
@@ -193,7 +199,7 @@ for display in displays:
             movie_data = display_data.get(movie["id"], {})
 
             movie_data_status = movie_data.get("status","X")
-            movie_data_disabled = (movie_data_status == "Y") and " " or "disabled"
+            movie_data_disabled = (movie_data_status == "Y") and " " and not is_locked or "disabled"
             for status in ("Y","N","X"):
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
 
@@ -201,9 +207,9 @@ for display in displays:
           <div class="movie-cell %(class_css)s" rel="%(id)s">
             <div class="title"><span rel="div.overlay" data-url="%(url)s" title="%(title)s%(subtitle)s">%(title_cropped)s%(subtitle)s</span>%(information)s</div>
             <div class="actions">
-              <label class="YesCheckbox" title="YES"><input type="radio" id="RadioFieldID1" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /><span></span></label>
-              <label class="NoCheckbox" title="NO"><input type="radio" id="RadioFieldID2" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /><span></span></label>
-              <label class="RienCheckbox" title="RESET"><input type="radio" id="RadioFieldID3" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /><span></span></label>
+              <label class="YesCheckbox" title="YES"><input %(input_disabled)s type="radio" id="RadioFieldID1" name="choice-%(id)s-%(display_id)s" value="Y" %(is_y)s /><span></span></label>
+              <label class="NoCheckbox" title="NO"><input %(input_disabled)s type="radio" id="RadioFieldID2" name="choice-%(id)s-%(display_id)s" value="N" %(is_n)s /><span></span></label>
+              <label class="RienCheckbox" title="RESET"><input %(input_disabled)s type="radio" id="RadioFieldID3" name="choice-%(id)s-%(display_id)s" value="X" %(is_x)s /><span></span></label>
             </div>
             <div class="dates">
               <div><span>FROM</span><span><input %(disabled)s type="date" min="%(start)s" max="%(end)s" name="start-%(id)s" value="%(date1)s"></span></div>
@@ -226,6 +232,7 @@ for display in displays:
         'class_css': movie_css_dict.get(movie_data_status, ""),
         'disabled': movie_data_disabled,
         'subtitle': movie["subtitle"],
+        'input_disabled': input_disabled,
         'information': html_information(movie["information"],  "%s-%s" % (movie['id'],display.id))
     }
 
