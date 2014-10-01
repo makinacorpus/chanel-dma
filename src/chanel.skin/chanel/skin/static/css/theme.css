@@ -5412,7 +5412,7 @@ ul.submenu {
 }
 .planning-program {
   text-align: center;
-  color: #bcbfc6;
+  color: #888888;
   border-top: 1px #bcbfc6 solid;
   width: 60%;
   margin: 10px auto;
@@ -5662,7 +5662,10 @@ ul.submenu {
   line-height: normal;
 }
 #content form[name=frmShopProgram] .sp_actions > .actions_row > div.sp_workflow > [rel=lock] {
-  opacity: 0.6 ;
+  opacity: 0.6;
+}
+#content form[name=frmShopProgram] .sp_actions > .actions_row > div.sp_workflow > [rel=unlock] {
+  opacity: 0.6 !important ;
 }
 /** Frontoffice **/
 img.planning_status {
