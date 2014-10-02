@@ -5317,8 +5317,17 @@ form .title span[rel] {
 }
 #portlet_navigation .shop-list a {
   padding: 6px 6px 6px 20px;
-  color: #444444;
+  color: red;
   font-size: 0.8em;
+  text-decoration: underline;
+}
+#portlet_navigation .shop-list a:hover {
+  color: black;
+  text-decoration: underline;
+}
+#portlet_navigation .shop-list a.submitted {
+  color: #444444;
+  text-decoration: none;
 }
 #portlet_navigation .shop-list a > span {
   padding-bottom: 0;
@@ -5326,6 +5335,10 @@ form .title span[rel] {
 }
 #portlet_navigation .shop-list a.current {
   font-weight: bold;
+}
+#portlet_navigation .shop-list .empty a,
+#portlet_navigation .shop-list .empty a:hover {
+  text-decoration: none;
 }
 .portlet-plomino-portletNavigation .portletHeader {
   display: none;

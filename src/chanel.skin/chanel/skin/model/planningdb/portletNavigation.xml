@@ -50,6 +50,7 @@ current_program = db.getDocument(current_program_id)
 current_market = current_shop and current_shop.getItem("shop_market") or None
 current_month = current_program and current_program.getItem("program_month") or None
 
+
 #Log("current_market %s" % current_market)
 #Log("current_month %s" % current_month)
 # config values
@@ -96,6 +97,7 @@ for shop in shops:
      shops_by_market.setdefault(shop_market, [])
      shops_by_market[shop_market].append(shop)
 
+
 shopprograms_by_shop = {}
 for sp in shop_programs:
     shop_id = str(sp.getItem("shop_id"))
@@ -134,12 +136,15 @@ def computeSection(date):
                 tmp_html += """<ul class="shop-list">"""
                 for shop in shops:
                     class_current_css = (class_css == "current" and current_shop_id == shop.id) and "current" or ""
-                    if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
+                    if program.id in shopprograms_by_shop.get(shop.id,{}).keys() and current_user_id == shop.getItem("shop_manager"):
+                        shop_is_published = shop.getItem("shop_is_published")
+                        if shop_is_published:
+                            class_current_css = "submitted"
                         if is_allowed_to_edit(shopprograms_by_shop[shop.id][program.id]):
                             url = "%s/EditDocument" % shopprograms_by_shop[shop.id][program.id].absolute_url()
                         else:
                             url = "%s" % shopprograms_by_shop[shop.id][program.id].absolute_url()
-                    elif is_zope_user or is_manager or current_user_id in shop.getItem("shop_manager"):
+                    elif is_zope_user or is_manager or current_user_id == shop.getItem("shop_manager"):
                             url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
                         tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))

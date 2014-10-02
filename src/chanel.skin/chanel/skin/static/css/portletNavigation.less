@@ -84,8 +84,17 @@
 		display: none;
 		a{
 			padding: 6px 6px 6px 20px;
-			color: 	#444444;
+			color: 	red;
 			font-size: 0.8em;
+			text-decoration: underline;
+			&:hover{
+				color: black;
+  				text-decoration: underline;
+			}
+			&.submitted{
+				color: #444444;
+  				text-decoration: none;	
+			}
 			> span {
 				padding-bottom: 0;
 				padding-top: 0;
@@ -93,6 +102,10 @@
 			&.current{
 				font-weight: bold;
 			}
+		}
+		.empty a,
+		.empty a:hover{
+			text-decoration: none;
 		}
 	}
 }
