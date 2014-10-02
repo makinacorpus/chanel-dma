@@ -5422,10 +5422,10 @@ ul.submenu {
 }
 .planning-program i.lock-prog {
   position: absolute;
-  background: url(../images/progs-dates-icones/lock-prog.png) no-repeat 0px 0px;
+  background: url(../images/progs-dates-icones/lock-prog.png) no-repeat 0px 4px;
   margin-left: 20px;
-  height: 30px;
-  width: 25px;
+  height: 29px;
+  width: 30px;
 }
 .cells-3 .display-cell {
   width: 33.3%;
@@ -5669,9 +5669,9 @@ ul.submenu {
 }
 /** Frontoffice **/
 img.planning_status {
-  margin-top: -9px;
+  margin-top: -2px;
   margin-left: 10px;
-  height: 20px;
+  height: 19px;
 }
 .shops_frontoffice a.notfound,
 .shops_frontoffice a.notfinished {
