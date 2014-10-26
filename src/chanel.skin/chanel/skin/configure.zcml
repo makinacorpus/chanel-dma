@@ -18,6 +18,16 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:importStep
+      name="chanel.skin.various"
+      title="chanel.skin: miscellaneous import steps"
+      description="Flowplayer import steps that are not handled by GS import/export handlers."
+      handler="chanel.skin.setuphandlers.setupVarious">
+      <depends name="catalog"/>
+      <depends name="propertiestool"/>
+  </genericsetup:importStep>
+
+
   <include package=".browser" />
   <include package=".upgrades" />
   
