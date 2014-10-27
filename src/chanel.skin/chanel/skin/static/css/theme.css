@@ -6263,9 +6263,9 @@ dd.portletItem.odd {
 dl.portlet.portletStaticText.portlet-static-informations,
 dl.portlet.portletStaticText.portlet-static-information,
 dl.portlet.portletStaticText.portlet-static-campaign-information {
-  margin-top: 20px;
-  margin-left: 0px !important;
-  display: block;
+  margin-top: 25px;
+  position: absolute;
+  left: 40px;
 }
 #portletmanager-plone-rightcolumn.portlets-manager {
   margin-top: 20px;
