@@ -6165,12 +6165,6 @@ dl.portlet a:hover {
 .section-tvc-films .image-left {
   margin-top: 0px;
 }
-.section-tvc-films .image-inline {
-  margin-left: -12px !important;
-  width: 750px !important;
-  margin-top: -10px !important;
-  margin-bottom: -16px !important;
-}
 /* ----------------- */
 /*   QuickUpload     */
 /* -------- -------- */
@@ -6732,9 +6726,9 @@ body.template-document_view.portaltype-document.section-coco_mademoiselle.kssAct
 }
 /* Pos Formats */
 #parent-fieldname-text-348f1919c55e48e698664636e48eadcd {
-  margin-left: -6px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin-left: -18px;
+  margin-top: -10px;
+  margin-bottom: -14px;
   width: 750px;
 }
 /* Artistic Department */
@@ -6743,30 +6737,24 @@ body.template-document_view.portaltype-document.section-coco_mademoiselle.kssAct
   margin-top: -10px;
   margin-bottom: -14px;
 }
-/* Pos Planning */
-#parent-fieldname-text-47975a0152df49b4b3ba527583d8feed p img.image-inline {
-  margin-left: -12px;
-  margin-top: -10px;
-  margin-bottom: -14px;
-}
 /* Video archive */
 #parent-fieldname-text-a03b43a6c75d40d7b6d24a69a39727ab p img.image-inline,
 #parent-fieldname-text-211843b363334fab8c0fb92b73e0b78a p img.image-inline,
 #parent-fieldname-text-554059a97aff487891483d922736c796 p img.image-inline {
-  margin-left: -11px;
+  margin-left: -16px;
   margin-top: -10px;
   margin-bottom: -16px;
   width: 750px;
 }
 /* Pos Download */
 #parent-fieldname-text-6e6fdbb24e0e4db3aeebd84d0aec135c {
-  margin-left: -4px;
+  margin-left: -14px;
   margin-top: 3px;
   margin-bottom: 0px;
 }
 /* Video Library */
 #parent-fieldname-text-b5824c00d3cb48439b9b2245c2a17394 p img.image-inline {
-  margin-left: -12px;
+  margin-left: -16px;
   margin-top: -11px;
   margin-bottom: -16px;
   width: 750px;
@@ -6786,6 +6774,13 @@ body.template-document_view.portaltype-document.section-coco_mademoiselle.kssAct
   margin-left: -12px;
   margin-top: -10px;
   margin-bottom: -14px;
+}
+/* TVC Films*/
+.section-tvc-films .image-inline {
+  margin-left: -12px !important;
+  width: 750px !important;
+  margin-top: -10px !important;
+  margin-bottom: -16px !important;
 }
 #content-core div.item.visualIEFloatFix p.more a span {
   display: none;
@@ -6849,158 +6844,4 @@ ul.formTabs li.formTab a {
 .section-coco_mademoiselle #pl,
 .section-tvc-films #pl {
   width: 680px;
-}
-/* -------------------------- */
-/*          SILVER            */
-/* -------------------------- */
-.section-silver {
-  background-color: black;
-  background-image: none;
-}
-.section-silver #sil-top {
-  background-color: black;
-  height: 140px;
-}
-.section-silver #sil-logo img {
-  margin-left: 342px;
-  margin-top: 20px;
-}
-.section-silver #portal-top.row {
-  display: none;
-  background-image: url(../images/calicoco-285px.png);
-  background-color: black;
-  background-repeat: no-repeat;
-  background-position: 342px 20px;
-  height: 140px;
-}
-.section-silver #portal-columns.row {
-  background-image: none;
-  background-color: black;
-  border: none;
-}
-.section-silver #portal-footer,
-.section-silver #portal-logo,
-.section-silver #portal-globalnav,
-.section-silver #portal-personaltools,
-.section-silver #portal-breadcrumbs,
-.section-silver .documentFirstHeading {
-  display: none;
-}
-.section-silver .portalMessage.info {
-  display: none;
-}
-.section-silver #cocolinkblock {
-  margin-left: 72px;
-  margin-bottom: 5px;
-  color: white;
-  font-family: "Lucida Sans", "Lucida Grande", Lucida, Verdana, sans-serif;
-  letter-spacing: 1px;
-  font-size: 9px;
-  font-weight: 100;
-  width: 854px;
-}
-.section-silver #cocolinkblock div {
-  line-height: 15px;
-}
-.section-silver #cocolinkblock a {
-  color: #606060;
-  font-family: "Lucida Sans", "Lucida Grande", Lucida, Verdana, sans-serif;
-  letter-spacing: 1px;
-  font-size: 9px;
-  font-weight: 100;
-}
-.section-silver #cocolinkblock a:hover {
-  color: white !important;
-}
-.section-silver #cocoimg {
-  margin-bottom: 20px;
-  margin-left: 0px;
-}
-.section-silver #cocodiv {
-  margin-bottom: 2px;
-  margin-top: 2px;
-}
-.section-silver #content div div.video-remote p.videoDownlaod {
-  display: none;
-}
-.section-silver a.autoFlowPlayer.video.videoContent.externalVideoContent.videoWrapper {
-  margin-left: 72px;
-}
-/* Silver Login Success */
-.template-login_success.section-silver #portal-columns.row {
-  width: 400px;
-}
-.template-login_success.section-silver #content {
-  margin-left: 380px;
-}
-.template-login_success.section-silver #content-core {
-  width: 300px;
-}
-.template-login_success.section-silver #content-core p a:hover {
-  color: white !important;
-}
-/* Silver Login Form */
-#sil.template-login_form #sil-top {
-  display: none;
-}
-#sil.template-login_form,
-#sil.template-logged_out,
-#sil.template-login_failed,
-#sil.template-insufficient_privileges {
-  background-color: black;
-  background-image: none;
-  color: white;
-}
-#sil.template-login_form #portal-logo,
-#sil.template-logged_out #portal-logo,
-#sil.template-login_failed #portal-logo,
-#sil.template-insufficient_privileges #portal-logo {
-  display: none;
-}
-#sil.template-login_form #portal-footer,
-#sil.template-logged_out #portal-footer,
-#sil.template-login_failed #portal-footer,
-#sil.template-insufficient_privileges #portal-footer {
-  display: none;
-}
-#sil.template-login_form #portal-top.row,
-#sil.template-logged_out #portal-top.row,
-#sil.template-login_failed #portal-top.row,
-#sil.template-insufficient_privileges #portal-top.row {
-  background-color: black;
-  background-repeat: no-repeat;
-  background-position: 342px 40px;
-  height: 170px;
-}
-#sil.template-login_form #portal-columns.row,
-#sil.template-logged_out #portal-columns.row,
-#sil.template-login_failed #portal-columns.row,
-#sil.template-insufficient_privileges #portal-columns.row {
-  background-image: none;
-  background-color: black;
-  border: none;
-  width: 300px;
-  margin-left: 370px;
-}
-/* Silver Backoffice */
-.section-silver a.managePortletsFallback {
-  display: none !important;
-}
-.section-silver #folderlisting-main-table-noplonedrag,
-.section-silver #folderlisting-main-table-noplonedrag .even td a,
-.section-silver #folderlisting-main-table-noplonedrag .even td,
-.section-silver #folderlisting-main-table-noplonedrag .even td span {
-  color: silver !important;
-}
-.section-silver.kssActive .documentEditable {
-  min-width: 960px;
-  background-color: white;
-}
-.section-silver .enableUnloadProtection.enableAutoFocus.enableFormTabbing.enableUnlockProtection {
-  margin-left: 30px;
-  min-width: 940px;
-}
-.dialog-wrapper fieldset {
-  margin-top: -1em;
-  margin-left: 3em !important;
 }
