@@ -39,7 +39,7 @@
     <append css:content-children="#portal-column-content" css:theme="#portal-column-content"/>
     <append css:content-children="#portal-column-one"     css:theme="#portal-column-one" />
     <append css:content-children="#portal-column-two"     css:theme="#portal-column-two" />
-    <drop css:content="#portal-breadcrumbs" />
+    <!-- <drop css:content="#portal-breadcrumbs" /> -->
 
     <!-- FOOTER -->
     <append css:content="#portal-colophon"       css:theme="#portal-colophon-wrapper" />
