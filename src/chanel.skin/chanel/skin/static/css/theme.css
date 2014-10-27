@@ -5896,7 +5896,7 @@ input.searchButton {
 #portal-breadcrumbs {
   margin-top: 8px;
   margin-bottom: 0px;
-  margin-left: -28px;
+  margin-left: 0px;
   font-size: 65%;
   width: 505px;
   line-height: 15px;
@@ -6275,6 +6275,9 @@ dl.portlet.portletStaticText.portlet-static-campaign-information {
 /*   Navigation     */
 /* ----------------- */
 .portletNavigationTree {
+  margin-top: -10px !important;
+}
+dd.portletItem.lastItem {
   margin-top: 20px !important;
 }
 .navTreeCurrentNode.navTreeFolderish.contenttype-folder {
@@ -6728,15 +6731,15 @@ body.template-document_view.portaltype-document.section-coco_mademoiselle.kssAct
   width: 958px !important;
 }
 /* Pos Formats */
-#parent-fieldname-text-348f1919c55e48e698664636e48eadcd p img.image-inline {
-  margin-left: -12px;
-  margin-top: -11px;
-  margin-bottom: -16px;
+#parent-fieldname-text-348f1919c55e48e698664636e48eadcd {
+  margin-left: -6px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   width: 750px;
 }
 /* Artistic Department */
 #parent-fieldname-text-bf4acee1ab194e5a8d527ee275f322e1 p img.image-inline {
-  margin-left: -12px;
+  margin-left: -16px;
   margin-top: -10px;
   margin-bottom: -14px;
 }
@@ -6756,10 +6759,10 @@ body.template-document_view.portaltype-document.section-coco_mademoiselle.kssAct
   width: 750px;
 }
 /* Pos Download */
-#parent-fieldname-text-6e6fdbb24e0e4db3aeebd84d0aec135c p img.image-inline {
-  margin-left: -12px;
-  margin-top: -10px;
-  margin-bottom: -14px;
+#parent-fieldname-text-6e6fdbb24e0e4db3aeebd84d0aec135c {
+  margin-left: -4px;
+  margin-top: 3px;
+  margin-bottom: 0px;
 }
 /* Video Library */
 #parent-fieldname-text-b5824c00d3cb48439b9b2245c2a17394 p img.image-inline {
