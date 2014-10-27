@@ -437,16 +437,6 @@ img.planning_status{
     background-color: @grey;
 }
 
-.section-front-page #portal-columns.row,
-.template-login_form #portal-columns.row,
-.template-logged_out #portal-columns.row,
-.template-login_failed #portal-columns.row,
-.template-insufficient_privileges #portal-columns.row,
-.template-fg_base_view_p3 #portal-columns.row {
-    background-image: none;
-  background-repeat: no-repeat;
-}
-
 
 .section-posdownload #portal-columns.row {
 min-height: 460px;
@@ -690,6 +680,17 @@ display: none;
     display: none;
 }
 
+/* --------------------------------*/
+/*     Divers templates Login      */
+/* ------------------------------- */
+
+.template-login_form #portal-column-content.col-md-12,
+.template-logged_out #portal-column-content.col-md-12,
+.template-login_failed #portal-column-content.col-md-12,
+.template-insufficient_privileges #portal-column-content.col-md-12 {
+	border-right: 1px solid #bcbfc6;
+	border-left: 1px solid #bcbfc6;
+}
 
 /* --------------------*/
 /*     Login_form      */
