@@ -6134,9 +6134,6 @@ dl.portalMessage dt {
   letter-spacing: 2px !important;
   font-size: 10px;
 }
-/* ------------- */
-/*   Liens       */
-/* ------------- */
 /* ------------------- */
 /*   Liens posformat    */
 /* ------------------- */
@@ -6153,26 +6150,6 @@ dl.portlet a:visited {
 #content a:hover,
 dl.portlet a:hover {
   color: black !important;
-}
-/* ----------------- */
-/*   Divers     */
-/* -------- -------- */
-.documentByLine {
-  display: none !important;
-}
-.image-right,
-.image-left {
-  border: none !important;
-}
-.section-library .image-left,
-.section-posformats .image-left .section-ad .image-left,
-.section-posplanning .image-left,
-.section-posdownload .image-left,
-.section-archive .image-left,
-.section-last_campaign .image-left,
-.section-coco_mademoiselle .image-left,
-.section-tvc-films .image-left {
-  margin-top: 0px;
 }
 /* ----------------- */
 /*   QuickUpload     */
@@ -6596,9 +6573,9 @@ a.prevPage {
   width: 480px !important;
   height: 270px !important;
 }
-/* -------------- */
-/* Video Download    */
-/* -------------- */
+/* ---------------- */
+/* Video Download   */
+/* ---------------- */
 #video_download {
   margin-top: 10px;
 }
@@ -6619,9 +6596,9 @@ a.prevPage {
 #contentview-user_data-personal-preferences {
   display: none;
 }
-/* ---------------------------- */
+/* ----------------------------- */
 /* Upload posformat and Sortings */
-/* -----------------------------*/
+/* ------------------------------*/
 #upload-files.btn.btn-success {
   display: none;
 }
@@ -6675,24 +6652,31 @@ a.prevPage {
 /* -------------------------- */
 /*       Page recherche       */
 /* -------------------------- */
-body.template-search.portaltype-plone-site.kssActive #portal-columns {
+.template-search.portaltype-plone-site.kssActive #portal-columns {
   padding-left: 20px;
 }
-body.template-search.portaltype-plone-site.kssActive #portal-columns.row {
+.template-search.portaltype-plone-site.kssActive #portal-columns.row {
   width: 900px;
 }
-body.template-search.portaltype-plone-site.kssActive #rss-subscription {
+.template-search.portaltype-plone-site.kssActive #rss-subscription {
   display: none;
 }
-body.template-search.portaltype-plone-site.kssActive #rss-subscription {
+.template-search.portaltype-plone-site.kssActive #rss-subscription {
   display: none;
 }
-body.template-search.portaltype-plone-site.kssActive #search-field input.searchPage.searchButton.allowMultiSubmit {
+.template-search.portaltype-plone-site.kssActive #search-field input.searchPage.searchButton.allowMultiSubmit {
   height: 32px;
 }
 /* -------------------------- */
-/*          Divers HOME       */
+/*          Divers            */
 /* -------------------------- */
+.documentByLine {
+  display: none !important;
+}
+.image-right,
+.image-left {
+  border: none !important;
+}
 .section-library .documentFirstHeading,
 .section-posformats .documentFirstHeading,
 .section-last_campaign .documentFirstHeading,
@@ -6707,32 +6691,32 @@ body.template-search.portaltype-plone-site.kssActive #search-field input.searchP
 .section-coco_mademoiselle .pb-ajax .documentFirstHeading {
   display: block;
 }
-body.template-document_view.portaltype-document.section-front-page.kssActive h1#parent-fieldname-title.documentFirstHeading,
-body.template-document_view.portaltype-document.section-front-page.kssActive div#portal-breadcrumbs {
+.template-document_view.portaltype-document.section-front-page.kssActive h1#parent-fieldname-title.documentFirstHeading,
+.template-document_view.portaltype-document.section-front-page.kssActive div#portal-breadcrumbs {
   display: none;
 }
-body.template-document_view.portaltype-document.section-ad.kssActive .documentFirstHeading,
-body.template-document_view.portaltype-document.section-ad.kssActive #portal-breadcrumbs {
+.template-document_view.portaltype-document.section-ad.kssActive .documentFirstHeading,
+.template-document_view.portaltype-document.section-ad.kssActive #portal-breadcrumbs {
   display: none;
 }
-body.template-document_view.portaltype-document.section-posplanning.kssActive .documentFirstHeading,
-body.template-document_view.portaltype-document.section-posplanning.kssActive #portal-breadcrumbs {
+.template-document_view.portaltype-document.section-posplanning.kssActive .documentFirstHeading,
+.template-document_view.portaltype-document.section-posplanning.kssActive #portal-breadcrumbs {
   display: none;
 }
-body.template-document_view.portaltype-document.section-archive.kssActive .documentFirstHeading,
-body.template-document_view.portaltype-document.section-archive.kssActive #portal-breadcrumbs {
+.template-document_view.portaltype-document.section-archive.kssActive .documentFirstHeading,
+.template-document_view.portaltype-document.section-archive.kssActive #portal-breadcrumbs {
   display: none;
 }
-body.template-document_view.portaltype-document.section-posdownload.kssActive .documentFirstHeading,
-body.template-document_view.portaltype-document.section-posdownload.kssActive #portal-breadcrumbs {
+.template-document_view.portaltype-document.section-posdownload.kssActive .documentFirstHeading,
+.template-document_view.portaltype-document.section-posdownload.kssActive #portal-breadcrumbs {
   display: none;
 }
-body.template-document_view.portaltype-document.section-last_campaign.kssActive .documentFirstHeading,
-body.template-document_view.portaltype-document.section-last_campaign.kssActive #portal-breadcrumbs {
+.template-document_view.portaltype-document.section-last_campaign.kssActive .documentFirstHeading,
+.template-document_view.portaltype-document.section-last_campaign.kssActive #portal-breadcrumbs {
   display: none;
 }
-body.template-document_view.portaltype-document.section-coco_mademoiselle.kssActive .documentFirstHeading,
-body.template-document_view.portaltype-document.section-coco_mademoiselle.kssActive #portal-breadcrumbs {
+.template-document_view.portaltype-document.section-coco_mademoiselle.kssActive .documentFirstHeading,
+.template-document_view.portaltype-document.section-coco_mademoiselle.kssActive #portal-breadcrumbs {
   display: none;
 }
 #content-core div.item.visualIEFloatFix p.more a span {
@@ -6748,11 +6732,22 @@ body.template-document_view.portaltype-document.section-posdownload.kssActive #p
 #parent-fieldname-text-66a10d7e5e574e3db4ee35d3d637d39d table.plain {
   font-size: 10px;
 }
+/* Redonne la visibilite aux tables invisibles */
 table.invisible {
   visibility: visible;
 }
+/* Placement des images home des rubriques */
+.imagecolno img.image-inline {
+  margin-top: -8px;
+  margin-bottom: -2px;
+}
+.imagecolleft .image-inline {
+  margin-left: -18px;
+  margin-top: -10px;
+  margin-bottom: -5px;
+}
 /* -------------------------- */
-/*         COMMENTAIRE           */
+/*         COMMENTAIRES       */
 /* -------------------------- */
 #commenting fieldset p {
   display: none;
@@ -6761,7 +6756,7 @@ table.invisible {
   display: block !important;
 }
 /* -------------------------- */
-/*          BACK OFFICE            */
+/*        BACK OFFICE         */
 /* -------------------------- */
 ul.formTabs li.formTab a {
   color: silver !important;
