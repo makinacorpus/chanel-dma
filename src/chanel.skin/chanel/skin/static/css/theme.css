@@ -5830,14 +5830,14 @@ input.searchButton {
   padding-left: 120px;
 }
 #portal-globalnav li a {
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 4px;
+  padding-right: 4px;
   padding-bottom: 0px;
   padding-top: 5px;
   color: black !important;
   background-color: #bcbfc6 !important;
   border: none;
-  width: 80px;
+  width: 85px;
 }
 #portal-globalnav .selected a,
 #portal-globalnav a:hover {
@@ -6079,7 +6079,7 @@ h2.tileHeadline a:visited {
 #portal-footer {
   width: 960px;
   margin: 0px;
-  margin-left: -11px;
+  margin-left: -20px;
   padding: 0px;
   background-color: #bcbfc6;
   color: white;
@@ -6265,7 +6265,7 @@ dl.portlet.portletStaticText.portlet-static-information,
 dl.portlet.portletStaticText.portlet-static-campaign-information {
   margin-top: 25px;
   position: absolute;
-  left: 40px;
+  left: 30px;
 }
 #portletmanager-plone-rightcolumn.portlets-manager {
   margin-top: 20px;
@@ -6735,71 +6735,6 @@ body.template-document_view.portaltype-document.section-coco_mademoiselle.kssAct
 body.template-document_view.portaltype-document.section-coco_mademoiselle.kssActive #portal-breadcrumbs {
   display: none;
 }
-/* Home */
-#parent-fieldname-text-cf8464e9d4be41da8dfc5a28c9b53fb9 p img.image-inline {
-  margin-left: -10px;
-  margin-top: -10px;
-  margin-bottom: -14px;
-  width: 958px !important;
-}
-/* Pos Formats */
-#parent-fieldname-text-348f1919c55e48e698664636e48eadcd {
-  margin-left: -18px;
-  margin-top: -10px;
-  margin-bottom: -14px;
-  width: 750px;
-}
-/* Artistic Department */
-#parent-fieldname-text-bf4acee1ab194e5a8d527ee275f322e1 p img.image-inline {
-  margin-left: -16px;
-  margin-top: -10px;
-  margin-bottom: -14px;
-}
-/* Video archive */
-#parent-fieldname-text-a03b43a6c75d40d7b6d24a69a39727ab p img.image-inline,
-#parent-fieldname-text-211843b363334fab8c0fb92b73e0b78a p img.image-inline,
-#parent-fieldname-text-554059a97aff487891483d922736c796 p img.image-inline {
-  margin-left: -16px;
-  margin-top: -10px;
-  margin-bottom: -16px;
-  width: 750px;
-}
-/* Pos Download */
-#parent-fieldname-text-6e6fdbb24e0e4db3aeebd84d0aec135c {
-  margin-left: -14px;
-  margin-top: 3px;
-  margin-bottom: 0px;
-}
-/* Video Library */
-#parent-fieldname-text-b5824c00d3cb48439b9b2245c2a17394 p img.image-inline {
-  margin-left: -16px;
-  margin-top: -11px;
-  margin-bottom: -16px;
-  width: 750px;
-}
-/* Last Campaign */
-#parent-fieldname-text-7565acf47d3e47d6b469cf988231cc0e p img.image-inline,
-#parent-fieldname-text-8f7c84276c94405eb30004e14f4d390c p img.image-inline,
-#parent-fieldname-text-6103031b349e430f818fb16c75ab0bdc p img.image-inline,
-#parent-fieldname-text-a8a227e5faec40378c49cfc31e6be506 p img.image-inline {
-  margin-left: -12px;
-  margin-top: -10px;
-  margin-bottom: -16px;
-  width: 750px;
-}
-/* Coco Mademoiselle*/
-#parent-fieldname-text-d16473cbdcdc45ac9ef3b37d612d00ad p span.internal-link img.image-left {
-  margin-left: -12px;
-  margin-top: -10px;
-  margin-bottom: -14px;
-}
-/* TVC Films*/
-.section-tvc-films .image-inline {
-  margin-left: -12px !important;
-  width: 750px !important;
-  margin-top: -10px !important;
-  margin-bottom: -16px !important;
-}
 #content-core div.item.visualIEFloatFix p.more a span {
   display: none;
 }
@@ -6834,35 +6769,4 @@ ul.formTabs li.formTab a {
 #www .enableUnloadProtection.enableAutoFocus.enableFormTabbing.enableUnlockProtection {
   margin-left: 0px;
   min-width: 940px;
-}
-/* Pour test */
-.section-lift_15sec_vo_digital_720x405_h264-mp4 a.state-private.contenttype-rtinternalvideo,
-.section-lift_20sec_vo_digital_720x405_h264-mp4 a.state-private.contenttype-rtinternalvideo {
-  display: none;
-}
-.section-last_campaign .playListFlowPlayer.video,
-.section-ad .playListFlowPlayer.video,
-.section-coco_mademoiselle .playListFlowPlayer.video,
-.section-tvc-films .playListFlowPlayer.video {
-  width: 720px !important;
-  height: 405px !important;
-}
-.section-last_campaign .flowPlaylistVisible a.playListFlowPlayer,
-.section-ad .flowPlaylistVisible a.playListFlowPlayer,
-.section-coco_mademoiselle .flowPlaylistVisible a.playListFlowPlayer,
-.section-tvc-films .flowPlaylistVisible a.playListFlowPlayer {
-  padding-left: 4px;
-  padding-bottom: 8px;
-}
-.section-last_campaign div.flowPlaylistVisible,
-.section-ad div.flowPlaylistVisible,
-.section-coco_mademoiselle div.flowPlaylistVisible,
-.section-tvc-films div.flowPlaylistVisible {
-  width: 720px;
-}
-.section-last_campaign #pl,
-.section-ad #pl,
-.section-coco_mademoiselle #pl,
-.section-tvc-films #pl {
-  width: 680px;
 }
