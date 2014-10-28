@@ -5755,13 +5755,13 @@ img.planning_status {
   margin-bottom: 10px;
   display: none;
 }
-input#searchGadget.searchField {
+#portal-searchbox input#searchGadget.searchField {
   -moz-appearance: none !important;
   border: 1px solid white !important;
   background-color: white !important;
   color: black !important;
 }
-input.searchButton {
+#portal-searchbox input.searchButton {
   background: #bcbfc6 url(../images/search.png) no-repeat left top;
   height: 25px;
   border: 1px solid #bcbfc6;
