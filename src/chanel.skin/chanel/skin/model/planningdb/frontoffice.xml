@@ -123,7 +123,7 @@ for shop in shops:
                     else:
                         status = "notprogrammed"
 
-                    url = "%s/EditDocument" % shop_program.absolute_url()
+                    url = "%s/" % shop_program.absolute_url()
                 else:
                     status = "notfound"
                     url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
