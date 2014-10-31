@@ -136,7 +136,7 @@ def computeSection(date):
                 tmp_html += """<ul class="shop-list">"""
                 for shop in shops:
                     class_current_css = (class_css == "current" and current_shop_id == shop.id) and "current" or ""
-                    if program.id in shopprograms_by_shop.get(shop.id,{}).keys() and current_user_id == shop.getItem("shop_manager"):
+                    if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
                         shop_is_published = shop.getItem("shop_is_published")
                         if shop_is_published:
                             class_current_css = "submitted"
