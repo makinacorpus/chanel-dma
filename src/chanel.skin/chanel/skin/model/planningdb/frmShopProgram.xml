@@ -107,7 +107,13 @@ shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 
 all_movies_id = asList(program.getItem("program_movies"))
-all_movies = [(db.getDocument(m[0]),m[1]) for m in asList(program.getItem("program_movies"))]
+all_movies = [(db.getDocument(m[0]),m[1], m[0]) for m in asList(program.getItem("program_movies"))]
+all_movies_not_found = [movie[2] for movie in all_movies if not movie[0]]
+all_movies = [movie for movie in all_movies if movie[0]]
+
+if all_movies_not_found:
+    Log("Program %s doesnt find movies %s" % (program.id, all_movies_not_found))
+ 
 all_movies.sort(key = lambda m: m[0].getItem("movie_title"))
 
 displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
