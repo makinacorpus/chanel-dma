@@ -54,6 +54,11 @@ chanel.planning.check_is_already_locked = function(){
     return field === true;
 }
 
+chanel.planning.check_dates_are_valid = function(){
+    var empty_dates = $(".movie-cell.yes has(input[value=''])");
+    return empty_dates.length > 0;
+}
+
 chanel.planning.manage_show_submit = function(){
     if( $('form[name="frmShopProgram"]').attr("method") !=="get" ){
         if(chanel.planning.check_is_already_locked() === false){
@@ -87,10 +92,15 @@ chanel.planning.manage_show_submit = function(){
 chanel.planning.event_onsubmit = function() {
      $(".sp_workflow>[rel=lock]").click(function(event){
         event.preventDefault();
-        var choice = confirm("After submit, changes on this planning won't be allowed");
-        if (choice) {
-            $("#planning_locked").val("true");
-            $("form[name='frmShopProgram'] input[name='save']").click();
+        if(chanel.planning.check_dates_are_valid() == true){
+            var choice = confirm("After submit, changes on this planning won't be allowed");
+            if (choice) {
+                $("#planning_locked").val("true");
+                $("form[name='frmShopProgram'] input[name='save']").click();
+            }
+        }
+        else{
+            alert(chanel.planning.error_dates_message);
         }
     });
      $(".sp_workflow>[rel=unlock]").click(function(event){
@@ -106,33 +116,37 @@ chanel.planning.event_onsave = function() {
     
     $('form[name="frmShopProgram"] input[name="save"]').click(function(event){
         event.preventDefault();
+        if(chanel.planning.check_dates_are_valid() == true){
+            var results = {}
 
-        var results = {}
+            var $displays = $(".movies-row .movies-column");
 
-        var $displays = $(".movies-row .movies-column");
+            /** loop on displays **/
+            for (var i = 0; i < $displays.length; i++) {
+                var $display = $displays.eq(i);
+                var $movies = $(".movie-cell", $display);
 
-        /** loop on displays **/
-        for (var i = 0; i < $displays.length; i++) {
-            var $display = $displays.eq(i);
-            var $movies = $(".movie-cell", $display);
+                var display_id = $display.attr("rel");
+                results[display_id] = {};
+                /** loop on movies for a specific display **/
+                for (var j = 0; j < $movies.length; j++) {
+                    var $movie = $movies.eq(j);
+                    var $dates = $("[type=date]", $movie);
 
-            var display_id = $display.attr("rel");
-            results[display_id] = {};
-            /** loop on movies for a specific display **/
-            for (var j = 0; j < $movies.length; j++) {
-                var $movie = $movies.eq(j);
-                var $dates = $("[type=date]", $movie);
+                    var status = $("[type=radio]:checked", $movie).val() || "";
+                    var date1 = $dates.eq(0).val();
+                    var date2 = $dates.eq(1).val();
 
-                var status = $("[type=radio]:checked", $movie).val() || "";
-                var date1 = $dates.eq(0).val();
-                var date2 = $dates.eq(1).val();
-
-                results[display_id][$movie.attr("rel")] = { status: status, start_date: date1, end_date: date2 };
-            }
-        };
-        $("#planning_data").val(JSON.stringify(results));
-        $form = $(this).parents("form:first");
-        $form.submit();
+                    results[display_id][$movie.attr("rel")] = { status: status, start_date: date1, end_date: date2 };
+                }
+            };
+            $("#planning_data").val(JSON.stringify(results));
+            $form = $(this).parents("form:first");
+            $form.submit();
+        }
+        else{
+            alert(chanel.planning.error_dates_message);
+        }
     });
 };
 
