@@ -2,6 +2,8 @@
 chanel = {};
 chanel.planning = {};
 
+chanel.planning.error_dates_message = "Planning can't be saved/submitted if all date fields from active movies are not filled.";
+
 chanel.planning.showFlowPopup = function() {
 
     // set up button action. it will fire our overlay
