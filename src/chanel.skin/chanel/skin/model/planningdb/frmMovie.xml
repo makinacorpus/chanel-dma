@@ -6,7 +6,17 @@
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
       <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
       <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSaveDocument>
-      <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
+      <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[tmp_id = plominoDocument.id
+db = plominoDocument.getParentDatabase()
+programs = db.getIndex().dbsearch({'doctype': 'program'})
+
+for program in programs:
+    program_object = program.getObject()
+    program_movies = program_object.getItem('program_movies', [])
+    movies = [ m for m in program_movies if m[0] == tmp_id]
+    if movies:
+        program_movies.remove(movies[0])
+        program_object.setItem("program_movies", program_movies)]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain">
