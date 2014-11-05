@@ -55,8 +55,14 @@ chanel.planning.check_is_already_locked = function(){
 }
 
 chanel.planning.check_dates_are_valid = function(){
-    var empty_dates = $(".movie-cell.yes has(input[value=''])");
-    return empty_dates.length > 0;
+    var dates = $(".movie-cell.yes input[type='date']");
+    for (var i=0; i < dates.length; i++) {
+        var date = $(dates[i]).val();
+        if (date === "") {
+            return false;
+        }
+    }
+    return true;
 }
 
 chanel.planning.manage_show_submit = function(){
