@@ -142,8 +142,11 @@ def computeSection(date):
                             class_current_css = "submitted"
                         if is_allowed_to_edit(sh_program):
                             url = "%s/EditDocument" % sh_program.absolute_url()
-                        else:
+                        elif class_current_css:
                             url = "%s" % sh_program.absolute_url()
+                        else:        
+                            tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
+                            continue
                     elif is_zope_user or is_manager or current_user_id == shop.getItem("shop_manager"):
                             url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
