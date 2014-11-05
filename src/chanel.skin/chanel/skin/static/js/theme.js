@@ -112,6 +112,7 @@ chanel.planning.event_onsubmit = function() {
      $(".sp_workflow>[rel=unlock]").click(function(event){
         event.preventDefault();
         $("#planning_locked").val("false");
+        $("form[name='frmShopProgram'] input[name='save']").attr("forced", true);
         $("form[name='frmShopProgram'] input[name='save']").click();
     });
 }
@@ -122,9 +123,8 @@ chanel.planning.event_onsave = function() {
     
     $('form[name="frmShopProgram"] input[name="save"]').click(function(event){
         event.preventDefault();
-        if(chanel.planning.check_dates_are_valid() == true){
+        if(chanel.planning.check_dates_are_valid() == true || $(this).attr("forced") === "true"){
             var results = {}
-
             var $displays = $(".movies-row .movies-column");
 
             /** loop on displays **/
