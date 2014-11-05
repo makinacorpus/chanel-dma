@@ -186,7 +186,7 @@ html += """
   <div class="movies-row">"""
 
 is_locked = str(plominoContext.getItem("planning_locked")) == "true"
-if is_locked:
+if is_locked or not plominoDocument.isEditMode():
    input_disabled = "disabled"
 else:
    input_disabled = ""
