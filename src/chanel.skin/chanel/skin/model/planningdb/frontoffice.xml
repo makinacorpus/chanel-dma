@@ -49,6 +49,7 @@ shops_id = []
 form = db.getForm("frmShopProgram")
 
 #status mapping
+#semi obsolete
 mapping_status = {
     # status : ( title, img )
     "notfound" : ( "not found", ""),
@@ -116,12 +117,8 @@ for shop in shops:
                     #locked
                     if shop_program.getItem("planning_locked") == "true":
                         status = "submitted"
-                    #Y or N can be found
-                    elif ('"Y"' in shop_program_data or '"N"' in shop_program_data):
-                        status = "notfinished"
-                    #all are ?
                     else:
-                        status = "notprogrammed"
+                        status = "notfound"
 
                     url = "%s/EditDocument" % shop_program.absolute_url()
                 else:
