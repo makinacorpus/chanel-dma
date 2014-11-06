@@ -202,7 +202,9 @@ Skincare|SC
 Brand Event|BE
 Led|LE
 Backstage|BA
-Art digital|AD""" ]]></Formula>
+Art digital|AD
+Fragrance area|FA
+Cube and Column|CC""" ]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
