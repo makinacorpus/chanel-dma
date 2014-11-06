@@ -1,0 +1,27 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="createShopProgramAndRedirect" title="createShopProgramAndRedirect" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">createShopProgramAndRedirect</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+
+newdoc = db.createDocument()
+form = db.getForm("frmShopProgram")
+
+program_id = context.REQUEST.get("program_id")
+shop_id = context.REQUEST.get("shop_id")
+locked = "false"
+
+found_db = db.getIndex().dbsearch({ 'doctype': 'shopprogram', 'program_id': program_id, 'shop_id': shop_id})
+if (program_id and shop_id):
+    if not found_db:
+       newdoc.setItem("program_id", program_id)
+       newdoc.setItem("shop_id", shop_id)
+       newdoc.setItem("locked", locked) 
+       newdoc.save(form=form, creation=True)
+       context.REQUEST.RESPONSE.redirect(newdoc.absolute_url() + "/EditDocument")
+    else:
+       context.REQUEST.RESPONSE.redirect(found_db[0].getObject().absolute_url() + "/EditDocument")]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>
