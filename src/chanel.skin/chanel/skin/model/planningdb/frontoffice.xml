@@ -123,7 +123,7 @@ for shop in shops:
                     url = "%s/EditDocument" % shop_program.absolute_url()
                 else:
                     status = "notfound"
-                    url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
+                    url = "%s/createShopProgramAndRedirect/runAgent?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
 
                 img = icon_html % mapping_status[status][-1] if mapping_status.get(status, [])[-1] else ""
 

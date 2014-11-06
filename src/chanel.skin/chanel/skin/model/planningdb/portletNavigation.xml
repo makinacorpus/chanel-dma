@@ -148,7 +148,7 @@ def computeSection(date):
                             tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
                             continue
                     elif is_zope_user or is_manager or current_user_id == shop.getItem("shop_manager"):
-                            url = "%s?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
+                            url = "%s/createShopProgramAndRedirect/runAgent?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
                         tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
                         continue
