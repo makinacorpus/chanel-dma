@@ -6339,17 +6339,6 @@ dl.portlet ul.navTreeLevel1 .navTreeItem {
 .tileItem .tileFooter a {
   display: none;
 }
-/* ------------------- */
-/*   Videos    */
-/* ------------------- */
-.video.minimal {
-  width: 208px !important;
-  height: 156px !important;
-  margin-left: -12px;
-}
-.flowPlaylistHidden {
-  height: 120px !important;
-}
 /* -------------- */
 /* flowplayer.css */
 /* -------------- */
@@ -6524,19 +6513,9 @@ a.nextPage {
 a.prevPage {
   margin-left: 0px !important;
 }
-.playListFlowPlayer.video.minimal object {
-  width: 208px;
-  height: 118px;
-}
-.portlet.portletFlowPlayer {
-  margin-top: 20px;
-}
-.portlet.portletFlowPlayer .portletHeader {
-  display: none;
-}
-/* -------------- */
-/* flowplayer.css */
-/* -------------- */
+/* ------------------------ */
+/* flowplayer.css file view */
+/* ------------------------ */
 .autoFlowPlayer {
   display: block;
   border: 0px;
@@ -6577,6 +6556,51 @@ a.prevPage {
   width: 480px !important;
   height: 270px !important;
 }
+/* -------------------------- */
+/*        Portlet video       */
+/* -------------------------- */
+.portlet.portletFlowPlayer {
+  height: 118px;
+  float: left;
+  clear: both;
+  margin-bottom: 35px;
+}
+.portletItem .video.minimal {
+  width: 208px !important;
+  height: 118px !important;
+  margin-left: -22px;
+}
+.playListFlowPlayer.video.minimal object {
+  width: 208px;
+  height: 118px;
+}
+.portlet.portletFlowPlayer .portletHeader {
+  display: none;
+}
+.portletFlowPlayer dd.portletFooter {
+  display: none;
+}
+.portletItem.videoResource {
+  margin-left: 0px !important;
+  width: 300px;
+  margin-bottom: 10px !important;
+  border-bottom: 1px solid #cbcbcc;
+  padding-bottom: 17px !important;
+}
+.portletItem.videoResource img {
+  margin-left: -10px !important;
+}
+.portletItem.videoResource .informationvideo {
+  position: relative;
+  margin-left: 135px;
+  margin-top: -60px;
+}
+.portletItem.videoResource .informationvideo .Duration {
+  color: #706f77;
+}
+.flowPlaylistHidden {
+  height: 118px !important;
+}
 /* ---------------- */
 /* Video Download   */
 /* ---------------- */
@@ -6606,27 +6630,6 @@ a.prevPage {
 #upload-files.btn.btn-success {
   display: none;
 }
-/* -------------- */
-/*      Home      */
-/* -------------- */
-.portletItem.videoResource {
-  margin-left: 0px !important;
-  width: 300px;
-  margin-bottom: 10px !important;
-  border-bottom: 1px solid #cbcbcc;
-  padding-bottom: 17px !important;
-}
-.portletItem.videoResource img {
-  margin-left: -10px !important;
-}
-.portletItem.videoResource .informationvideo {
-  position: relative;
-  margin-left: 135px;
-  margin-top: -60px;
-}
-.portletItem.videoResource .informationvideo .Duration {
-  color: #706f77;
-}
 /* -------------------------- */
 /*   ContentWellPortlet       */
 /* -------------------------- */
@@ -6640,17 +6643,6 @@ a.prevPage {
   display: none;
 }
 #viewlet-below-content-title .managePortletsBelowTitleLink a.managePortletsFallback {
-  display: none;
-}
-/* -------------------------- */
-/*   Portlet video       */
-/* -------------------------- */
-.portletItem .video.minimal {
-  width: 208px !important;
-  height: 156px !important;
-  margin-left: -22px;
-}
-.portletFlowPlayer dd.portletFooter {
   display: none;
 }
 /* -------------------------- */
