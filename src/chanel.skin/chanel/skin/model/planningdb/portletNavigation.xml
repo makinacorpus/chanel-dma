@@ -59,7 +59,7 @@ months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "month
 
 # months
 current_date = Now()
-previous_date = DateTime(((current_date.month()==1) and current_date.month.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
+previous_date = DateTime(((current_date.month()==1) and current_date.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
 next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
 dates = [ previous_date, current_date, next_date]
 
