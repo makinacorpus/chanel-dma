@@ -71,14 +71,21 @@ for shop in shops:
    if shop_market not in markets_id:
         markets_id.append(shop_market)
 
+# months
+current_date = Now()
+previous_date = DateTime(((current_date.month()==1) and current_date.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
+next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
+dates = [ (previous_date.month(), previous_date.year()), (current_date.month(), current_date.year()), (next_date.month(), next_date.year())]
+
 #fetch programs
 programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': {'query': markets_id, 'operator': 'OR'}, 'program_is_published': True})]
+programs = [p for p in programs if (p.program_month, p.program_year) in dates]
 
 #refactor programs to categorize them by market
 programs_by_market= {}
 for program in programs:
     programs_by_market.setdefault(program.getItem("program_market"),{})
-    programs_by_market[program.getItem("program_market")][str(program.getItem("program_month"))] = program
+    programs_by_market[program.getItem("program_market")][program.getItem("program_month")] = program
 
 programs_id = [a.id for a in programs]
 
@@ -105,7 +112,7 @@ for shop in shops:
    html += """<li><h4>%s</h4><ul>""" % shop.getItem("shop_name")
    
    #loop months
-   for name, month_id in months:
+   for month_id, year in dates:
          #if a program is found for this month
          if month_id in programs_market.keys():
                 program = programs_market[month_id]
