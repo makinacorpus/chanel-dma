@@ -139,7 +139,7 @@ def computeSection(date):
                     if program.id in shopprograms_by_shop.get(shop.id,{}).keys():
                         sh_program = shopprograms_by_shop[shop.id][program.id]
                         if sh_program.getItem("planning_locked") == "true":
-                            class_current_css = "submitted"
+                            class_current_css = "submitted %s" % class_current_css
                         if is_allowed_to_edit(sh_program):
                             url = "%s/EditDocument" % sh_program.absolute_url()
                         elif class_current_css:
