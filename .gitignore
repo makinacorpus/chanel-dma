@@ -33,4 +33,5 @@ coverage
 *.old
 adminPassword.txt
 src/Products.CMFPlomino
-dev-ebr.cfg
+ebr.cfg
+node_modules
