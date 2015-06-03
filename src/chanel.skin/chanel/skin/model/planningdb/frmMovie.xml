@@ -19,30 +19,20 @@ for program in programs:
         program_object.setItem("program_movies", program_movies)]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain">
-<tbody>
-<tr>
-<td colspan="3">
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain"><tbody>
+<tr><td colspan="3">
 <p><span class="plominoFieldClass">movie_is_published</span></p>
 <p>Title : <span class="plominoFieldClass">movie_title</span></p>
 <p>Subtitle : <span class="plominoFieldClass">movie_subtitle</span></p>
 <p>Information : <span class="plominoFieldClass">movie_information</span></p>
 <p>Link  : <span class="plominoFieldClass">movie_link</span></p>
-</td>
-</tr>
+</td></tr>
 <tr>
-<td>
-<p>Formats : <br><span class="plominoFieldClass">movie_formats</span></p>
-</td>
-<td>
-<p>Markets : <br><span class="plominoFieldClass">movie_markets</span></p>
-</td>
-<td>
-<p>Axes : <br><span class="plominoFieldClass">movie_axes</span></p>
-</td>
+<td><p>Formats : <br><span class="plominoFieldClass">movie_formats</span></p></td>
+<td><p>Markets : <br><span class="plominoFieldClass">movie_markets</span></p></td>
+<td><p>Axes : <br><span class="plominoFieldClass">movie_axes</span></p></td>
 </tr>
-</tbody>
-</table>]]></FormLayout>
+</tbody></table>]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -82,7 +72,7 @@ for program in programs:
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
           <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
-          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
@@ -126,8 +116,9 @@ for program in programs:
 <param>
 <value><struct>
 <member>
-<name>separator</name>
-<value><nil/></value></member>
+<name>widget</name>
+<value><string>PICKLIST</string></value>
+</member>
 <member>
 <name>selectionlistformula</name>
 <value><string>library = context.getParentNode().posformats
@@ -163,10 +154,6 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 </string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>PICKLIST</string></value>
-</member>
-<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -199,13 +186,13 @@ return ["%s|%s" % (v, k) for (k, v) in all_movies]
 <value><string>&lt;br&gt;</string></value>
 </member>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -240,13 +227,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <value><string>&lt;br&gt;</string></value>
 </member>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -281,13 +268,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <value><string>&lt;br&gt;</string></value>
 </member>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>

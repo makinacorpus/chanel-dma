@@ -9,14 +9,11 @@
     db = context.getParentDatabase()
     for sp_brain in db.getIndex().dbsearch({'doctype': 'shopprogram', 'shop_id': context.id}):
         sp_doc = sp_brain.getObject()
-        sp_doc.save()
-]]></onSaveDocument>
+        sp_doc.save()]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="table">
-<tbody>
-<tr>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="table"><tbody><tr>
 <td>
 <p><span class="plominoFieldClass">shop_is_published</span></p>
 <p>Name: <span class="plominoFieldClass">shop_name</span></p>
@@ -25,9 +22,7 @@
 <p>Displays:</p>
 <p><span class="plominoFieldClass">shop_displays</span></p>
 </td>
-<td>
-<table class="table">
-<tbody>
+<td><table class="table"><tbody>
 <tr>
 <td>City:</td>
 <td><span class="plominoFieldClass">shop_city</span></td>
@@ -36,12 +31,8 @@
 <td>Market:</td>
 <td><span class="plominoFieldClass">shop_market</span></td>
 </tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>]]></FormLayout>
+</tbody></table></td>
+</tr></tbody></table>]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA["%s - %s" % (context.getItem("doctype").upper(), context.getItem("shop_name"))]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -101,12 +92,12 @@
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>TEXTAREA</string></value>
-</member>
-<member>
 <name>size</name>
 <value><string>3</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
 </member>
 </struct></value>
 </param>
@@ -132,13 +123,13 @@
 <value><string>&lt;br&gt;</string></value>
 </member>
 <member>
+<name>widget</name>
+<value><string>RADIO</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>RADIO</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -199,6 +190,10 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <value><string>&lt;br/&gt;</string></value>
 </member>
 <member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a.getItem("display_formats"),a.getItem("display_diffusion"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
@@ -211,10 +206,6 @@ return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 </struct></value>
 </param>

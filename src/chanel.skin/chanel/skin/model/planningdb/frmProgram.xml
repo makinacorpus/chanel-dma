@@ -32,8 +32,7 @@ month = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "months"
 program_market = request.get("program_market") and request.get("program_market") or context.getItem("program_market")
 market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program_market)
 
-return "%s - %s - %s - %s" % (context.getItem("doctype").upper(), market, month, context.getItem("program_year"))
-]]></DocumentTitle>
+return "%s - %s - %s - %s" % (context.getItem("doctype").upper(), market, month, context.getItem("program_year"))]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</StoreDynamicDocumentTitle>
       <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
@@ -100,8 +99,8 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 <param>
 <value><struct>
 <member>
-<name>associated_form_rendering</name>
-<value><string>INLINE</string></value>
+<name>field_mapping</name>
+<value><string>movie,information</string></value>
 </member>
 <member>
 <name>jssettings</name>
@@ -122,8 +121,8 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 </string></value>
 </member>
 <member>
-<name>field_mapping</name>
-<value><string>movie,information</string></value>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
 </member>
 <member>
 <name>associated_form</name>

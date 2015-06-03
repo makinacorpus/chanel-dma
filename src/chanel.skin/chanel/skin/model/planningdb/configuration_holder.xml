@@ -72,12 +72,12 @@ if config_id:
 <param>
 <value><struct>
 <member>
-<name>widget</name>
-<value><string>TEXTAREA</string></value>
-</member>
-<member>
 <name>size</name>
 <value><string>10</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
 </member>
 </struct></value>
 </param>
@@ -183,7 +183,7 @@ return html]]></Formula>
 1 x 7|1/7
 1 x 4 vertical|1/4
 9 x 16|9/16
-Led|led""" ]]></Formula>
+Led|led"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -204,7 +204,7 @@ Led|LE
 Backstage|BA
 Art digital|AD
 Fragrance area|FA
-Cube and Column|CC""" ]]></Formula>
+Cube and Column|CC"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -224,7 +224,7 @@ Japan|JP
 Middle East|ME
 UK & OTHERS|UK
 US|US
-""" ]]></Formula>
+"""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

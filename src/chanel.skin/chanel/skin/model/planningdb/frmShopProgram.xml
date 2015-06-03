@@ -41,10 +41,7 @@ context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
 <p><span class="plominoFieldClass">planning_data</span></p>
 <p><span class="plominoFieldClass">buttons</span></p>
 <div>
-<span class="plominoFieldClass">planning_locked</span>
-<div>
-<p><span class="plominoFieldClass">popup_html</span></p>
-</div>
+<span class="plominoFieldClass">planning_locked</span><div><p><span class="plominoFieldClass">popup_html</span></p></div>
 </div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
@@ -58,8 +55,7 @@ if context and context.isDocument():
         
         market = db.callScriptMethod("scriptConfig", "getSingleConfigValue", db, "markets", program.getItem("program_market"))
         
-        return "%s - %s %s" % (shop.getItem("shop_name"),month, program.getItem("program_year"))
-]]></DocumentTitle>
+        return "%s - %s %s" % (shop.getItem("shop_name"),month, program.getItem("program_year"))]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</DynamicDocumentTitle>
       <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">True</StoreDynamicDocumentTitle>
       <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
@@ -248,8 +244,7 @@ for display in displays:
 html += """
   </div></div>"""
 
-return html
-]]></Formula>
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -452,8 +447,7 @@ if context.isDocument() or context.REQUEST.get("program_id"):
             "isnew_css" : isnew_css, 
             "url" : url}
 
-    return html
-]]></Formula>
+    return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -517,8 +511,7 @@ for shop in shops:
         sp.setItem("shop_id", shop_id_tmp)
         sp.setItem("planning_data", unicode(json_dumps(current_planning_data)))
         sp.save(form=form, creation=True)
-        db.writeMessageOnPage("Planning for %s [%s] created" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)
-]]></Content>
+        db.writeMessageOnPage("Planning for %s [%s] created" % (shop.getItem("shop_name"), program.getItem("program_name")), context.REQUEST)]]></Content>
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[doc = actual_context(context)
 return not(doc and (context.getCurrentUserId() in doc.getItem("Plomino_Authors") or "[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles()))]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>

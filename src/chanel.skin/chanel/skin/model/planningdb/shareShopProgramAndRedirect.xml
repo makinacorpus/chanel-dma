@@ -108,8 +108,7 @@ else:
                 sp.setItem("planning_data", unicode(json_dumps(tmp_planning_data)))
                 #messages.append("Planning for %s [%s] updated" % (shop.getItem("shop_name"), program.getItem("program_name")))
     
-    request.RESPONSE.redirect(doc.absolute_url())
-]]></Content>
+    request.RESPONSE.redirect(doc.absolute_url())]]></Content>
       <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
     </element>
   </design>

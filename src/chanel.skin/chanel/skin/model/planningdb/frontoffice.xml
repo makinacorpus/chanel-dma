@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <element id="frontoffice" title="Front office" type="PlominoForm">
+    <element id="frontoffice" title="Dashboard" type="PlominoForm">
       <id type="Products.Archetypes.Field.StringField">frontoffice</id>
       <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
       <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
@@ -77,6 +77,9 @@ previous_date = DateTime(((current_date.month()==1) and current_date.year()-1 or
 next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
 dates = [ (previous_date.month(), previous_date.year()), (current_date.month(), current_date.year()), (next_date.month(), next_date.year())]
 
+#programs
+#programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_is_published': True, 'program_month': {'query': [a.month() for a in dates], 'operator': 'OR'}})]
+
 #fetch programs
 programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program', 'program_market': {'query': markets_id, 'operator': 'OR'}, 'program_is_published': True})]
 programs = [p for p in programs if (p.program_month, p.program_year) in dates]
@@ -112,6 +115,7 @@ for shop in shops:
    html += """<li><h4>%s</h4><ul>""" % shop.getItem("shop_name")
    
    #loop months
+   #for name, month_id in months:
    for month_id, year in dates:
          #if a program is found for this month
          if month_id in programs_market.keys():
@@ -153,8 +157,7 @@ return html]]></Formula>
         <element id="allowed" title="allowed" type="PlominoHidewhen">
           <id type="Products.Archetypes.Field.StringField">allowed</id>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles') and hasattr(context, 'getCurrentUser'):
-     return not("[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles())
-    ]]></Formula>
+     return not("[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles())]]></Formula>
           <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>

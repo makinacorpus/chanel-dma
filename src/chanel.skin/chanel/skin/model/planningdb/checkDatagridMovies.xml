@@ -1,0 +1,20 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="checkDatagridMovies" title="checkDatagridMovies" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">checkDatagridMovies</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoDocument.getParentDatabase()
+request = getattr(context, 'REQUEST', {})
+results = []
+programs = [ m.getObject() for m in db.getIndex().dbsearch({ 'type': 'program' })]
+for program in programs:
+   movies = program.getItem("program_movies", [])
+   if None in movies:     
+     results.append({ 'id': program.id, 'movies': movies})
+     movies.remove(None)
+     program.setItem("program_movies", movies)
+plominoContext.REQUEST.RESPONSE.setHeader('content-type', 'application/json; charset=utf-8')
+plominoContext.REQUEST.RESPONSE.setBody(json_dumps(results))]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>

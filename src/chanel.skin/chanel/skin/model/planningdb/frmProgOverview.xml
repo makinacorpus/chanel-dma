@@ -50,6 +50,11 @@ return program_month and program_month or str(Now().month())]]></Formula>
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -57,11 +62,6 @@ return program_month and program_month or str(Now().month())]]></Formula>
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
 </member>
 </struct></value>
 </param>
@@ -124,8 +124,7 @@ for market_id, market_name in markets:
 # close table tag
 html += """</table>"""
 
-return html
-]]></Formula>
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

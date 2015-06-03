@@ -145,12 +145,12 @@ def computeSection(date):
                         elif class_current_css:
                             url = "%s" % sh_program.absolute_url()
                         else:        
-                            tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
+                            tmp_html += """<li class="empty found %s %s"><a><span>%s</span></a></li>""" % (current_user_id, shop.getItem("shop_manager"), shop.getItem("shop_name"))
                             continue
                     elif is_zope_user or is_manager or current_user_id in shop.getItem("shop_manager", []):
                             url = "%s/createShopProgramAndRedirect/runAgent?program_id=%s&shop_id=%s" % (form.absolute_url(), program.id, shop.id)
                     else:
-                        tmp_html += """<li class="empty"><a><span>%s</span></a></li>""" % (shop.getItem("shop_name"))
+                        tmp_html += """<li class="empty nofound %s %s"><a><span>%s</span></a></li>""" % (current_user_id, shop.getItem("shop_manager"), shop.getItem("shop_name"))
                         continue
 
                     tmp_html += """<li><a href="%s" class="%s"><span>%s</span></a></li>""" % (url, class_current_css, shop.getItem("shop_name"))
@@ -168,7 +168,8 @@ for date in dates:
 
 html += """</ul></div>"""
 
-return html]]></Formula>
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -198,8 +199,7 @@ return html]]></Formula>
         <element id="allowed" title="allowed" type="PlominoHidewhen">
           <id type="Products.Archetypes.Field.StringField">allowed</id>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles') and hasattr(context, 'getCurrentUser'):
-     return not("[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles())
-    ]]></Formula>
+     return not("[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles())]]></Formula>
           <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>

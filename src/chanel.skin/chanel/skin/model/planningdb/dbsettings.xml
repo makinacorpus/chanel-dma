@@ -6,7 +6,7 @@
       <IndexAttachments type="Products.Archetypes.Field.BooleanField">False</IndexAttachments>
       <FulltextIndex type="Products.Archetypes.Field.BooleanField">True</FulltextIndex>
       <IndexInPortal type="Products.Archetypes.Field.BooleanField">False</IndexInPortal>
-      <debugMode type="Products.Archetypes.Field.BooleanField">True</debugMode>
+      <debugMode type="Products.Archetypes.Field.BooleanField">False</debugMode>
       <CountDocuments type="Products.Archetypes.Field.BooleanField">False</CountDocuments>
       <DateTimeFormat type="Products.Archetypes.Field.StringField">%Y-%m-%d</DateTimeFormat>
       <StartPage type="Products.Archetypes.Field.StringField">frontoffice</StartPage>
