@@ -76,13 +76,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
 <value><string>&lt;br&gt;</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
-</member>
-<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -117,13 +117,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 <value><string>&lt;br&gt;</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>RADIO</string></value>
-</member>
-<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
+</member>
+<member>
+<name>widget</name>
+<value><string>RADIO</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>

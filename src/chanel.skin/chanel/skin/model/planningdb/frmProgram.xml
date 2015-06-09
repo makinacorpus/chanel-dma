@@ -20,6 +20,7 @@ if not (request.get("program_month") and request.get("program_market") and reque
 <p><span class="plominoFieldClass">program_is_published</span></p>
 <p>Name: <span class="plominoFieldClass">program_month_display</span><span class="plominoFieldClass">program_year_display</span></p>
 <p>Market: <span class="plominoFieldClass">program_market_display</span></p>
+<p>Comments: <span class="plominoFieldClass">program_comments</span></p>
 <p>Movies: <span class="plominoFieldClass">program_movies</span></p>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
@@ -103,6 +104,14 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 <value><string>movie,information</string></value>
 </member>
 <member>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
+</member>
+<member>
+<name>associated_form</name>
+<value><string>dgMovie</string></value>
+</member>
+<member>
 <name>jssettings</name>
 <value><string>"aoColumns": [
     { "sTitle": "Name" },
@@ -119,14 +128,6 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
         "height": 300
     }
 </string></value>
-</member>
-<member>
-<name>associated_form_rendering</name>
-<value><string>INLINE</string></value>
-</member>
-<member>
-<name>associated_form</name>
-<value><string>dgMovie</string></value>
 </member>
 </struct></value>
 </param>
@@ -287,6 +288,29 @@ program_month_parameter = program_month and "?program_month=" + str(program_mont
 return plominoContext.getParentDatabase().getForm("frmProgOverview").absolute_url() + program_month_parameter]]></Content>
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
+        </element>
+        <element id="program_comments" title="program_comments" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_comments</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
       </elements>
     </element>

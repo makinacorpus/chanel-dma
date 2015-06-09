@@ -102,6 +102,10 @@ def getPreviewUrl(path):
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 
+comments = program.getItem('program_comments', '')
+if comments:
+    comments = """<div class="planning-comment">%s</div>""" % comments
+
 all_movies_id = asList(program.getItem("program_movies"))
 all_movies = [(db.getDocument(m[0]),m[1], m[0]) for m in asList(program.getItem("program_movies"))]
 all_movies_not_found = [movie[2] for movie in all_movies if not movie[0]]
@@ -163,11 +167,14 @@ for movie in all_movies:
 
 # Planning header
 html = u"""
-<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation %(lock_html)s</h3><div class="planning-table cells-%(nb_cells)s">
+<h2 class="planning-shop">%(shop_name)s%(lock_html)s</h2><h3 class="planning-program">%(program_name)s Programmation %(lock_html)s</h3>
+%(comments)s
+<div class="planning-table cells-%(nb_cells)s">
   <div class="display-row">
 """ % {
          'shop_name': shop.getItem('shop_name'),
          'lock_html': lock_html,
+         'comments': comments,
          'nb_cells': len(displays),
          'program_name' : program.getItem('program_name')
        }
