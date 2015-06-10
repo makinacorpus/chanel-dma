@@ -102,10 +102,29 @@ def getPreviewUrl(path):
 shop = db.getDocument(context.getItem('shop_id'))
 program = db.getDocument(context.getItem('program_id'))
 
-comments = program.getItem('program_comments', '')
-if comments:
-    comments = """<div class="planning-comment">%s</div>""" % comments
+comments = context.getItem('shopprogram_comments', '')
+if "[manager]" in context.getCurrentUserRoles():
+    comments = """<textarea class="planning-comment">%s</textarea>
+<button id="save-comment" class="btn">Save</button>
+<script>$(document).ready(function() {
+    $(".planning-comment").keydown(function() {
+        $("#save-comment").text("Save");
+        $("#save-comment").removeAttr("disabled");
+    });
+    $("#save-comment").click(function(e) {
+        var comment = $(".planning-comment").val()
+        $.post("saveComment/runAgent", {docid: "%s",comment: comment}, function() {
+            $("#save-comment").text("Saved");
+            $("#save-comment").attr("disabled", "1");
+        });
+        return false;
+});
 
+});</script>
+""" % (comments, context.id)
+else:
+    if comments:
+        comments = """<div class="planning-comment">%s</div>""" % comments
 all_movies_id = asList(program.getItem("program_movies"))
 all_movies = [(db.getDocument(m[0]),m[1], m[0]) for m in asList(program.getItem("program_movies"))]
 all_movies_not_found = [movie[2] for movie in all_movies if not movie[0]]
@@ -522,6 +541,19 @@ for shop in shops:
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[doc = actual_context(context)
 return not(doc and (context.getCurrentUserId() in doc.getItem("Plomino_Authors") or "[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles()))]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">False</InActionBar>
+        </element>
+        <element id="shopprogram_comments" title="shopprogram_comments" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">shopprogram_comments</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
       </elements>
     </element>

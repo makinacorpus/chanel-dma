@@ -1,0 +1,15 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="saveComment" title="saveComment" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">saveComment</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
+docid = context.REQUEST.get("docid")
+comment = context.REQUEST.get("comment")
+doc = db.getDocument(docid)
+if not doc:
+    return
+doc.setItem("shopprogram_comments", comment)]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>

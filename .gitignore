@@ -35,3 +35,5 @@ adminPassword.txt
 src/Products.CMFPlomino
 ebr.cfg
 node_modules
+theme.min.css
+README.html
