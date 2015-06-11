@@ -1,13 +1,14 @@
 Chanel Digital Asset Management
 ===============================
 
-Install
--------
+Prepare installation::
 
-::
-    sudo apt-get install git
-    git clone git@github.com:makinacorpus/chanel-dma.git ./tmp
-    mv ./tmp/.git .
-    rm -rf ./tmp
-    git reset --hard HEAD
+    mkdir -p buildout-cache/downloads
+    git clone git@github.com:makinacorpus/chanel-dma.git
+    cd chanel-dma
+    virtualenv .
+    python bootstrap.py
+
+Install::
+
     bin/buildout -Nv
