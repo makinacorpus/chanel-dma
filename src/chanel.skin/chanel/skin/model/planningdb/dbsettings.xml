@@ -1,6 +1,6 @@
 <plominodatabase id="planningdb">
   <design>
-    <dbsettings version="1.18">
+    <dbsettings version="1.19.2">
       <AboutDescription type="Products.Archetypes.Field.TextField"><![CDATA[]]></AboutDescription>
       <UsingDescription type="Products.Archetypes.Field.TextField"><![CDATA[]]></UsingDescription>
       <IndexAttachments type="Products.Archetypes.Field.BooleanField">False</IndexAttachments>
@@ -24,6 +24,14 @@
 <value><struct>
 <member>
 <name>adminmakina</name>
+<value><int>1</int></value>
+</member>
+<member>
+<name>alexandrahuriez</name>
+<value><int>1</int></value>
+</member>
+<member>
+<name>admin</name>
 <value><int>1</int></value>
 </member>
 </struct></value>

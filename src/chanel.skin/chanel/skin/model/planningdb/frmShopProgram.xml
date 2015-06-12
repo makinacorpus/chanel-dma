@@ -104,9 +104,7 @@ program = db.getDocument(context.getItem('program_id'))
 
 comments = context.getItem('shopprogram_comments', '')
 if "[manager]" in context.getCurrentUserRoles():
-    comments = """<textarea class="planning-comment">%s</textarea>
-<button id="save-comment" class="btn">Save</button>
-<script>$(document).ready(function() {
+    comments = """<textarea class="planning-comment">%s</textarea><button id="save-comment" class="btn">Save</button><script>$(document).ready(function() {
     $(".planning-comment").keydown(function() {
         $("#save-comment").text("Save");
         $("#save-comment").removeAttr("disabled");
@@ -200,8 +198,13 @@ html = u"""
    
 # Table header
 for display in displays:
-    html += """
-    <div class="display-cell"><p class="display-cell-container"><span class="display-cell-text">%s</span></p></div>""" % (display.getItem('display_name'))
+    html += """<div class="display-cell"><p class="display-cell-container">"""
+    html += """<span class="display-cell-text">%s""" % (display.getItem('display_name'))
+    if display.getItem('cnario'):
+        html += "<br>(CNario)"
+    if display.getItem('online'):
+        html += "<br>(Online)"
+    html += "</span></p></div>"
 
 html += """
   </div>
@@ -270,7 +273,8 @@ for display in displays:
 html += """
   </div></div>"""
 
-return html]]></Formula>
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

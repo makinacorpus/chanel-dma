@@ -104,10 +104,6 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 <value><string>INLINE</string></value>
 </member>
 <member>
-<name>field_mapping</name>
-<value><string>movie,information</string></value>
-</member>
-<member>
 <name>jssettings</name>
 <value><string>"aoColumns": [
     { "sTitle": "Name" },
@@ -128,6 +124,10 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 <member>
 <name>associated_form</name>
 <value><string>dgMovie</string></value>
+</member>
+<member>
+<name>field_mapping</name>
+<value><string>movie,information</string></value>
 </member>
 </struct></value>
 </param>

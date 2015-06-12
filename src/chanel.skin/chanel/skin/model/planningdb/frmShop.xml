@@ -92,12 +92,12 @@
 <param>
 <value><struct>
 <member>
-<name>size</name>
-<value><string>3</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>3</string></value>
 </member>
 </struct></value>
 </param>
@@ -119,15 +119,6 @@
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
-</member>
-<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -139,6 +130,15 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <member>
 <name>widget</name>
 <value><string>RADIO</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -186,15 +186,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a.getItem("display_formats"),a.getItem("display_diffusion"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br/&gt;</string></value>
-</member>
-<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -206,6 +197,15 @@ return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a
 <member>
 <name>widget</name>
 <value><string>CHECKBOX</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a.getItem("display_formats"),a.getItem("display_diffusion"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
+</member>
+<member>
+<name>separator</name>
+<value><string>&lt;br/&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -240,12 +240,12 @@ return [ "%s - ( Format: %s, Diffusion: %s )|%s" % (a.getItem("display_name"), a
 <param>
 <value><struct>
 <member>
-<name>selector</name>
-<value><string>SEARCH</string></value>
-</member>
-<member>
 <name>type</name>
 <value><string>MULTI</string></value>
+</member>
+<member>
+<name>selector</name>
+<value><string>FIELD</string></value>
 </member>
 </struct></value>
 </param>
