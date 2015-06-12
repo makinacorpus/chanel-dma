@@ -200,9 +200,9 @@ html = u"""
 for display in displays:
     html += """<div class="display-cell"><p class="display-cell-container">"""
     html += """<span class="display-cell-text">%s""" % (display.getItem('display_name'))
-    if display.getItem('cnario'):
+    if display.getItem('display_cnario'):
         html += "<br>(CNario)"
-    if display.getItem('online'):
+    if display.getItem('display_online'):
         html += "<br>(Online)"
     html += "</span></p></div>"
 

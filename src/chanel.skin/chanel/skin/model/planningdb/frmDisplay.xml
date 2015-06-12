@@ -19,8 +19,8 @@
 <td colspan="2">
 <p>Name : <span class="plominoFieldClass">display_name</span></p>
 <p>Diffusion : <span class="plominoFieldClass">display_diffusion</span></p>
-<p>CNario : <span class="plominoFieldClass">cnario</span></p>
-<p>Online : <span class="plominoFieldClass">online</span></p>
+<p>CNario : <span class="plominoFieldClass">display_cnario</span></p>
+<p>Online : <span class="plominoFieldClass">display_online</span></p>
 </td>
 </tr>
 <tr>
@@ -180,8 +180,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
         </element>
-        <element id="online" title="Online" type="PlominoField">
-          <id type="Products.Archetypes.Field.StringField">online</id>
+        <element id="display_online" title="Online" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">display_online</id>
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
@@ -193,8 +193,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
-        <element id="cnario" title="cnario" type="PlominoField">
-          <id type="Products.Archetypes.Field.StringField">cnario</id>
+        <element id="display_cnario" title="display_cnario" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">display_cnario</id>
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
