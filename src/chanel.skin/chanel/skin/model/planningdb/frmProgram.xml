@@ -122,12 +122,12 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 </string></value>
 </member>
 <member>
-<name>associated_form</name>
-<value><string>dgMovie</string></value>
-</member>
-<member>
 <name>field_mapping</name>
 <value><string>movie,information</string></value>
+</member>
+<member>
+<name>associated_form</name>
+<value><string>dgMovie</string></value>
 </member>
 </struct></value>
 </param>

@@ -1,0 +1,306 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="frmProgCnario" title="frmProgCnario" type="PlominoForm">
+      <id type="Products.Archetypes.Field.StringField">frmProgCnario</id>
+      <onCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onCreateDocument>
+      <onOpenDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onOpenDocument>
+      <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
+      <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSaveDocument>
+      <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
+      <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
+      <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
+<p><span class="plominoFieldClass">program_year</span></p>
+<h2><span class="plominoFieldClass">program_month</span></h2>
+<p><span class="plominoFieldClass">programs</span></p>
+<p><span class="plominoFieldClass">programs_js</span></p>
+]]></FormLayout>
+      <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
+      <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentTitle>
+      <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
+      <StoreDynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</StoreDynamicDocumentTitle>
+      <DocumentId type="Products.Archetypes.Field.TextField"><![CDATA[]]></DocumentId>
+      <ActionBarPosition type="Products.Archetypes.Field.StringField">TOP</ActionBarPosition>
+      <HideDefaultActions type="Products.Archetypes.Field.BooleanField">False</HideDefaultActions>
+      <HideInMenu type="Products.Archetypes.Field.BooleanField">False</HideInMenu>
+      <isSearchForm type="Products.Archetypes.Field.BooleanField">False</isSearchForm>
+      <isPage type="Products.Archetypes.Field.BooleanField">True</isPage>
+      <SearchView type="Products.Archetypes.Field.StringField"/>
+      <SearchFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></SearchFormula>
+      <Position type="Products.Archetypes.Field.IntegerField"/>
+      <ResourcesJS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesJS>
+      <ResourcesCSS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesCSS>
+      <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
+      <elements>
+        <element id="program_month" title="program_month" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_month</id>
+          <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[program_month = context.REQUEST.get("program_month")
+return program_month and program_month or str(Now().month())]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
+</member>
+</struct></value>
+</param>
+</params>
+        </element>
+        <element id="program_markets" title="program_markets" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_markets</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="programs" title="programs" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">programs</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoDocument.getParentDatabase()
+
+markets = [(config.split("|")[1], config.split("|")[0]) for config in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
+markets_dict = dict(markets)
+
+month = plominoContext.REQUEST.get("program_month", Now().month())
+year = plominoContext.REQUEST.get("program_year", Now().year())
+
+programs = [a.getObject() for a in db.getIndex().dbsearch({
+    'doctype': 'program',
+    'program_month': int(month),
+    'program_year': year})]
+shops = [a.getObject() for a in db.getIndex().dbsearch({
+    'doctype': 'shop',
+    'shop_is_published': True},
+    sortindex='shop_name')]
+shop_programs = [a.getObject() for a in db.getIndex().dbsearch({
+    'doctype': 'shopprogram',
+    'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},})]
+
+agent = db.getAgent("createProgramAndRedirect")
+agent_url = agent.absolute_url() + "/runAgent?program_month=%s&program_year=%s" % (month, year) + "&program_market=%s"
+
+shops_by_market = {}
+for shop in shops:
+     shop_market = shop.getItem("shop_market")
+     shops_by_market.setdefault(shop_market, [])
+     shops_by_market[shop_market].append(shop)
+
+shopprograms_by_shop = {}
+for sp in shop_programs:
+    shop_id = str(sp.getItem("shop_id"))
+    shopprograms_by_shop.setdefault(shop_id, {})
+    shopprograms_by_shop[shop_id][str(sp.getItem("program_id"))] = sp
+
+# search program using market name
+def getProgram(market):
+    for result in programs:
+        if result.getItem("program_market") == market:
+            return result
+
+# start div tag
+html = """<div class="cnarioboard">"""
+for market_id, market_name in markets:
+    # program object
+    program = getProgram(market_id)
+
+    # add row in html
+    html += """<section class="market">"""
+    html += """<h3 class="market">%s</h3>""" % (market_name)
+
+    for shop in shops_by_market[market_id]:
+        program_sp = shopprograms_by_shop.get(shop.id, None)
+        if program_sp:
+            sp = program_sp.get(program.id)
+
+            # list all displays with CNario feature
+            displays = [d for d in shop.shop_displays if db.getDocument(d).getItem('display_cnario')]
+
+            if len(displays) > 0:
+                html += """<section class="shop">"""
+                html += """<h4 class="shop"><a href="%s" target="_blank">%s</a></h4>""" % (sp.absolute_url(), shop.shop_name)
+
+                for display_id in displays:
+                    display = db.getDocument(display_id)
+                    html += """<section class="display">"""
+                    html += """<h5>%s</h5>""" % (display.display_name)
+                    planning_data = sp.getItem('planning_data')
+                    planning_data = (planning_data) and json_loads(planning_data) or {}
+
+                    if planning_data:
+                        display_data = planning_data.get(display_id, {})
+                        movies = [m for m in display_data.items() if m[1]['status'] == "Y"]
+                        html += """<table class="table">"""
+
+                        for movie_id, movie_infos in movies:
+                            html += "<tr>"
+                            movie_title = db.getDocument(movie_id).getItem('movie_title')
+                            html += """<td>%s</td>""" % (movie_title)
+                            html += """<td>%(start_date)s</td><td>%(end_date)s</td>""" % (movie_infos)
+                        html += "</table>"
+
+                    html += "</section>"
+
+                html += "</section>"
+
+    html += "</section>"
+
+# close div tag
+html += """</div>"""
+
+return html
+]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[db = plominoDocument.getParentDatabase()
+
+markets = [(config.split("|")[1], config.split("|")[0]) for config in db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")]
+markets_dict = dict(markets)
+
+month = plominoContext.REQUEST.get("program_month", Now().month())
+year = plominoContext.REQUEST.get("program_year", Now().year())
+
+programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'program','program_month': int(month), 'program_year': year})]
+shops = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shop', 'shop_is_published': True}, sortindex='shop_name')]
+shop_programs = [a.getObject() for a in db.getIndex().dbsearch({'doctype': 'shopprogram',
+                        'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},
+                        })]
+
+agent = db.getAgent("createProgramAndRedirect")
+agent_url = agent.absolute_url() + "/runAgent?program_month=%s&program_year=%s" % (month, year) + "&program_market=%s"
+
+shops_by_market = {}
+for shop in shops:
+     shop_market = shop.getItem("shop_market")
+     shops_by_market.setdefault(shop_market, [])
+     shops_by_market[shop_market].append(shop)
+
+shopprograms_by_shop = {}
+for sp in shop_programs:
+    shop_id = str(sp.getItem("shop_id"))
+    shopprograms_by_shop.setdefault(shop_id, {})
+    shopprograms_by_shop[shop_id][str(sp.getItem("program_id"))] = sp
+
+# search program using market name
+def getProgram(market):
+    for result in programs:
+        if result.getItem("program_market") == market:
+            return result
+
+def getStatus(program):
+     if program:
+        return program.getItem("program_is_published") and 'published' or 'not published'
+     return 'not found'
+
+
+# start div tag
+html = """<div class="">"""
+for market_id, market_name in markets:
+    # program object
+    program = getProgram(market_id)
+
+    # add row in html
+    html+= """<h3 class="market">%s</h3>""" % (market_name)
+
+    for shop in shops_by_market[market_id]:
+        html += """<h4 class="shop">%s <small>%s</small></h4>""" % (shop.shop_name, shop.id)
+        program_sp = shopprograms_by_shop.get(shop.id, None)
+        html += """<pre>%s</pre>""" % (program_sp)
+        if program_sp:
+            sp = program_sp.get(program.id)
+            for display_id in shop.shop_displays:
+                display = db.getDocument(display_id)
+                html += """<h5>%s</h5>""" % (display.display_name)
+                #html += """<pre>%s</pre>""" % (sp.display_id)
+                planning = sp.get(display_id, None)
+                if planning:
+                    html += "<table>"
+                    for movie_id, movie_infos in planning.items:
+                        html += """<tr><td>%(status)s</td><td>%(start_date)</td></tr>""" % (movie_info)
+
+# close div tag
+html += """</div>"""
+
+return html
+]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="programs_js" title="programs_js" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">programs_js</id>
+          <FieldType type="Products.Archetypes.Field.StringField">RICHTEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[html = """
+<script>
+ $("#program_month").change(function(event){
+    $.get("tojson?item=programs&program_month=" + $("#program_month").val(),
+          function(data){
+                $("form .listing.table").html($(data).html());
+          });
+  });
+</script>
+"""
+return html]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="program_year" title="program_year" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_year</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[Now().year()]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">True</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>HIDDEN</string></value>
+</member>
+</struct></value>
+</param>
+</params>
+        </element>
+      </elements>
+    </element>
+  </design>
+</plominodatabase>

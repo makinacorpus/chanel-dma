@@ -13,26 +13,20 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain">
-<tbody>
-<tr>
-<td colspan="2">
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain"><tbody>
+<tr><td colspan="2">
 <p>Name : <span class="plominoFieldClass">display_name</span></p>
 <p>Diffusion : <span class="plominoFieldClass">display_diffusion</span></p>
 <p>CNario : <span class="plominoFieldClass">display_cnario</span></p>
 <p>Online : <span class="plominoFieldClass">display_online</span></p>
-</td>
-</tr>
+</td></tr>
 <tr>
-<td>Formats : <br>
-<p><span class="plominoFieldClass">display_formats</span></p>
+<td>Formats : <br><p><span class="plominoFieldClass">display_formats</span></p>
 </td>
-<td>Axes : <br>
-<p><span class="plominoFieldClass">display_axes</span></p>
+<td>Axes : <br><p><span class="plominoFieldClass">display_axes</span></p>
 </td>
 </tr>
-</tbody>
-</table>]]></FormLayout>
+</tbody></table>]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA["%s - %s" % (context.getItem("doctype").upper(), context.getItem("display_name"))]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -93,13 +87,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
 <value><string>CHECKBOX</string></value>
 </member>
 <member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
@@ -134,13 +128,13 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 <value><string>RADIO</string></value>
 </member>
 <member>
+<name>separator</name>
+<value><string>&lt;br&gt;</string></value>
+</member>
+<member>
 <name>selectionlistformula</name>
 <value><string>db = plominoDocument.getParentDatabase()
 return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
-</member>
-<member>
-<name>separator</name>
-<value><string>&lt;br&gt;</string></value>
 </member>
 </struct></value>
 </param>
