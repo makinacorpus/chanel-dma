@@ -5607,6 +5607,30 @@ img.planning_status {
 .planning_status {
   display: none;
 }
+/* CNario board *
+*               */
+#content .cnarioboard a,
+#content .cnarioboard a:link,
+#content .cnarioboard a:visited,
+#content .cnarioboard a:hover {
+  font-size: 1em;
+  color: #555555;
+  font-weight: bold;
+}
+.cnarioboard section,
+.cnarioboard .table {
+  margin-left: 30px;
+}
+.cnarioboard h2,
+.cnarioboard h3,
+.cnarioboard h4,
+.cnarioboard h5 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.cnarioboard td {
+  font-weight: bold;
+}
 /* --------------------------*/
 /*         Gabarit site       */
 /* --------------------------*/

@@ -35,5 +35,8 @@
     "gulp-cache": "~0.2.4",
     "gulp": "~3.8.10",
     "csslint": "~0.10.0"
+  },
+  "devDependencies": {
+    "gulp-notify": "^2.2.0"
   }
 }

@@ -175,7 +175,7 @@ ul.submenu {
                 .dates input{
                       position: relative;
                       //border-width:3px;
-                      &::-webkit-datetime-edit { 
+                      &::-webkit-datetime-edit {
 
                       }
                       &::-webkit-inner-spin-button, {
@@ -413,7 +413,7 @@ ul.submenu {
 img.planning_status{
     margin-top: -2px;
     margin-left: 10px;
-    height: 19px; 
+    height: 19px;
 }
 .shops_frontoffice a.notfound,
 .shops_frontoffice a.notfinished {
@@ -427,6 +427,29 @@ img.planning_status{
 /** Cadena move in frontoffice **/
 .planning_status  {
 	display: none;
+}
+
+/* CNario board *
+*               */
+
+#content .cnarioboard {
+    a, a:link, a:visited, a:hover {
+        font-size: 1em;
+        color: @gray;
+        font-weight: bold;
+    }
+}
+.cnarioboard {
+    section, .table {
+        margin-left: 30px;
+    }
+    h2, h3, h4, h5 {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    td {
+        font-weight: bold;
+    }
 }
 
 
@@ -719,7 +742,7 @@ min-height: 460px;
 #login-form .field input {
     border: 1px solid black;
     font-size: 12px;
-    
+
 }
 #login-form .formControls {
     text-align: left;
@@ -1555,4 +1578,3 @@ ul.formTabs li.formTab a {
 margin-left: 0px;
 min-width: 940px;
 }
-
