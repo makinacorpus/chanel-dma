@@ -144,7 +144,8 @@ for market_id, market_name in markets:
 
             if len(displays) > 0:
                 html += """<section class="shop">"""
-                html += """<h4 class="shop"><a href="%s" target="_blank">%s</a></h4>""" % (sp.absolute_url(), shop.shop_name)
+                html += """<h4 class="shop col-sm-6"><a href="%s" target="_blank">%s</a></h4>""" % (sp.absolute_url(), shop.shop_name)
+                html += """<p class="text-mute col-sm-6">%s</p>""" % (shop.getItem("shop_information"))
 
                 for display_id in displays:
                     display = db.getDocument(display_id)

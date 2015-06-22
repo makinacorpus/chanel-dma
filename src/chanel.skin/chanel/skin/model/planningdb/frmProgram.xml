@@ -100,8 +100,8 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 <param>
 <value><struct>
 <member>
-<name>associated_form_rendering</name>
-<value><string>INLINE</string></value>
+<name>field_mapping</name>
+<value><string>movie,information</string></value>
 </member>
 <member>
 <name>jssettings</name>
@@ -122,8 +122,8 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 </string></value>
 </member>
 <member>
-<name>field_mapping</name>
-<value><string>movie,information</string></value>
+<name>associated_form_rendering</name>
+<value><string>INLINE</string></value>
 </member>
 <member>
 <name>associated_form</name>
