@@ -124,13 +124,38 @@ else:
     if comments:
         comments = """<div class="planning-comment">%s</div>""" % comments
 all_movies_id = asList(program.getItem("program_movies"))
-all_movies = [(db.getDocument(m[0]),m[1], m[0]) for m in asList(program.getItem("program_movies"))]
+
+# Set default values
+year = program.getItem("program_year")
+month = program.getItem("program_month")
+
+start_date_str = "%d-%02d-01" % (year, month)
+next_month = StringToDate(start_date_str, "%Y-%m-%d") + 40
+next_month_date_str = "%d-%02d-01" % (next_month.year(), next_month.month())
+end_date_str = DateToString(StringToDate(next_month_date_str, "%Y-%m-%d") - 1, "%Y-%m-%d")
+
+# tooltip
+def html_information(information, id):
+    if information:
+        return """<i rel="#info-%s" class="video-info"></i><div class="tooltip" id="info-%s">%s<div class="arrow"></div></div>""" % (id, id, information)
+    return ""
+
+# All movies
+all_movies = []
+for m in asList(program.getItem("program_movies")):
+    movie = [db.getDocument(m[0]),m[1],m[0]]
+    if (len(m) > 2 and m[2] != ""):
+        movie.append(m[2])
+    else:
+        movie.append(start_date_str)
+    all_movies.append(movie)
+
 all_movies_not_found = [movie[2] for movie in all_movies if not movie[0]]
 all_movies = [movie for movie in all_movies if movie[0]]
 
 if all_movies_not_found:
-    Log("Program %s doesnt find movies %s" % (program.id, all_movies_not_found))
- 
+    Log("Program %s doesn't find movies %s" % (program.id, all_movies_not_found))
+
 all_movies.sort(key = lambda m: m[0].getItem("movie_title"))
 
 displays = [a for a in [db.getDocument(id) for id in asList(shop.getItem("shop_displays"))] if a]
@@ -143,21 +168,7 @@ planning_data = (planning_data) and json_loads(planning_data) or {}
 
 movie_css_dict = {"Y": "yes", "N": "no", "X": ""}
 
-year = program.getItem("program_year")
-month = program.getItem("program_month")
-
-start_date_str = "%d-%02d-01" % (year, month) 
-next_month = StringToDate(start_date_str, "%Y-%m-%d") + 40
-next_month_date_str = "%d-%02d-01" % (next_month.year(), next_month.month())
-end_date_str = DateToString(StringToDate(next_month_date_str, "%Y-%m-%d") - 1, "%Y-%m-%d")
-
 movies_by_format = {}
-
-# tooltip
-def html_information(information, id):
-    if information:
-        return """<i rel="#info-%s" class="video-info"></i><div class="tooltip" id="info-%s">%s<div class="arrow"></div></div>""" % (id, id, information)
-    return ""
 
 # refactor movies to arrange them by format
 for movie in all_movies:
@@ -170,6 +181,7 @@ for movie in all_movies:
     subtitle = movie_doc.getItem("movie_subtitle")
     movie_path = asList(movie_doc.getItem('movie_link'))
     movie_preview = getPreviewUrl(movie_path)
+    movie_start_date = movie[3]
     for f in formats:
         movies = movies_by_format.setdefault(f, [])
         movies.append({
@@ -179,6 +191,7 @@ for movie in all_movies:
             'axes': axes,
             'preview': movie_preview,
             'subtitle': subtitle and " - " + subtitle or "",
+            'start_date_min': movie_start_date,
         })
         movies_by_format[f] = movies
 
@@ -195,7 +208,7 @@ html = u"""
          'nb_cells': len(displays),
          'program_name' : program.getItem('program_name')
        }
-   
+
 # Table header
 for display in displays:
     html += """<div class="display-cell"><p class="display-cell-container">"""
@@ -228,9 +241,9 @@ for display in displays:
         is_concerned =  [m for m in movie["axes"] if m in display_axes]
         if is_concerned:
             movie_data = display_data.get(movie["id"], {})
-
             movie_data_status = movie_data.get("status","X")
             movie_data_disabled = (movie_data_status == "Y") and " " and not is_locked or "disabled"
+            start_date_min = movie.get("start_date_min", start_date_str)
             for status in ("Y","N","X"):
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
 
@@ -250,9 +263,9 @@ for display in displays:
     """ % {
         'title': movie['title'],
         'title_cropped': cropText(movie['title'],40),
-        'id': movie['id'], 
+        'id': movie['id'],
         'display_id': display.id,
-        'start': start_date_str,
+        'start': start_date_min,
         'url': movie['preview'],
         'end': end_date_str,
         'is_y': movie_data.get("is_Y"),
@@ -273,7 +286,8 @@ for display in displays:
 html += """
   </div></div>"""
 
-return html]]></Formula>
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
