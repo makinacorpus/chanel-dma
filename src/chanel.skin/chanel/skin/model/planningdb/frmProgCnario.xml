@@ -93,6 +93,7 @@ year = plominoContext.REQUEST.get("program_year", Now().year())
 
 programs = [a.getObject() for a in db.getIndex().dbsearch({
     'doctype': 'program',
+    'program_is_published': True,
     'program_month': int(month),
     'program_year': year})]
 shops = [a.getObject() for a in db.getIndex().dbsearch({
@@ -101,6 +102,7 @@ shops = [a.getObject() for a in db.getIndex().dbsearch({
     sortindex='shop_name')]
 shop_programs = [a.getObject() for a in db.getIndex().dbsearch({
     'doctype': 'shopprogram',
+    'planning_locked': True,
     'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},})]
 
 shops_by_market = {}
