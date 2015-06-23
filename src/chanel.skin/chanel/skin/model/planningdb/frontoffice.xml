@@ -12,6 +12,10 @@
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <h4>PERSONAL POS</h4>
 <p><span class="plominoFieldClass">shop_programs</span></p>
+<p><span class="plominoHidewhenClass">start:cnario</span></p>
+<h4>CNario Dashboard</h4>
+<p><span class="plominoSubformClass">frmProgCnario</span></p>
+<p><span class="plominoHidewhenClass">end:cnario</span></p>
 <p><span class="plominoHidewhenClass">start:allowed</span></p>
 <h4>BACKOFFICE</h4>
 <p><span class="plominoSubformClass">backoffice</span> <span class="plominoHidewhenClass">end:allowed</span></p>
@@ -158,6 +162,13 @@ return html]]></Formula>
           <id type="Products.Archetypes.Field.StringField">allowed</id>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles') and hasattr(context, 'getCurrentUser'):
      return not("[manager]" in context.getCurrentUserRoles() or "Manager" in context.getCurrentUser().getRoles())]]></Formula>
+          <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
+        </element>
+        <element id="cnario" title="cnario" type="PlominoHidewhen">
+          <id type="Products.Archetypes.Field.StringField">cnario</id>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles') and hasattr(context, 'getCurrentUser'):
+     return not("[cnario]" in context.getCurrentUserRoles())
+]]></Formula>
           <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>
