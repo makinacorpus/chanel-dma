@@ -103,9 +103,6 @@ shop_programs = [a.getObject() for a in db.getIndex().dbsearch({
     'doctype': 'shopprogram',
     'program_id': {'query': [a.id for a in programs], 'operator': 'OR'},})]
 
-agent = db.getAgent("createProgramAndRedirect")
-agent_url = agent.absolute_url() + "/runAgent?program_month=%s&program_year=%s" % (month, year) + "&program_market=%s"
-
 shops_by_market = {}
 for shop in shops:
      shop_market = shop.getItem("shop_market")
@@ -142,6 +139,9 @@ for market_id, market_name in markets:
             # list all displays with CNario feature
             displays = [d for d in shop.shop_displays if db.getDocument(d).getItem('display_cnario')]
 
+            # Get CNario state
+            cnario_state = sp.getItem('cnario_state', {})
+
             if len(displays) > 0:
                 html += """<section class="shop">"""
                 shop_information = shop.getItem("shop_information", None)
@@ -168,6 +168,9 @@ for market_id, market_name in markets:
                         for movie_id, movie_infos in movies:
                             html += "<tr>"
                             movie_title = db.getDocument(movie_id).getItem('movie_title')
+                            agent_this_url = db.absolute_url() + "/saveCnarioStatus/runAgent?sp_id=%s&display_id=%s&movie_id=%s" % (sp.id, display_id, movie_id)
+                            movie_cnario_status = cnario_state.get(display_id, {}).get(movie_id, False)
+                            html += """<td><input %s type="checkbox" data-agent-url="%s" /></td>""" % (movie_cnario_status and "checked" or "", agent_this_url)
                             html += """<td>%s</td>""" % (movie_title)
                             html += """<td>%(start_date)s</td><td>%(end_date)s</td>""" % (movie_infos)
                         html += "</table>"
@@ -177,6 +180,24 @@ for market_id, market_name in markets:
                 html += "</section>"
 
     html += "</section>"
+
+
+html += """
+<script>
+$(document).ready(function() {
+  $('#plomino_form input[type="checkbox"]').change(function() {
+    var url=$(this).attr("data-agent-url"), status=$(this).is(":checked");
+    if (status) {
+        status = 1;
+    }
+    else {
+        status = 0;
+    }
+    $.get(url, {'status': status});
+  });
+});
+</script>
+"""
 
 # close div tag
 html += """</div>"""

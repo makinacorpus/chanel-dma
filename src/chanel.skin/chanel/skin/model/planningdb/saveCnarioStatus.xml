@@ -1,0 +1,26 @@
+<plominodatabase id="planningdb">
+  <design>
+    <element id="saveCnarioStatus" title="saveCnarioStatus" type="PlominoAgent">
+      <id type="Products.Archetypes.Field.StringField">saveCnarioStatus</id>
+      <Content type="Products.Archetypes.Field.TextField"><![CDATA[# This is used to save CNario status, relative to movies in programshop, True if CNario manager has sent movie on screen via CNario.
+
+db = context.getParentDatabase()
+request = context.REQUEST
+
+sp = db.getDocument(request.get("sp_id"))
+display_id = request.get("display_id")
+movie_id = request.get("movie_id")
+status = bool(int(request.get("status")))
+
+# Get cnario state for sp
+cnario_state = sp.getItem('cnario_state', {})
+display_data = cnario_state.get(display_id, {})
+
+# Set cnario state for movie in sp
+display_data[movie_id] = status
+cnario_state[display_id] = display_data
+sp.setItem('cnario_state', cnario_state)]]></Content>
+      <RunAs type="Products.Archetypes.Field.StringField">CURRENT</RunAs>
+    </element>
+  </design>
+</plominodatabase>
