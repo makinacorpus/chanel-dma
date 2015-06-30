@@ -148,6 +148,10 @@ for m in asList(program.getItem("program_movies")):
         movie.append(m[2])
     else:
         movie.append(start_date_str)
+    if (len(m) > 2 and m[3] != ""):
+        movie.append(m[3])
+    else:
+        movie.append(end_date_str)
     all_movies.append(movie)
 
 all_movies_not_found = [movie[2] for movie in all_movies if not movie[0]]
@@ -182,6 +186,7 @@ for movie in all_movies:
     movie_path = asList(movie_doc.getItem('movie_link'))
     movie_preview = getPreviewUrl(movie_path)
     movie_start_date = movie[3]
+    movie_end_date = movie[4]
     for f in formats:
         movies = movies_by_format.setdefault(f, [])
         movies.append({
@@ -192,6 +197,7 @@ for movie in all_movies:
             'preview': movie_preview,
             'subtitle': subtitle and " - " + subtitle or "",
             'start_date_min': movie_start_date,
+            'end_date_min': movie_end_date,
         })
         movies_by_format[f] = movies
 
@@ -244,6 +250,7 @@ for display in displays:
             movie_data_status = movie_data.get("status","X")
             movie_data_disabled = (movie_data_status == "Y") and " " and not is_locked or "disabled"
             start_date_min = movie.get("start_date_min", start_date_str)
+            end_date_min = movie.get("end_date_min", end_date_str)
             for status in ("Y","N","X"):
                 movie_data["is_%s" % status] = (status == movie_data_status) and "checked" or ""
 
@@ -266,8 +273,8 @@ for display in displays:
         'id': movie['id'],
         'display_id': display.id,
         'start': start_date_min,
+        'end': end_date_min,
         'url': movie['preview'],
-        'end': end_date_str,
         'is_y': movie_data.get("is_Y"),
         'is_n': movie_data.get("is_N"),
         'is_x': movie_data.get("is_X"),

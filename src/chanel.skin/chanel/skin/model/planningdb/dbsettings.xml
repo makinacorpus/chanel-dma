@@ -32,7 +32,7 @@
 <name>[manager]</name>
 <value><struct>
 <member>
-<name>admin</name>
+<name>adminmakina</name>
 <value><int>1</int></value>
 </member>
 <member>
@@ -40,7 +40,7 @@
 <value><int>1</int></value>
 </member>
 <member>
-<name>adminmakina</name>
+<name>admin</name>
 <value><int>1</int></value>
 </member>
 </struct></value>
