@@ -24,17 +24,14 @@ else:
     html = """<br/> Planning : <a href="%s"/>planning changed<a><br/>Submitted by : %s""" % (context.absolute_url(), userFullname(db, db.getCurrentUserId()))
     sender = db.portal_url.getPortalObject().email_from_address
 
-    try:
-        sendMail(
-            db,
-            ["progsubmit@mirabellstudio.com"],
-            "A submit from Chanel POS Planning",
-            html,
-            immediate=True,
-            sender=sender
-        )
-    except:
-        pass
+    sendMail(
+        db,
+        ["progsubmit@mirabellstudio.com"],
+        "A submit from Chanel POS Planning",
+        html,
+        immediate=True,
+        sender=sender
+    )
 
 context.setItem("Plomino_Authors", authorized)
 ]]></onSaveDocument>
