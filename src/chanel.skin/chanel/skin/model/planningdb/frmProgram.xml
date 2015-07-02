@@ -100,10 +100,6 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
 <param>
 <value><struct>
 <member>
-<name>field_mapping</name>
-<value><string>movie,information,start_date,end_date</string></value>
-</member>
-<member>
 <name>associated_form</name>
 <value><string>dgMovie</string></value>
 </member>
@@ -130,6 +126,10 @@ return "%s %s" % (month, context.getItem("program_year"))]]></Formula>
         "height": 300
     }
 </string></value>
+</member>
+<member>
+<name>field_mapping</name>
+<value><string>movie,information,start_date,end_date</string></value>
 </member>
 </struct></value>
 </param>

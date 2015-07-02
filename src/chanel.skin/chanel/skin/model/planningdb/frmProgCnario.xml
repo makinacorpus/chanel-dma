@@ -49,6 +49,11 @@ return program_month and program_month or str(Now().month())]]></Formula>
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -56,11 +61,6 @@ return program_month and program_month or str(Now().month())]]></Formula>
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
 </member>
 </struct></value>
 </param>

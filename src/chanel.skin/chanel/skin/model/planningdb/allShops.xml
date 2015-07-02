@@ -67,9 +67,11 @@ for display_id in shop_displays:
         if not diffusion:
             diffusion = "no diffusion"
         results_by_diffusion.setdefault(diffusion, [])
-        results_by_diffusion[diffusion].append(display_doc.getItem("display_name"))
-results = ["%s [%s]" % (k, ",".join(v)) for (k,v) in results_by_diffusion.items()]
-return ", ".join(results)]]></Formula>
+        display_output = "%s <em>%s</em>" % (display_doc.getItem("display_name"), display_doc.getItem("display_remarque"))
+        results_by_diffusion[diffusion].append(display_output)
+results = ["test %s [%s]" % (k, ",".join(v)) for (k,v) in results_by_diffusion.items()]
+return ", ".join(results)
+]]></Formula>
           <HiddenColumn type="Products.Archetypes.Field.BooleanField">False</HiddenColumn>
           <DisplaySum type="Products.Archetypes.Field.BooleanField">False</DisplaySum>
         </element>

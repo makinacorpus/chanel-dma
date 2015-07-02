@@ -13,7 +13,7 @@ if (not context.isEditMode()) and ("[manager]" in current_user_roles or current_
       <beforeSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeSaveDocument>
       <onSaveDocument type="Products.Archetypes.Field.TextField"><![CDATA[db = context.getParentDatabase()
 
-is_locked = context.getItem("planning_locked") == "true" 
+is_locked = context.getItem("planning_locked") == "true"
 authorized = ["[manager]"]
 
 if not is_locked:
@@ -21,18 +21,23 @@ if not is_locked:
    user_ids = asList(shop.getItem("shop_manager"))
    authorized = authorized + user_ids
 else:
-    html = """<br/> Planning : <a href="%s"/>planning changed<a><br/>Submitted by : %s""" % (context.absolute_url(), userFullname(db, db.getCurrentUserId())) 
+    html = """<br/> Planning : <a href="%s"/>planning changed<a><br/>Submitted by : %s""" % (context.absolute_url(), userFullname(db, db.getCurrentUserId()))
     sender = db.portal_url.getPortalObject().email_from_address
-    sendMail(
-        db,
-        ["progsubmit@mirabellstudio.com"],
-        "A submit from Chanel POS Planning",
-        html,
-        immediate=True,
-        sender=sender
-    )
 
-context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
+    try:
+        sendMail(
+            db,
+            ["progsubmit@mirabellstudio.com"],
+            "A submit from Chanel POS Planning",
+            html,
+            immediate=True,
+            sender=sender
+        )
+    except:
+        pass
+
+context.setItem("Plomino_Authors", authorized)
+]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
@@ -41,7 +46,10 @@ context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
 <p><span class="plominoFieldClass">planning_data</span></p>
 <p><span class="plominoFieldClass">buttons</span></p>
 <div>
-<span class="plominoFieldClass">planning_locked</span><div><p><span class="plominoFieldClass">popup_html</span></p></div>
+<span class="plominoFieldClass">planning_locked</span>
+<div>
+<p><span class="plominoFieldClass">popup_html</span></p>
+</div>
 </div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>

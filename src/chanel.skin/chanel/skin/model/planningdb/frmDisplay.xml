@@ -13,20 +13,30 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain"><tbody>
-<tr><td colspan="2">
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain">
+<tbody>
+<tr>
+<td colspan="2">
 <p>Name : <span class="plominoFieldClass">display_name</span></p>
 <p>Diffusion : <span class="plominoFieldClass">display_diffusion</span></p>
 <p>CNario : <span class="plominoFieldClass">display_cnario</span></p>
 <p>Online : <span class="plominoFieldClass">display_online</span></p>
-</td></tr>
-<tr>
-<td>Formats : <br><p><span class="plominoFieldClass">display_formats</span></p>
-</td>
-<td>Axes : <br><p><span class="plominoFieldClass">display_axes</span></p>
 </td>
 </tr>
-</tbody></table>]]></FormLayout>
+<tr>
+<td>Formats : <br>
+<p><span class="plominoFieldClass">display_formats</span></p>
+</td>
+<td>Axes : <br>
+<p><span class="plominoFieldClass">display_axes</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="2">Remarque : <span class="plominoFieldClass">display_remarque</span>
+</td>
+</tr>
+</tbody>
+</table>]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA["%s - %s" % (context.getItem("doctype").upper(), context.getItem("display_name"))]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -74,6 +84,11 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -81,11 +96,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
 </member>
 <member>
 <name>widget</name>
@@ -115,6 +125,11 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 <param>
 <value><struct>
 <member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
+</member>
+<member>
 <name>dynamictableparam</name>
 <value><string>'bPaginate': true,
 'bLengthChange': true,
@@ -122,11 +137,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
 </member>
 <member>
 <name>widget</name>
@@ -199,6 +209,33 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+        </element>
+        <element id="display_remarque" title="display_remarque" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">display_remarque</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>widget</name>
+<value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>3</string></value>
+</member>
+</struct></value>
+</param>
+</params>
         </element>
       </elements>
     </element>

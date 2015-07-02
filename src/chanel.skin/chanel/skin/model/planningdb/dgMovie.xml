@@ -47,12 +47,12 @@
 <param>
 <value><struct>
 <member>
-<name>size</name>
-<value><string>4</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>4</string></value>
 </member>
 </struct></value>
 </param>
@@ -73,15 +73,6 @@
           <params>
 <param>
 <value><struct>
-<member>
-<name>dynamictableparam</name>
-<value><string>'bPaginate': true,
-'bLengthChange': true,
-'bFilter': true,
-'bSort': true,
-'bInfo': true,
-'bAutoWidth': false</string></value>
-</member>
 <member>
 <name>selectionlistformula</name>
 <value><string>db = context.getParentDatabase()
@@ -104,6 +95,15 @@ else:
     return []
 
 return [( "%s %s |%s" % (r.getItem("movie_title"), (r.getItem("movie_subtitle") and "[%s]" % r.getItem("movie_subtitle") or ""), r.id)) for r in results]</string></value>
+</member>
+<member>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
 </member>
 </struct></value>
 </param>
