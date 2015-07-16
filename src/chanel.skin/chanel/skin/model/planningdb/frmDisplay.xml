@@ -19,8 +19,11 @@
 <td colspan="2">
 <p>Name : <span class="plominoFieldClass">display_name</span></p>
 <p>Diffusion : <span class="plominoFieldClass">display_diffusion</span></p>
+<span class="plominoHidewhenClass">start:is_view_mode</span>
 <p>CNario : <span class="plominoFieldClass">display_cnario</span></p>
-<p>Online : <span class="plominoFieldClass">display_online</span></p>
+<p>OFFline : <span class="plominoFieldClass">display_offline</span></p>
+<span class="plominoHidewhenClass">end:is_view_mode</span>
+<p><span class="plominoFieldClass">display_cnario_online</span></p>
 </td>
 </tr>
 <tr>
@@ -184,8 +187,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
           <Hidewhen type="Products.Archetypes.Field.TextField"><![CDATA[]]></Hidewhen>
           <InActionBar type="Products.Archetypes.Field.BooleanField">True</InActionBar>
         </element>
-        <element id="display_online" title="Online" type="PlominoField">
-          <id type="Products.Archetypes.Field.StringField">display_online</id>
+        <element id="display_offline" title="Offline" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">display_offline</id>
           <FieldType type="Products.Archetypes.Field.StringField">BOOLEAN</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">EDITABLE</FieldMode>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[]]></Formula>
@@ -236,6 +239,32 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 </struct></value>
 </param>
 </params>
+        </element>
+        <element id="is_view_mode" title="is_view_mode" type="PlominoHidewhen">
+          <id type="Products.Archetypes.Field.StringField">is_view_mode</id>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[return not(plominoDocument.isEditMode())]]></Formula>
+          <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
+        </element>
+        <element id="display_cnario_online" title="display_cnario_online" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">display_cnario_online</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if plominoDocument.isEditMode():
+    return ""
+if plominoDocument.getItem('display_offline'):
+    return "OFFline"
+if not(plominoDocument.getItem('display_cnario')):
+        return ""
+else:
+    return "CNario"
+]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
         </element>
       </elements>
     </element>
