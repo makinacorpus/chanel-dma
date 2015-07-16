@@ -150,11 +150,11 @@ for market_id, market_name in markets:
 
             if len(displays) > 0:
                 html += """<section class="shop">"""
-                sp_comment = sp.getItem("program_sp", None)
+                sp_comment = sp.getItem("shopprogram_comments", "")
                 html += """<div class="row">"""
                 html += """<h4 class="shop col-sm-6"><a href="%s" target="_blank">%s</a></h4>""" % (sp.absolute_url(), shop.shop_name)
-                if sp_comment:
-                    html += """<p class="text-mute col-sm-6">%s</p>""" % (shop.getItem("sp_comment"))
+                if sp_comment != "":
+                    html += """<p class="text-mute col-sm-6">%s</p>""" % (sp_comment)
                 else:
                     html += """<p class="text-mute col-sm-6">No special request for this POS</p>"""
                 html += "</div>"
