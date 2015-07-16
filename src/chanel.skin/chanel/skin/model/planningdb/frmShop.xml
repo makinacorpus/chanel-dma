@@ -119,9 +119,8 @@
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
+<name>widget</name>
+<value><string>RADIO</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -133,8 +132,9 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 'bAutoWidth': false</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>RADIO</string></value>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets")</string></value>
 </member>
 <member>
 <name>separator</name>
@@ -186,9 +186,8 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "markets
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return [ "%s - ( Format: %s, Diffusion: %s, Remarque: %s, )|%s" % (a.getItem("display_name"), a.getItem("display_formats"),a.getItem("display_diffusion"),a.getItem("display_remarque"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -200,8 +199,9 @@ return [ "%s - ( Format: %s, Diffusion: %s, Remarque: %s, )|%s" % (a.getItem("di
 'bAutoWidth': false</string></value>
 </member>
 <member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return [ "%s - ( Format: %s, Diffusion: %s, Remarque: %s, )|%s" % (a.getItem("display_name"), a.getItem("display_formats"),a.getItem("display_diffusion"),a.getItem("display_remarque"), a.id) for a in db.getView('allDisplays').getAllDocuments()]</string></value>
 </member>
 <member>
 <name>separator</name>

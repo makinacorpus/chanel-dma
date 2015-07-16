@@ -11,7 +11,8 @@
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
       <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[
 <p><span class="plominoFieldClass">program_year</span></p>
-<h2><span class="plominoFieldClass">program_month</span></h2>
+<p>Choose month: <span class="plominoFieldClass">program_month_select</span></p>
+<h2><span class="plominoFieldClass">program_month_title</span></h2>
 <p><span class="plominoFieldClass">programs</span></p>
 <p><span class="plominoFieldClass">programs_js</span></p>
 ]]></FormLayout>
@@ -32,12 +33,35 @@
       <ResourcesCSS type="Products.Archetypes.Field.TextField"><![CDATA[]]></ResourcesCSS>
       <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
       <elements>
-        <element id="program_month" title="program_month" type="PlominoField">
-          <id type="Products.Archetypes.Field.StringField">program_month</id>
-          <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
+        <element id="program_month_select" title="program_select" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_month_select</id>
+          <FieldType type="Products.Archetypes.Field.StringField">TEXT</FieldType>
           <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
-          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[program_month = context.REQUEST.get("program_month")
-return program_month and program_month or str(Now().month())]]></Formula>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[# Get months
+db = plominoContext.getParentDatabase()
+months = db.callScriptMethod("scriptConfig", "getConfigValuesAsDict", db, "months")
+current_month = int(plominoContext.REQUEST.get("program_month", Now().month()))
+
+# months before and after
+current_date = Now()
+previous_date = DateTime(((current_date.month()==1) and current_date.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
+next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
+dates = [ previous_date, current_date, next_date]
+
+html = u""
+months_li = u""
+for date in dates:
+    month_id = date.month()
+    link_class = ""
+    if month_id == current_month:
+        link_class = "active"
+    month = months[str(month_id)]
+    months_li += """<li class="%s"><a href="?program_month=%s">%s</a></li>""" % (link_class, month_id, month)
+
+html = "<ul class='nav list-inline'>%s</ul>" % months_li
+
+return html
+]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -45,26 +69,6 @@ return program_month and program_month or str(Now().month())]]></Formula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
-          <params>
-<param>
-<value><struct>
-<member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
-</member>
-<member>
-<name>dynamictableparam</name>
-<value><string>'bPaginate': true,
-'bLengthChange': true,
-'bFilter': true,
-'bSort': true,
-'bInfo': true,
-'bAutoWidth': false</string></value>
-</member>
-</struct></value>
-</param>
-</params>
         </element>
         <element id="program_markets" title="program_markets" type="PlominoField">
           <id type="Products.Archetypes.Field.StringField">program_markets</id>
@@ -325,6 +329,40 @@ return html]]></Formula>
 <member>
 <name>widget</name>
 <value><string>HIDDEN</string></value>
+</member>
+</struct></value>
+</param>
+</params>
+        </element>
+        <element id="program_month_title" title="program_month_title" type="PlominoField">
+          <id type="Products.Archetypes.Field.StringField">program_month_title</id>
+          <FieldType type="Products.Archetypes.Field.StringField">SELECTION</FieldType>
+          <FieldMode type="Products.Archetypes.Field.StringField">DISPLAY</FieldMode>
+          <Formula type="Products.Archetypes.Field.TextField"><![CDATA[program_month = context.REQUEST.get("program_month")
+return program_month and program_month or str(Now().month())]]></Formula>
+          <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
+          <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
+          <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
+          <ValidationFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></ValidationFormula>
+          <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
+          <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
+          <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>
+          <params>
+<param>
+<value><struct>
+<member>
+<name>dynamictableparam</name>
+<value><string>'bPaginate': true,
+'bLengthChange': true,
+'bFilter': true,
+'bSort': true,
+'bInfo': true,
+'bAutoWidth': false</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "months")</string></value>
 </member>
 </struct></value>
 </param>
