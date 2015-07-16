@@ -225,13 +225,11 @@ for display in displays:
     html += """<div class="display-cell"><p class="display-cell-container">"""
     html += """<span class="display-cell-text">%s""" % (display.getItem('display_name'))
     if display.getItem('display_cnario'):
-        html += "<br>CNario"
+        html += "<br><small>CNario - "
     if display.getItem('display_offline'):
-        if display.getItem('display_cnario'):
-            html += " - "
-        else:
-            html += "<br>"
         html += "OFFline"
+    else:
+        html += "online<small>"
     html += "</span></p></div>"
 
 html += """
