@@ -88,19 +88,21 @@ a:hover, a:focus {
     &.container {
         display:table;
     }
-    .row {
+    & > .row {
         height: 100%;
         display: table-row;
-    }
-    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-9,
-    .col-md-10, .col-md-11, .col-md-12 {
-        display: table-cell;
-        float: none;
-    }
-    .col-md-12 {
-        width: 960px;
+
+        & > .col-md-1, & > .col-md-2, & > .col-md-3, & > .col-md-4, & > .col-md-5, & > .col-md-6, & > .col-md-9,
+        & > .col-md-10, & > .col-md-11, & > .col-md-12 {
+            display: table-cell;
+            float: none;
+        }
+        & > .col-md-12 {
+            width: 960px;
+        }
     }
 }
+
 body#content {
     font-size: 14px;
 }

@@ -5286,24 +5286,24 @@ a:focus {
 #content-wrapper.container {
   display: table;
 }
-#content-wrapper .row {
+#content-wrapper > .row {
   height: 100%;
   display: table-row;
 }
-#content-wrapper .col-md-1,
-#content-wrapper .col-md-2,
-#content-wrapper .col-md-3,
-#content-wrapper .col-md-4,
-#content-wrapper .col-md-5,
-#content-wrapper .col-md-6,
-#content-wrapper .col-md-9,
-#content-wrapper .col-md-10,
-#content-wrapper .col-md-11,
-#content-wrapper .col-md-12 {
+#content-wrapper > .row > .col-md-1,
+#content-wrapper > .row > .col-md-2,
+#content-wrapper > .row > .col-md-3,
+#content-wrapper > .row > .col-md-4,
+#content-wrapper > .row > .col-md-5,
+#content-wrapper > .row > .col-md-6,
+#content-wrapper > .row > .col-md-9,
+#content-wrapper > .row > .col-md-10,
+#content-wrapper > .row > .col-md-11,
+#content-wrapper > .row > .col-md-12 {
   display: table-cell;
   float: none;
 }
-#content-wrapper .col-md-12 {
+#content-wrapper > .row > .col-md-12 {
   width: 960px;
 }
 body#content {
