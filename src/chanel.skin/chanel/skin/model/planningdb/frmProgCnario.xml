@@ -60,8 +60,7 @@ for date in dates:
 
 html = "<ul class='nav list-inline'>%s</ul>" % months_li
 
-return html
-]]></Formula>
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
@@ -208,8 +207,7 @@ $(document).ready(function() {
 # close div tag
 html += """</div>"""
 
-return html
-]]></Formula>
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">True</Mandatory>
@@ -282,8 +280,7 @@ for market_id, market_name in markets:
 # close div tag
 html += """</div>"""
 
-return html
-]]></ValidationFormula>
+return html]]></ValidationFormula>
           <ToBeIndexed type="Products.Archetypes.Field.BooleanField">False</ToBeIndexed>
           <IndexType type="Products.Archetypes.Field.StringField">DEFAULT</IndexType>
           <HTMLAttributesFormula type="Products.Archetypes.Field.TextField"><![CDATA[]]></HTMLAttributesFormula>

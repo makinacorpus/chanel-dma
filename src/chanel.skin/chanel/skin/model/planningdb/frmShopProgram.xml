@@ -33,8 +33,7 @@ else:
         sender=sender
     )
 
-context.setItem("Plomino_Authors", authorized)
-]]></onSaveDocument>
+context.setItem("Plomino_Authors", authorized)]]></onSaveDocument>
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
@@ -43,10 +42,7 @@ context.setItem("Plomino_Authors", authorized)
 <p><span class="plominoFieldClass">planning_data</span></p>
 <p><span class="plominoFieldClass">buttons</span></p>
 <div>
-<span class="plominoFieldClass">planning_locked</span>
-<div>
-<p><span class="plominoFieldClass">popup_html</span></p>
-</div>
+<span class="plominoFieldClass">planning_locked</span><div><p><span class="plominoFieldClass">popup_html</span></p></div>
 </div>
 ]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
@@ -224,12 +220,17 @@ html = u"""
 for display in displays:
     html += """<div class="display-cell"><p class="display-cell-container">"""
     html += """<span class="display-cell-text">%s""" % (display.getItem('display_name'))
-    if display.getItem('display_cnario'):
-        html += "<br><small>CNario - "
-    if display.getItem('display_offline'):
-        html += "OFFline"
+    if display.getItem('display_cnario') and display.getItem('display_offline'):
+        html += "<br><small>CNario - OFFline"
     else:
-        html += "online<small>"
+        if display.getItem('display_cnario') and not (display.getItem('display_offline')):
+            html += "<br><small>CNario - online"
+        else:
+            if not (display.getItem('display_cnario')) and display.getItem('display_offline'):
+                html += "<br><small>OFFline"
+            else:
+                if not (display.getItem('display_cnario')) and not (display.getItem('display_offline')):
+                    html += "<br><small>"
     html += "</span></p></div>"
 
 html += """
@@ -300,8 +301,7 @@ for display in displays:
 html += """
   </div></div>"""
 
-return html
-]]></Formula>
+return html]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>

@@ -11,8 +11,8 @@
       <DateTimeFormat type="Products.Archetypes.Field.StringField">%Y-%m-%d</DateTimeFormat>
       <StartPage type="Products.Archetypes.Field.StringField">frontoffice</StartPage>
       <i18n type="Products.Archetypes.Field.StringField"/>
-      <DoNotListUsers type="Products.Archetypes.Field.BooleanField">True</DoNotListUsers>
-      <DoNotReindex type="Products.Archetypes.Field.BooleanField">True</DoNotReindex>
+      <DoNotListUsers type="Products.Archetypes.Field.BooleanField">False</DoNotListUsers>
+      <DoNotReindex type="Products.Archetypes.Field.BooleanField">False</DoNotReindex>
       <IsDatabaseTemplate type="Products.Archetypes.Field.BooleanField">False</IsDatabaseTemplate>
       <excludeFromNav type="Products.Archetypes.Field.BooleanField">False</excludeFromNav>
       <acl AnomynousAccessRight="NoAccess" AuthenticatedAccessRight="PlominoAuthor">
@@ -23,15 +23,15 @@
 <name>[manager]</name>
 <value><struct>
 <member>
-<name>adminmakina</name>
-<value><int>1</int></value>
-</member>
-<member>
 <name>alexandrahuriez</name>
 <value><int>1</int></value>
 </member>
 <member>
 <name>admin</name>
+<value><int>1</int></value>
+</member>
+<member>
+<name>adminmakina</name>
 <value><int>1</int></value>
 </member>
 </struct></value>
@@ -40,11 +40,7 @@
 <name>[cnario]</name>
 <value><struct>
 <member>
-<name>admimakina</name>
-<value><int>1</int></value>
-</member>
-<member>
-<name>manager</name>
+<name>chagege</name>
 <value><int>1</int></value>
 </member>
 </struct></value>

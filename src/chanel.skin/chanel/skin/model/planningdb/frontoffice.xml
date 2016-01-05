@@ -167,8 +167,7 @@ return html]]></Formula>
         <element id="cnario" title="cnario" type="PlominoHidewhen">
           <id type="Products.Archetypes.Field.StringField">cnario</id>
           <Formula type="Products.Archetypes.Field.TextField"><![CDATA[if hasattr(context, 'getCurrentUserRoles') and hasattr(context, 'getCurrentUser'):
-     return not("[cnario]" in context.getCurrentUserRoles())
-]]></Formula>
+     return not("[cnario]" in context.getCurrentUserRoles())]]></Formula>
           <isDynamicHidewhen type="Products.Archetypes.Field.BooleanField">False</isDynamicHidewhen>
         </element>
       </elements>

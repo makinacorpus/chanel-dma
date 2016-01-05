@@ -13,33 +13,23 @@
       <onDeleteDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></onDeleteDocument>
       <onSearch type="Products.Archetypes.Field.TextField"><![CDATA[]]></onSearch>
       <beforeCreateDocument type="Products.Archetypes.Field.TextField"><![CDATA[]]></beforeCreateDocument>
-      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain">
-<tbody>
-<tr>
-<td colspan="2">
+      <FormLayout type="Products.Archetypes.Field.TextField"><![CDATA[<table class="plain"><tbody>
+<tr><td colspan="2">
 <p>Name : <span class="plominoFieldClass">display_name</span></p>
 <p>Diffusion : <span class="plominoFieldClass">display_diffusion</span></p>
-<span class="plominoHidewhenClass">start:is_view_mode</span>
-<p>CNario : <span class="plominoFieldClass">display_cnario</span></p>
+<span class="plominoHidewhenClass">start:is_view_mode</span><p>CNario : <span class="plominoFieldClass">display_cnario</span></p>
 <p>OFFline : <span class="plominoFieldClass">display_offline</span></p>
-<span class="plominoHidewhenClass">end:is_view_mode</span>
-<p><span class="plominoFieldClass">display_cnario_online</span></p>
-</td>
-</tr>
+<span class="plominoHidewhenClass">end:is_view_mode</span><p><span class="plominoFieldClass">display_cnario_online</span></p>
+</td></tr>
 <tr>
-<td>Formats : <br>
-<p><span class="plominoFieldClass">display_formats</span></p>
+<td>Formats : <br><p><span class="plominoFieldClass">display_formats</span></p>
 </td>
-<td>Axes : <br>
-<p><span class="plominoFieldClass">display_axes</span></p>
+<td>Axes : <br><p><span class="plominoFieldClass">display_axes</span></p>
 </td>
 </tr>
-<tr>
-<td colspan="2">Remarque : <span class="plominoFieldClass">display_remarque</span>
-</td>
-</tr>
-</tbody>
-</table>]]></FormLayout>
+<tr><td colspan="2">Remarque : <span class="plominoFieldClass">display_remarque</span>
+</td></tr>
+</tbody></table>]]></FormLayout>
       <FormMethod type="Products.Archetypes.Field.TextField"><![CDATA[Auto]]></FormMethod>
       <DocumentTitle type="Products.Archetypes.Field.TextField"><![CDATA["%s - %s" % (context.getItem("doctype").upper(), context.getItem("display_name"))]]></DocumentTitle>
       <DynamicDocumentTitle type="Products.Archetypes.Field.BooleanField">False</DynamicDocumentTitle>
@@ -87,13 +77,17 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")]
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
+<name>widget</name>
+<value><string>CHECKBOX</string></value>
 </member>
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -103,10 +97,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>CHECKBOX</string></value>
 </member>
 </struct></value>
 </param>
@@ -128,13 +118,17 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "axes")<
 <param>
 <value><struct>
 <member>
-<name>selectionlistformula</name>
-<value><string>db = plominoDocument.getParentDatabase()
-return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
+<name>widget</name>
+<value><string>RADIO</string></value>
 </member>
 <member>
 <name>separator</name>
 <value><string>&lt;br&gt;</string></value>
+</member>
+<member>
+<name>selectionlistformula</name>
+<value><string>db = plominoDocument.getParentDatabase()
+return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_formats")</string></value>
 </member>
 <member>
 <name>dynamictableparam</name>
@@ -144,10 +138,6 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 'bSort': true,
 'bInfo': true,
 'bAutoWidth': false</string></value>
-</member>
-<member>
-<name>widget</name>
-<value><string>RADIO</string></value>
 </member>
 </struct></value>
 </param>
@@ -229,12 +219,12 @@ return db.callScriptMethod("scriptConfig", "getConfigValuesAsList", db, "video_f
 <param>
 <value><struct>
 <member>
-<name>size</name>
-<value><string>3</string></value>
-</member>
-<member>
 <name>widget</name>
 <value><string>TEXTAREA</string></value>
+</member>
+<member>
+<name>size</name>
+<value><string>3</string></value>
 </member>
 </struct></value>
 </param>
@@ -260,8 +250,7 @@ if plominoDocument.getItem('display_cnario'):
         html += "online"
     return html
 else:
-    return ""
-]]></Formula>
+    return ""]]></Formula>
           <FieldReadTemplate type="Products.Archetypes.Field.StringField"/>
           <FieldEditTemplate type="Products.Archetypes.Field.StringField"/>
           <Mandatory type="Products.Archetypes.Field.BooleanField">False</Mandatory>
