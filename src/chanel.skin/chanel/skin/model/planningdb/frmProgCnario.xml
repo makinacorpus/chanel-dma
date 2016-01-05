@@ -44,9 +44,10 @@ current_month = int(plominoContext.REQUEST.get("program_month", Now().month()))
 
 # months before and after
 current_date = Now()
-previous_date = DateTime(((current_date.month()==1) and current_date.year()-1 or current_date.year()),( (current_date.month()==1) and 12 or current_date.month()-1), 1)
-next_date = DateTime(current_date.year() + (current_date.month() / 12), ((current_date.month() % 12) + 1), 1)
-dates = [ previous_date, current_date, next_date]
+a_date_this_month = DateTime(current_date.year(), current_date.month(), 1)
+a_date_last_month = a_date_this_month - 2
+a_date_next_month = a_date_this_month + 32
+dates = [ a_date_last_month, current_date, a_date_next_month]
 
 html = u""
 months_li = u""
@@ -56,7 +57,7 @@ for date in dates:
     if month_id == current_month:
         link_class = "active"
     month = months[str(month_id)]
-    months_li += """<li class="%s"><a href="?program_month=%s">%s</a></li>""" % (link_class, month_id, month)
+    months_li += """<li class="%s"><a href="?program_month=%s&program_year=%d">%s</a></li>""" % (link_class, month_id, date.year(), month)
 
 html = "<ul class='nav list-inline'>%s</ul>" % months_li
 
