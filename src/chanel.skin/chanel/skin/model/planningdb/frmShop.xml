@@ -241,7 +241,7 @@ return [ "%s - ( Format: %s, Diffusion: %s, Remarque: %s, )|%s" % (a.getItem("di
 <value><struct>
 <member>
 <name>selector</name>
-<value><string>SEARCH</string></value>
+<value><string>LIST</string></value>
 </member>
 <member>
 <name>type</name>
