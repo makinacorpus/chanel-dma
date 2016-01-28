@@ -43,6 +43,14 @@
 <name>chagege</name>
 <value><int>1</int></value>
 </member>
+<member>
+<name>adminmakina</name>
+<value><int>1</int></value>
+</member>
+<member>
+<name>Administrators</name>
+<value><int>1</int></value>
+</member>
 </struct></value>
 </member>
 </struct></value>
